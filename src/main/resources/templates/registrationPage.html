@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration</title>
+</head>
+<body>
+<form th:action="@{/user/register}" method="POST" th:object="${user}">
+
+    <label>
+        Nombre de Empresa:
+        <input type="text" th:field="*{nombreEmpresa}">
+    </label>
+    <br>
+    <label>
+        CUIT/CUIL:
+        <input type="text" th:field="*{cuitCuil}">
+
+    </label>
+    <br>
+    <label>
+        Nombre del Titular:
+        <input type="text" th:field="*{nombreTitular}">
+    </label>
+    <br>
+    <label>
+        Email:
+        <input type="text" th:field="*{email}">
+    </label>
+    <br>
+    <label>
+        Teléfono:
+        <input type="text" th:field="*{telefono}">
+    </label>
+    <br>
+    <label>
+        Contraseña:
+        <input type="password" th:field="*{password}">
+    </label>
+    <br>
+    <label>
+        Repita la Contraseña:
+        <input type="password" th:field="*{passwordConfirmation}">
+    </label>
+    <br>
+    <label>
+        Tipo de Cuenta:
+        <input type="radio" th:field="*{rolUsuario}" th:value="1"> Comprador
+        <input type="radio" th:field="*{rolUsuario}" th:value="2"> Proveedor
+    </label>
+    <br>
+
+    <input type="submit" value="Crear Cuenta">
+</form>
+</body>
+</html>

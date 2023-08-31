@@ -8,18 +8,25 @@
     <title>Login</title>
 </head>
 <body>
+<h1>Login</h1>
+<p th:text="${error}" style="color: red;"></p>
 <form th:action="@{/user/login}" method="POST" th:object="${userLogin}">
     <label>
         Email:
         <input type="text" th:field="*{email}">
+        <br>
+        <label style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
     </label>
     <br>
     <label>
         Password:
-        <input type="text" th:field="*{password}">
+        <input type="password" th:field="*{password}">
+        <br>
+        <label style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
     </label>
     <br>
     <input type="submit" value="Login">
 </form>
+<a href="/registration">¿No tienes cuenta? Regístrate</a>
 </body>
 </html>

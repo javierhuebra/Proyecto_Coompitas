@@ -1,9 +1,7 @@
 package com.proyecto.coompitas.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -17,30 +15,44 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //Agregar validaciones
     @NotBlank(message = "El nombre de la empresa no puede ser nulo")
     private String nombreEmpresa;
     @NotBlank(message = "El CUIT/CUIL no puede ser nulo")
     private String cuitCuil;
     @NotBlank(message = "El nombre del titular no puede ser nulo")
     private String nombreTitular;
-    @NotNull(message = "El rol del usuario no puede ser nulo")
+    @Min(value = 1, message = "Debe seleccionar un rol de usuario")
+    @Max(value = 2, message = "Debe seleccionar un rol de usuario")
     private int rolUsuario;
     @Email(message = "El mail no cumple el formato requerido")
     @NotBlank(message = "El email no puede ser nulo")
     private String email;
     @NotBlank(message = "El teléfono de contacto no puede ser nulo")
     private String telefono;
+    @NotBlank(message = "La contraseña no puede ser nula")
     private String password;
     @Transient
+    @NotBlank(message = "La confirmación de contraseña no puede ser nula")
     private String passwordConfirmation;
-
+    @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
 
+    //DIRECCIONES
+    //Relación 1 : N con Direccion (Un usuario puede tener muchas direcciones, una dirección tiene un solo usuario)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<Direccion> direcciones;
     public User() {
+    }
+
+    public List<Direccion> getDirecciones() {
+        return direcciones;
+    }
+
+    public void setDirecciones(List<Direccion> direcciones) {
+        this.direcciones = direcciones;
     }
 
     public Long getId() {

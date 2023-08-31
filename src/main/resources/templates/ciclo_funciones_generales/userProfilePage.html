@@ -8,6 +8,48 @@
     <title>First Direction</title>
 </head>
 <body>
+    <p th:text="${userLogueado.direcciones.size()}"></p>
+    <div th:if="${userLogueado.direcciones.size() == 0}">
+        <form th:action="@{/direccion/create}" method="POST" th:object="${direccion}">
+            <label>
+                Pais:
+                <input type="text" th:field="*{pais}">
+                <br>
+                <label style="color: red" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></label>
+            </label>
+            <br>
+            <label>
+                Provincia:
+                <input type="text" th:field="*{provincia}">
+                <br>
+                <label style="color: red" th:if="${#fields.hasErrors('provincia')}" th:errors="*{provincia}"></label>
+            </label>
+            <br>
+            <label>
+                Ciudad:
+                <input type="text" th:field="*{ciudad}">
+                <br>
+                <span style="color: red" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}"></span>
+            </label>
+            <br>
+            <label>
+                Codigo Postal:
+                <input type="text" th:field="*{codigoPostal}">
+                <br>
+                <label style="color: red" th:if="${#fields.hasErrors('codigoPostal')}" th:errors="*{codigoPostal}"></label>
+            </label>
+            <br>
+            <label>
+                Calle:
+                <input type="text" th:field="*{calle}">
+                <br>
+                <label style="color: red" th:if="${#fields.hasErrors('calle')}" th:errors="*{calle}"></label>
+            </label>
+            <br>
+
+            <input type="submit" value="Guardar Dirección">
+        </form>
+    </div>
 
 </body>
 </html>

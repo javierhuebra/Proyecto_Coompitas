@@ -14,19 +14,19 @@ public class Direccion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "El país no puede ser nulo")
-    @Size(min = 3, max = 120, message = "El país debe tener entre 3 y 120 caracteres")
+    //@Size(min = 3, max = 120, message = "El país debe tener entre 3 y 120 caracteres")
     private String pais;
     @NotBlank(message = "La provincia no puede ser nula")
-    @Size(min = 3, max = 120, message = "La provincia debe tener entre 3 y 120 caracteres")
+    //@Size(min = 3, max = 120, message = "La provincia debe tener entre 3 y 120 caracteres")
     private String provincia;
     @NotBlank(message = "La ciudad no puede ser nula")
-    @Size(min = 3, max = 120, message = "La ciudad debe tener entre 3 y 120 caracteres")
+    //@Size(min = 3, max = 120, message = "La ciudad debe tener entre 3 y 120 caracteres")
     private String ciudad;
     @NotBlank(message = "El código postal no puede ser nulo")
-    @Size(min = 3, max = 30, message = "El código postal debe tener entre 3 y 30 caracteres")
+    //@Size(min = 3, max = 30, message = "El código postal debe tener entre 3 y 30 caracteres")
     private String codigoPostal;
     @NotBlank(message = "La calle no puede ser nula")
-    @Size(min = 3, max = 120, message = "La calle debe tener entre 3 y 120 caracteres")
+    //@Size(min = 3, max = 120, message = "La calle debe tener entre 3 y 120 caracteres")
     private String calle;
 
     @Column(updatable = false)

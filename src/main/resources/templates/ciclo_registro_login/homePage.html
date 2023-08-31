@@ -10,7 +10,9 @@
 <body>
 <h1>Home - Logueado</h1>
 <h2>Logueado como <span th:text="${userLogueado.nombreTitular}"></span>de la empresa <span th:text="${userLogueado.nombreEmpresa}"></span></h2>
+<a href="/perfil">Ir al perfil</a>
 <a href="/logout">Cerrar Sesión</a>
+
 
 <div th:if="${userLogueado.direcciones.size() == 0}">
     <p>Parece que no tienes direcciones vinculadas a tu cuenta</p>

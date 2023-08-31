@@ -41,15 +41,14 @@ public class MainController {
 
     //GET PARA PERFIL
     @GetMapping("/perfil")
-    public String renderPerfil(@Valid @ModelAttribute("direccion") Direccion direccion,
-                               BindingResult result,
+    public String renderPerfil(@ModelAttribute("direccion") Direccion direccion,
                                HttpSession session,
                                Model viewModel){
         Long idLogueado = (Long) session.getAttribute("idLogueado");
         if (idLogueado != null) {
             User userLogueado = userService.findUserById(idLogueado);
             viewModel.addAttribute("userLogueado", userLogueado);
-            return "ciclo_funciones_generales/perfilPage";
+            return "ciclo_funciones_generales/userProfilePage";
         }
         else{
             System.out.println("No hay usuario logueado");

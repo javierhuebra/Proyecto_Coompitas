@@ -26,6 +26,7 @@ public class User {
     private int rolUsuario;
     @Email(message = "El mail no cumple el formato requerido")
     @NotBlank(message = "El email no puede ser nulo")
+    @Column(name ="email",unique = true)
     private String email;
     @NotBlank(message = "El teléfono de contacto no puede ser nulo")
     private String telefono;

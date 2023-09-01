@@ -6,6 +6,7 @@ import com.proyecto.coompitas.services.UserService;
 import com.proyecto.coompitas.validator.UserValidator;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,14 +35,22 @@ public class UserController {
 
     @PostMapping("/user/register")
     public String registerUser(@Valid @ModelAttribute("user") User user,
-                               BindingResult result){
+                               BindingResult result,
+                               Model viewModel){
         userValidator.validate(user, result);
         if(result.hasErrors()){
             System.out.println("Hay error-");
             return "ciclo_registro_login/registrationPage";
         }else{
-            userService.registerUser(user);
-            //session.setAttribute("idLogueado", user.getId());
+            try{
+                userService.registerUser(user);
+                //session.setAttribute("idLogueado", user.getId()); Esto para loguear directamente y que te mande a completar la direccion al perfil, un registro en dos pasos para mejorar UX
+            }catch(DataIntegrityViolationException e){
+                System.out.println("Error de integridad de datos - Email ya existe");
+                viewModel.addAttribute("emailDuplicateError", "El correo electrónico no esta disponible");
+                return "ciclo_registro_login/registrationPage";
+            }
+
 
             return "redirect:/login";
         }

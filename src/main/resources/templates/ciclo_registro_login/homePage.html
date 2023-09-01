@@ -10,6 +10,8 @@
 <body>
 <h1>Home - Logueado</h1>
 <h2>Logueado como <span th:text="${userLogueado.nombreTitular}"></span>de la empresa <span th:text="${userLogueado.nombreEmpresa}"></span></h2>
+<h3 th:if="${userLogueado.rolUsuario == 1}">Comprador</h3>
+<h3 th:if="${userLogueado.rolUsuario == 2}">Proveedor</h3>
 <a href="/perfil">Ir al perfil</a>
 <a href="/logout">Cerrar Sesión</a>
 

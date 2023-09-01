@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -41,13 +42,36 @@ public class DireccionController {
 
         if (result.hasErrors()) {
             System.out.println("Hay error - Direccion Controller");
-            viewModel.addAttribute("userLogueado", userLogueado);
-            return "ciclo_funciones_generales/userProfilePage";
+            if(userLogueado.getDirecciones().size()==0){
+                viewModel.addAttribute("userLogueado", userLogueado);
+                return "ciclo_funciones_generales/userProfilePage";
+            }else{
+                viewModel.addAttribute("direcciones", userLogueado.getDirecciones());//Inyecto solo las direcciones del usuario en la pagina adressesPage.html
+                return "ciclo_funciones_generales/adressesPage";
+            }
+
         }else{
             direccion.setUsuario(userLogueado);
             direccionService.saveDireccion(direccion);
             return "redirect:/home";
         }
 
+    }
+
+    //GET PARA LA PAGINA DE DIRECCIONES DEL USUARIO
+    @GetMapping("/direcciones")
+    public String rendrAdressesPage(@ModelAttribute("direccion") Direccion direccion, //Para crear una direccion
+                                    Model viewModel,
+                                    HttpSession session){
+        Long idLogueado = (Long) session.getAttribute("idLogueado");
+        if (idLogueado == null){
+            System.out.println("No hay usuario logueado - Direccion Controller - GET");
+            return "redirect:/login";
+        }
+
+        User userLogueado = userService.findUserById(idLogueado);
+
+        viewModel.addAttribute("direcciones", userLogueado.getDirecciones());//Inyecto solo las direcciones del usuario en la pagina adressesPage.html
+        return "ciclo_funciones_generales/adressesPage";
     }
 }

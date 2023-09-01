@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Direcciones</title>
+</head>
+<body>
+<p>Tus direcciones:</p>
+<div th:each="direccionesDeUsuario : ${direcciones}">
+  <p>- <span  th:text="${direccionesDeUsuario.provincia}+' '+${direccionesDeUsuario.ciudad}+' '+${direccionesDeUsuario.codigoPostal}"></span></p>
+</div>
+<br>
+<p>Cargar una nueva dirección:</p>
+<form th:action="@{/direccion/create}" method="POST" th:object="${direccion}">
+  <label>
+    Pais:
+    <input type="text" th:field="*{pais}">
+    <br>
+    <label style="color: red" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></label>
+  </label>
+  <br>
+  <label>
+    Provincia:
+    <input type="text" th:field="*{provincia}">
+    <br>
+    <label style="color: red" th:if="${#fields.hasErrors('provincia')}" th:errors="*{provincia}"></label>
+  </label>
+  <br>
+  <label>
+    Ciudad:
+    <input type="text" th:field="*{ciudad}">
+    <br>
+    <span style="color: red" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}"></span>
+  </label>
+  <br>
+  <label>
+    Codigo Postal:
+    <input type="text" th:field="*{codigoPostal}">
+    <br>
+    <label style="color: red" th:if="${#fields.hasErrors('codigoPostal')}" th:errors="*{codigoPostal}"></label>
+  </label>
+  <br>
+  <label>
+    Calle:
+    <input type="text" th:field="*{calle}">
+    <br>
+    <label style="color: red" th:if="${#fields.hasErrors('calle')}" th:errors="*{calle}"></label>
+  </label>
+  <br>
+
+  <input type="submit" value="Guardar Dirección">
+</form>
+</body>
+</html>

@@ -36,6 +36,7 @@
         Email:
         <input type="text" th:field="*{email}">
         <br>
+        <span style="color: red" th:if="${emailDuplicateError}" th:text="${emailDuplicateError}"></span>
         <label style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
     </label>
     <br>

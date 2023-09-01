@@ -8,7 +8,10 @@
     <title>First Direction</title>
 </head>
 <body>
-    <p th:text="${userLogueado.direcciones.size()}"></p>
+    <h1>Perfil - Logueado</h1>
+    <p>Cantidad de direcciones: <span th:text="${userLogueado.direcciones.size()}"></span></p>
+    <a href="/direcciones">Direcciones</a>
+    <br>
     <div th:if="${userLogueado.direcciones.size() == 0}">
         <form th:action="@{/direccion/create}" method="POST" th:object="${direccion}">
             <label>

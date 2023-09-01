@@ -13,6 +13,7 @@
     <a href="/direcciones">Direcciones</a>
     <br>
     <div th:if="${userLogueado.direcciones.size() == 0}">
+        <p>Para operar en la app debes registrar por lo menos una dirección! Adelante:</p>
         <form th:action="@{/direccion/create}" method="POST" th:object="${direccion}">
             <label>
                 Pais:

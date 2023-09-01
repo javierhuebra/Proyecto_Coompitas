@@ -43,9 +43,38 @@ public class User {
 
     //DIRECCIONES
     //Relación 1 : N con Direccion (Un usuario puede tener muchas direcciones, una dirección tiene un solo usuario)
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Direccion> direcciones;
+
+
+    //CREACION DE CAMARAS (Creador)
+    //Relación 1 : N con Camara (Un usuario creador puede tener muchas cámaras, una cámara tiene un solo usuario)
+    @OneToMany(mappedBy = "creador", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Camara> camarasCreadas;
+
+    //CREACION DE CAMARAS (Proveedor)
+    //Relación 1 : N con Camara (Un usuario proveedor puede proveer muchas cámaras, una cámara tiene un solo proveedor)
+    @OneToMany(mappedBy = "proveedor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Camara> camarasProveidas;
+
+
     public User() {
+    }
+
+    public List<Camara> getCamarasProveidas() {
+        return camarasProveidas;
+    }
+
+    public void setCamarasProveidas(List<Camara> camarasProveidas) {
+        this.camarasProveidas = camarasProveidas;
+    }
+
+    public List<Camara> getCamarasCreadas() {
+        return camarasCreadas;
+    }
+
+    public void setCamarasCreadas(List<Camara> camarasCreadas) {
+        this.camarasCreadas = camarasCreadas;
     }
 
     public List<Direccion> getDirecciones() {

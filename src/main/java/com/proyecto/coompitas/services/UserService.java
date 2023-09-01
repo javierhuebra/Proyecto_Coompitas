@@ -5,6 +5,8 @@ import com.proyecto.coompitas.repositories.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -36,5 +38,10 @@ public class UserService {
         }else{
             return BCrypt.checkpw(password, user.getPassword());
         }
+    }
+
+    //Buscar usuario por rolUsuario (1 = comprador, 2 = proveedor)
+    public List<User> findAllUsersByRol(int rolUser){
+        return userRepository.findByRolUsuario(rolUser);
     }
 }

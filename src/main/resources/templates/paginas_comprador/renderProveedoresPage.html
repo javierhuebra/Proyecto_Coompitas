@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proveedores</title>
+</head>
+<body>
+<h1>Crear Cámara</h1>
+<h3>Proveedores:</h3>
+<div style="background-color: rgba(0,0,139,0.45)" th:each="userProveedor : ${usersProveedor}">
+    <p th:text="${userProveedor.nombreEmpresa}"></p>
+    <a th:href="@{/camara/proveedores/catalogo/{idProveedor}(idProveedor=${userProveedor.id})}">Abrir una camara</a>
+</div>
+</body>
+</html>

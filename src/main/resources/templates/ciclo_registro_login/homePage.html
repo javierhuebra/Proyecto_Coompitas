@@ -7,20 +7,28 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
 </head>
+
 <body>
 <h1>Home - Logueado</h1>
 <h2>Logueado como <span th:text="${userLogueado.nombreTitular}"></span>de la empresa <span th:text="${userLogueado.nombreEmpresa}"></span></h2>
 <h3 th:if="${userLogueado.rolUsuario == 1}">Comprador</h3>
 <h3 th:if="${userLogueado.rolUsuario == 2}">Proveedor</h3>
 <a href="/perfil">Ir al perfil</a>
+<a href="/camara/proveedores">Crear Cámara</a>
 <a href="/logout">Cerrar Sesión</a>
 
 
-<div th:if="${userLogueado.direcciones.size() == 0}">
-    <p>Parece que no tienes direcciones vinculadas a tu cuenta</p>
-    <p>Para poder operar necesitas una como mínimo, ¡vamos registra una!</p>
-
+<div class="camaras">
+    <p  class="titulo">Camaras:</p>
+    <div style="background-color: rgba(127,255,0,0.55)" th:each="camara : ${camarasCreadas}">
+        <p>Camara para comprar en <span th:text="${camara.proveedor.nombreEmpresa}"></span></p>
+        <p>Creada por la empresa <span th:text="${camara.creador.nombreEmpresa}"></span></p>
+        <p>Fecha de expiración: <span th:text="${camara.fechaDeExpiracion}"></span></p>
+        <a href="/home">Ver</a>
+    </div>
 </div>
+
+
 </body>
 
 </html>

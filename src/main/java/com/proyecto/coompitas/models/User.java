@@ -41,7 +41,7 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
 
-    //DIRECCIONES
+    //DIRECCIONES (Comprador y Proveedor)
     //Relación 1 : N con Direccion (Un usuario puede tener muchas direcciones, una dirección tiene un solo usuario)
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Direccion> direcciones;
@@ -57,8 +57,21 @@ public class User {
     @OneToMany(mappedBy = "proveedor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Camara> camarasProveidas;
 
+    //PRODUCTOS (Proveedor)
+    //Relación 1 : N con Producto (Un usuario proveedor puede tener muchos productos, un producto tiene un solo proveedor)
+    @OneToMany(mappedBy = "proveedor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Producto> productos;
+
 
     public User() {
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
 
     public List<Camara> getCamarasProveidas() {

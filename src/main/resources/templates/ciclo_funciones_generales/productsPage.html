@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Productos</title>
+</head>
+<body>
+<h1>Productos Proveeidos</h1>
+<form th:action="@{/perfil/productos/crear}" method="POST" th:object="${producto}">
+
+    <label>
+        Nombre del producto:
+        <input type="text" th:field="*{nombre}">
+        <br>
+        <label style="color: red" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></label>
+    </label>
+    <br>
+    <label>
+        Imagen del producto:
+        <input type="text" th:field="*{imagen}">
+        <br>
+        <label style="color: red" th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"></label>
+    </label>
+    <br>
+    <label>
+        Precio base:
+        <input type="number" th:field="*{precio}">
+        <br>
+        <label style="color: red" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></label>
+    </label>
+    <br>
+    <label>
+        Stock:
+        <input type="number" th:field="*{stock}">
+        <br>
+        <label style="color: red" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></label>
+    </label>
+    <br>
+    <label>
+        Categoría:
+        <select id="categoria" name="categoria" th:field="*{categoria}">
+            <option value="">Seleccione una categoría</option>
+            <option th:each="categoria : ${categorias}"
+                    th:value="${categoria}"
+                    th:text="${categoria}">
+            </option>
+        </select>
+        <label style="color: red" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></label>
+    </label>
+    <br>
+    <label>
+        Descrición:
+        <textarea cols="30" rows="10" th:field="*{descripcion}"></textarea>
+        <br>
+        <label style="color: red" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></label>
+    </label>
+    <br>
+    <label>
+        Disponibilidad:
+        <label>
+            <input type="radio" th:field="*{disponible}" th:value="true"> Disponible
+        </label>
+        <label>
+            <input type="radio" th:field="*{disponible}" th:value="false"> No disponible
+        </label>
+        <br>
+    </label>
+    <br>
+    <input type="submit" value="Crear Producto">
+</form>
+</body>
+</html>

@@ -59,7 +59,7 @@ public class DireccionController {
     }
 
     //GET PARA LA PAGINA DE DIRECCIONES DEL USUARIO
-    @GetMapping("/direcciones")
+    @GetMapping("/perfil/direcciones")
     public String rendrAdressesPage(@ModelAttribute("direccion") Direccion direccion, //Para crear una direccion
                                     Model viewModel,
                                     HttpSession session){

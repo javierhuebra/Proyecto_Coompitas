@@ -1,9 +1,7 @@
 package com.proyecto.coompitas.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -14,22 +12,25 @@ public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //@NotBlank(message = "El nombre del producto no puede ser nulo")
-    //@Size(min = 3, max = 120, message = "El nombre del producto debe tener entre 3 y 120 caracteres")
+    @NotBlank(message = "El nombre del producto no puede ser nulo")
+    @Size(min = 3, max = 120, message = "El nombre del producto debe tener entre 3 y 120 caracteres")
     private String nombre;
-    //@NotBlank(message = "La descripción del producto no puede ser nula")
-    //@Column(columnDefinition = "TEXT")
+    @NotBlank(message = "La descripción del producto no puede ser nula")
+    @Column(columnDefinition = "TEXT")
     private String descripcion;
-    //@NotBlank(message = "La imagen del producto no puede ser nula")
-    //@Column(columnDefinition = "TEXT")
+    @NotBlank(message = "La url de la imagen no puede ser nula")
+    @Column(columnDefinition = "TEXT")//Quizas la url sea larga por eso queda text(?
     private String imagen;
-    //@NotBlank(message = "El precio del producto no puede ser nulo")
-    //@Min(value = 0, message = "El precio del producto no puede ser menor a 0")
+    @NotNull(message = "El precio del producto no puede ser nulo")
+    @DecimalMin(value = "0.01", message = "No ha seteado un precio para este producto")
     private double precio;
-    //@NotBlank(message = "El stock del producto no puede ser nulo")
-    //@Min(value = 0, message = "El stock del producto no puede ser menor a 0")
+    @NotNull(message = "El stock del producto no puede ser nulo")
+    @Min(value = 0, message = "El stock del producto no puede ser menor a 0")
     private int stock;
-    private boolean disponible;
+    private boolean disponible = true;
+
+    @NotBlank(message = "Debe seleccionar una categoría")
+    private String categoria;
 
     //USUARIO QUE POSEE EL PRODUCTO (Proveedor)
     //Relación 1 : N con Producto (Un usuario proveedor puede proveer muchos productos, un producto tiene un solo proveedor)
@@ -37,7 +38,7 @@ public class Producto {
     @JoinColumn(name = "proveedor_id")
     private User proveedor;
 
-
+    
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
@@ -49,6 +50,45 @@ public class Producto {
     public Producto() {
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(User proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
     public String getNombre() {
         return nombre;

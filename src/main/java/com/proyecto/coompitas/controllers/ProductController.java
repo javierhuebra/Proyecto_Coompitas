@@ -58,6 +58,13 @@ public class ProductController {
             }
             producto.setProveedor(userService.findUserById(idLogueado));
 
+            //Recorrer la lista de cantidades y descuentos y setearle el producto a cada uno
+            for(int i = 0; i < producto.getCantidadesDescuentos().size(); i++){
+                System.out.println("Cantidad "+i+": "+producto.getCantidadesDescuentos().get(i).getCantidad());
+                producto.getCantidadesDescuentos().get(i).setProducto(producto);
+                //Falta hacer un if para validar las cantidades y descuentos que tengan sentido
+            }
+
             productService.createProduct(producto);
             return "redirect:/perfil/productos";
         }else{

@@ -1,10 +1,12 @@
 package com.proyecto.coompitas.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "productos")
@@ -38,6 +40,12 @@ public class Producto {
     @JoinColumn(name = "proveedor_id")
     private User proveedor;
 
+    //CANTIDADES Y DESCUENTOS QUE POSEEN LOS PRODUCTOS (CantDesc)
+    //Relación 1 : N con CantDesc (Un producto puede tener muchas cantidades y descuentos, una cantidad y descuento pertenece a un solo producto)
+    @OneToMany(mappedBy = "producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Valid
+    private List<CantDesc> cantidadesDescuentos;
+
     
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -48,6 +56,14 @@ public class Producto {
 
 
     public Producto() {
+    }
+
+    public List<CantDesc> getCantidadesDescuentos() {
+        return cantidadesDescuentos;
+    }
+
+    public void setCantidadesDescuentos(List<CantDesc> cantidadesDescuentos) {
+        this.cantidadesDescuentos = cantidadesDescuentos;
     }
 
     public String getCategoria() {

@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface PedidoRepository extends CrudRepository<Pedido, Long> {
     //List<Pedido> findallByComprador(User comprador);
-    Pedido findPedidoByCamaraId(Long id);
+    //Pedido findPedidoByCamaraId(Long id);
 
 }

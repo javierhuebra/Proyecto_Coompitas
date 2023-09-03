@@ -9,6 +9,35 @@
 </head>
 <body>
 <h1>Productos Proveeidos</h1>
+<h2>Productos de esta cuenta:</h2>
+<div>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Imagen</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Categoría</th>
+            <th>Descripción</th>
+            <th>Disponible</th>
+            <th>Acciones</th>
+        </tr>
+        <tr th:each="producto : ${userLogueado.productos}">
+            <td th:text="${producto.nombre}"></td>
+            <td th:text="${producto.imagen}"></td>
+            <td th:text="${producto.precio}"></td>
+            <td th:text="${producto.stock}"></td>
+            <td th:text="${producto.categoria}"></td>
+            <td th:text="${producto.descripcion}"></td>
+            <td th:text="${producto.disponible}"></td>
+            <td>
+                <a href="/perfil/productos">Editar</a>
+                <a href="/perfil/productos">Eliminar</a>
+            </td>
+
+        </tr>
+    </table>
+    <br>
 <form th:action="@{/perfil/productos/crear}" method="POST" th:object="${producto}">
 
     <label>
@@ -30,6 +59,36 @@
         <input type="number" th:field="*{precio}">
         <br>
         <label style="color: red" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></label>
+    </label>
+    <br>
+    <label>
+        Cantidades y Descuentos:
+
+        <br>
+        <div>
+            Cantidad 1:
+            <input type="number" th:field="*{cantidadesDescuentos[0].cantidad}">
+            <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[0].cantidad')}" th:errors="*{cantidadesDescuentos[0].cantidad}"></label>
+            Descuento 1:
+            <input type="number" th:field="*{cantidadesDescuentos[0].descuentoAplicado}">
+            <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[0].descuentoAplicado')}" th:errors="*{cantidadesDescuentos[0].descuentoAplicado}"></label>
+        </div>
+        <div>
+            Cantidad 2:
+            <input type="number" th:field="*{cantidadesDescuentos[1].cantidad}">
+            <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[1].cantidad')}" th:errors="*{cantidadesDescuentos[1].cantidad}"></label>
+            Descuento 2:
+            <input type="number" th:field="*{cantidadesDescuentos[1].descuentoAplicado}">
+            <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[1].descuentoAplicado')}" th:errors="*{cantidadesDescuentos[1].descuentoAplicado}"></label>
+        </div>
+        <div>
+            Cantidad 3:
+            <input type="number" th:field="*{cantidadesDescuentos[2].cantidad}">
+            <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[2].descuentoAplicado')}" th:errors="*{cantidadesDescuentos[2].descuentoAplicado}"></label>
+            Descuento 3:
+            <input type="number" th:field="*{cantidadesDescuentos[2].descuentoAplicado}">
+            <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[2].descuentoAplicado')}" th:errors="*{cantidadesDescuentos[2].descuentoAplicado}"></label>
+        </div>
     </label>
     <br>
     <label>

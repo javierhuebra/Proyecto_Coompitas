@@ -1,8 +1,10 @@
 package com.proyecto.coompitas.controllers;
 
 import com.proyecto.coompitas.models.Camara;
+import com.proyecto.coompitas.models.Pedido;
 import com.proyecto.coompitas.models.User;
 import com.proyecto.coompitas.services.CamaraService;
+import com.proyecto.coompitas.services.PedidoService;
 import com.proyecto.coompitas.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -18,10 +20,14 @@ public class CamaraController {
     private final UserService userService;
     private final CamaraService camaraService;
 
+    private final PedidoService pedidoService;
+
     public CamaraController(UserService userService,
-                            CamaraService camaraService){
+                            CamaraService camaraService,
+                            PedidoService pedidoService){
         this.userService = userService;
         this.camaraService = camaraService;
+        this.pedidoService = pedidoService;
     }
 
 
@@ -59,6 +65,11 @@ public class CamaraController {
         if (idLogueado != null) {
             User userLogueado = userService.findUserById(idLogueado);//Busco el usuario logueado que va a abrir la camara
             User userProveedor = userService.findUserById(idProveedor);//Busco el usuario proveedor para acceder a sus productos y demas datos
+
+            Pedido pedidoVacio = new Pedido();//Creo un pedido vacio en este GET para que este disponible en el controlador de pedido y actualizarlo
+
+            pedidoVacio.setComprador(userLogueado);//Seteo el usuario logueado como comprador del pedido
+            pedidoService.crearPedido(pedidoVacio);//Guardo el pedido en la base de datos
 
             viewModel.addAttribute("userLogueado", userLogueado);//Inserto el usuario logueado a la pagina
             viewModel.addAttribute("userProveedor", userProveedor);//Inserto el usuario proveedor a la pagina

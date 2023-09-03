@@ -9,8 +9,19 @@
 </head>
 <body>
 <h1>Catálogo <span th:text="${userProveedor.nombreEmpresa}"></span></h1>
-<form th:action="@{/camara/proveedores/crear/{idProveedor}(idProveedor=${userProveedor.id})}" method="POST" th:object="${camara}">
+<div th:each="producto : ${userProveedor.productos}">
+    <form th:action="@{/crear/{idProveedor}/pedido(idProveedor=${userProveedor.id})}" method="POST" th:object="${producto}" >
+        <span th:text="${producto.nombre}"></span>
+        <span th:text="${producto.precio}"></span>
+        <label>
+            Cantidad:
+            <input type="number" id="cantidad" name="cantidad" >
+        </label>
 
+        <input type="submit" value="Agregar al Pedido">
+    </form>
+</div>
+<form th:action="@{/camara/proveedores/crear/{idProveedor}(idProveedor=${userProveedor.id})}" method="POST" th:object="${camara}">
 
     <label>
         Fecha de expiración:

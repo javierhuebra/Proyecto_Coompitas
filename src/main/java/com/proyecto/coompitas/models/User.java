@@ -62,8 +62,21 @@ public class User {
     @OneToMany(mappedBy = "proveedor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Producto> productos;
 
+    //PEDIDOS (Comprador)
+    //Relación 1 : N con Pedido (Un usuario comprador puede tener muchos pedidos, un pedido tiene un solo comprador)
+    @OneToMany(mappedBy = "comprador", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Pedido> pedidos;
+
 
     public User() {
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     public List<Producto> getProductos() {

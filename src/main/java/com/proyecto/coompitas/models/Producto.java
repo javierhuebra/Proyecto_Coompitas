@@ -46,6 +46,15 @@ public class Producto {
     @Valid
     private List<CantDesc> cantidadesDescuentos;
 
+    //PEDIDOS QUE CONTIENEN EL PRODUCTO (Pedido)
+    //Relación N : N con Pedido (Un producto puede estar en muchos pedidos, un pedido puede tener muchos productos)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "pedidos_productos",
+            joinColumns = @JoinColumn(name = "producto_id"),
+            inverseJoinColumns = @JoinColumn(name = "pedido_id")
+    )
+    private List<Pedido> pedidos;
     
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -56,6 +65,14 @@ public class Producto {
 
 
     public Producto() {
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     public List<CantDesc> getCantidadesDescuentos() {

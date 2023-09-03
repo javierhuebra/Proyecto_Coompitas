@@ -82,6 +82,9 @@ public class CamaraController {
              camara.setCreador(userLogueado);//Seteo el usuario logueado como creador de la camara
              camara.setProveedor(userProveedor);//Seteo el usuario proveedor como proveedor de la camara, los otros valores vinieron en el modelo con el formulario
              camara.setEstadoDeLaCamara(1);
+
+            //amara.getPedidos().get(0).setCamara(camara);//Seteo la camara en el pedido
+
              camaraService.createCamara(camara);//Creo la camara
          }
             return "redirect:/home";

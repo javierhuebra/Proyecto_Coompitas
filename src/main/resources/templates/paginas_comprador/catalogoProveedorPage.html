@@ -10,6 +10,8 @@
 <body>
 <h1>Catálogo <span th:text="${userProveedor.nombreEmpresa}"></span></h1>
 <form th:action="@{/camara/proveedores/crear/{idProveedor}(idProveedor=${userProveedor.id})}" method="POST" th:object="${camara}">
+
+
     <label>
         Fecha de expiración:
         <input type="date" th:field="*{fechaDeExpiracion}">

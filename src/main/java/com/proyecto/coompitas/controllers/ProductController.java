@@ -2,6 +2,7 @@ package com.proyecto.coompitas.controllers;
 
 import com.proyecto.coompitas.classes.Constantes;
 import com.proyecto.coompitas.models.Producto;
+import com.proyecto.coompitas.models.User;
 import com.proyecto.coompitas.services.ProductService;
 import com.proyecto.coompitas.services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -29,10 +30,17 @@ public class ProductController {
                                             HttpSession session, Model viewModel){
         Long idLogueado = (Long) session.getAttribute("idLogueado");
         if(idLogueado != null){
-            viewModel.addAttribute("userLogueado", userService.findUserById(idLogueado));//Inserto el usuario en la view
-            viewModel.addAttribute("categorias", Constantes.categorias);//Inserto las categorias al modelo
-            //viewModel.addAttribute("productos", productService.allProductsByUser());
-            return "ciclo_funciones_generales/productsPage";
+
+            User userLogueado = userService.findUserById(idLogueado);
+            if(userLogueado.getRolUsuario() == 2){
+                viewModel.addAttribute("userLogueado", userLogueado);//Inserto el usuario en la view
+                viewModel.addAttribute("categorias", Constantes.categorias);//Inserto las categorias al modelo
+                //viewModel.addAttribute("productos", productService.allProductsByUser());
+                return "ciclo_funciones_generales/productsPage";
+            }else{
+                System.out.println("El usuario logueado no es un proveedor");
+                return "redirect:/home";
+            }
         }else{
             System.out.println("No hay usuario logueado");
             return "redirect:/login";

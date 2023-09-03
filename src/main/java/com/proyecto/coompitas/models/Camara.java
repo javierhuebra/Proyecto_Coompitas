@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "camaras")
@@ -38,7 +39,20 @@ public class Camara{
     @JoinColumn(name = "proveedor_user_id")
     private User proveedor;
 
+    //PEDIDOS QUE CONTIENEN LA CÁMARA (Pedido)
+    //Relación 1 : N con Pedido (Una camara tiene muchos pedidos, un pedido tiene una sola camara)
+    @OneToMany(mappedBy = "camara", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Pedido> pedidos;
+
     public Camara() {
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     public User getProveedor() {

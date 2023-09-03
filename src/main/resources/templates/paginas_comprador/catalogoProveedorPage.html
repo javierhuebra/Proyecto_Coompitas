@@ -10,7 +10,9 @@
 <body>
 <h1>Catálogo <span th:text="${userProveedor.nombreEmpresa}"></span></h1>
 <div th:each="producto : ${userProveedor.productos}">
-    <form th:action="@{/crear/{idProveedor}/pedido(idProveedor=${userProveedor.id})}" method="POST" th:object="${producto}" >
+    <form th:action="@{/crear/{idProveedor}/pedido(idProveedor=${userProveedor.id})}" method="POST" >
+        <input type="hidden" name="idProducto" th:value="${producto.id}" />
+
         <span th:text="${producto.nombre}"></span>
         <span th:text="${producto.precio}"></span>
         <label>

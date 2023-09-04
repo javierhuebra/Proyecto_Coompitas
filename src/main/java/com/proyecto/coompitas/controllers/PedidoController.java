@@ -1,5 +1,6 @@
 package com.proyecto.coompitas.controllers;
 
+import com.proyecto.coompitas.models.CantDesc;
 import com.proyecto.coompitas.models.Pedido;
 import com.proyecto.coompitas.models.PedidoProducto;
 import com.proyecto.coompitas.models.Producto;
@@ -57,7 +58,25 @@ public class PedidoController {
                 System.out.println("Ya hay una relación con ese producto en el pedido");
 
                 relacionPedidoExistente.setCantidad(relacionPedidoExistente.getCantidad() + cantidad);//Le sumo la cantidad
+
+                //aca hay que hacer la validación de la cantidad y los descuentos aplicables //Cambiarlo por un for mejorado
+                double porcentualDescuento=0;
+
                 pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() + (productoACargar.getPrecio() * cantidad));//Le asigno el precio total del pedido
+
+                for(CantDesc cantDesc :productoACargar.getCantidadesDescuentos()){
+                    if((relacionPedidoExistente.getCantidad()+cantidad) >= cantDesc.getCantidad()){
+                        //aca hay que usar la cantidd almacenada en relacion existente
+                        double porcentajeDescuentoTemp = productoACargar.getPrecio() * cantidad * (porcentualDescuento/100);
+                        double precioSinDescuento = productoACargar.getPrecio() * cantidad;
+
+                        pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() - (productoACargar.getPrecio() * (porcentualDescuento/100) * cantidad));//Le asigno el precio total del pedido
+
+                        porcentualDescuento = cantDesc.getDescuentoAplicado();//Ahora modifico el porcentual de descuento para sumarle al total el precio correcto
+
+                        pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() +(productoACargar.getPrecio() * cantidad)- (productoACargar.getPrecio() * (porcentualDescuento/100) * cantidad));
+                    }
+                }
 
                 pedidoService.crearPedido(pedidoIniciado);//Guardo el pedido
                 pedidoProductoService.crearRelacion(relacionPedidoExistente);//Guardo la relación
@@ -69,9 +88,26 @@ public class PedidoController {
                 relacionPedido.setPedido(pedidoIniciado);//Le asigno el pedido
                 relacionPedido.setProducto(productoACargar);//Le asigno el producto
 
-                pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() + (productoACargar.getPrecio() * cantidad));//Le asigno el precio total del pedido
-                pedidoService.crearPedido(pedidoIniciado);//Guardo el pedido
+                //aca hay que hacer la validación de la cantidad y los descuentos aplicables
 
+                pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() + (productoACargar.getPrecio() * cantidad));//Le asigno el precio total del pedido
+
+                double porcentualDescuento=0;
+                for(CantDesc cantDesc :productoACargar.getCantidadesDescuentos()){
+                    if(cantidad >= cantDesc.getCantidad()){
+
+                        double porcentajeDescuentoTemp = productoACargar.getPrecio() * cantidad * (porcentualDescuento/100);
+                        double precioSinDescuento = productoACargar.getPrecio() * cantidad;
+
+                        pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal()-(precioSinDescuento-porcentajeDescuentoTemp));//Le asigno el precio total del pedido
+
+                        porcentualDescuento = cantDesc.getDescuentoAplicado();//Ahora modifico el porcentual de descuento para sumarle al total el precio correcto
+                        System.out.println("Porcentual descuento: "+porcentualDescuento);
+                        pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() +(productoACargar.getPrecio() * cantidad) - (productoACargar.getPrecio() * cantidad * (porcentualDescuento/100)));
+                    }
+                }
+
+                pedidoService.crearPedido(pedidoIniciado);//Guardo el pedido
                 pedidoProductoService.crearRelacion(relacionPedido);//Guardo la relación
 
                 return "redirect:/camara/proveedores/catalogo/"+idProveedor;

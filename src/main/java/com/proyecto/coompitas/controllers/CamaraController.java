@@ -74,7 +74,7 @@ public class CamaraController {
                 Pedido pedidoVacio = new Pedido();//Creo un pedido vacio en este GET para que este disponible en el controlador de pedido y actualizarlo
 
                 pedidoVacio.setComprador(userLogueado);//Seteo el usuario logueado como comprador del pedido
-                pedidoService.crearPedido(pedidoVacio);//Guardo el pedido en la base de datos
+                pedidoService.crearPedido(pedidoVacio);//Guardo el pedido en la base de datos //Esto hay que sacarlo, hay que hacerlo inyectandolo al modelo y luego sacandolo del modelo cuando lo necesitemos asi no guaramos un pedido que no sabemos si va a proliferar en la base de datos
 
                 userLogueado.setEstado(1);//Seteo el estado del usuario logueado en 1 (Creando pedido)
                 userLogueado.setPasswordConfirmation(userLogueado.getPassword());//Lo importante es poner algo, no se guarda en la base de datos

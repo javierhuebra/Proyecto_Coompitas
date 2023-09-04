@@ -1,11 +1,9 @@
 package com.proyecto.coompitas.controllers;
 
 import com.proyecto.coompitas.models.Pedido;
+import com.proyecto.coompitas.models.PedidoProducto;
 import com.proyecto.coompitas.models.Producto;
-import com.proyecto.coompitas.services.CamaraService;
-import com.proyecto.coompitas.services.PedidoService;
-import com.proyecto.coompitas.services.ProductService;
-import com.proyecto.coompitas.services.UserService;
+import com.proyecto.coompitas.services.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,14 +19,20 @@ public class PedidoController {
     private final UserService userService;
 
     private final CamaraService camaraService;
+    private final PedidoProductoService pedidoProductoService;
 
     ProductService productService;
 
-    public PedidoController(PedidoService pedidoService, UserService userService, CamaraService camaraService, ProductService productService){
+    public PedidoController(PedidoService pedidoService,
+                            UserService userService,
+                            CamaraService camaraService,
+                            ProductService productService,
+                            PedidoProductoService pedidoProductoService) {
         this.pedidoService = pedidoService;
         this.userService = userService;
         this.camaraService = camaraService;
         this.productService = productService;
+        this.pedidoProductoService = pedidoProductoService;
     }
 
     //POST PARA CADA PRODUCTO, AGREGA ESE PRODUCTO AL PEDIDO
@@ -42,14 +46,19 @@ public class PedidoController {
         if (idLogueado != null) {
 
 
-            List<Pedido> pedidoIniciado = pedidoService.buscarPeidoSinCamara(userService.findUserById(idLogueado));
-            System.out.println(pedidoIniciado.get(0).getId());
-            Producto productoACargar = productService.findProductById(idProducto.longValue());
-            for(int i = 0; i < cantidad; i++){//Agrego la cantidad de productos que se pidieron
-              pedidoIniciado.get(0).getProductos().add(productoACargar);
-            }
+            Pedido pedidoIniciado = pedidoService.buscarPeidoSinCamara(userService.findUserById(idLogueado));
 
-            pedidoService.crearPedido(pedidoIniciado.get(0));//Guardo el pedido en la base de datos
+            System.out.println(pedidoIniciado.getId());
+
+            Producto productoACargar = productService.findProductById(idProducto.longValue());//Busco el producto que se quiere agregar al pedido
+
+
+            PedidoProducto relacionPedido = new PedidoProducto();//Creo la relación
+            relacionPedido.setCantidad(cantidad);//Le asigno la cantidad
+            relacionPedido.setPedido(pedidoIniciado);//Le asigno el pedido
+            relacionPedido.setProducto(productoACargar);//Le asigno el producto
+
+            pedidoProductoService.crearRelacion(relacionPedido);//Guardo la relación
 
             return "redirect:/camara/proveedores/catalogo/"+idProveedor;
         }else{

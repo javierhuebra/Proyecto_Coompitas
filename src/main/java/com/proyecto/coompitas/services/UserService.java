@@ -44,4 +44,9 @@ public class UserService {
     public List<User> findAllUsersByRol(int rolUser){
         return userRepository.findByRolUsuario(rolUser);
     }
+
+    //Actualizar usuario
+    public User updateUser(User user){
+        return userRepository.save(user);
+    }
 }

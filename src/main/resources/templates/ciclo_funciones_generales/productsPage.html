@@ -84,7 +84,7 @@
         <div>
             Cantidad 3:
             <input type="number" th:field="*{cantidadesDescuentos[2].cantidad}">
-            <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[2].descuentoAplicado')}" th:errors="*{cantidadesDescuentos[2].descuentoAplicado}"></label>
+            <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[2].cantidad')}" th:errors="*{cantidadesDescuentos[2].cantidad}"></label>
             Descuento 3:
             <input type="number" th:field="*{cantidadesDescuentos[2].descuentoAplicado}">
             <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[2].descuentoAplicado')}" th:errors="*{cantidadesDescuentos[2].descuentoAplicado}"></label>

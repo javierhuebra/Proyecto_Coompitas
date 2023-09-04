@@ -23,6 +23,9 @@
         <input type="submit" value="Agregar al Pedido">
     </form>
 </div>
+<div th:each="registro : ${carrito}">
+    <p> <span th:text="${registro.cantidad}"></span> x <span th:text="${registro.producto.nombre}"></span></p>
+</div>
 <form th:action="@{/camara/proveedores/crear/{idProveedor}(idProveedor=${userProveedor.id})}" method="POST" th:object="${camara}">
 
     <label>

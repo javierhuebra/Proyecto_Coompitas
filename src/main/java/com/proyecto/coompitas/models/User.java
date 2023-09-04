@@ -35,6 +35,9 @@ public class User {
     @Transient
     @NotBlank(message = "La confirmación de contraseña no puede ser nula")
     private String passwordConfirmation;
+
+    //Estado del usuario
+    private int estado;//1 Es creando pedido, 0 Es genérico (Quizas haya mas)
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
@@ -69,6 +72,14 @@ public class User {
 
 
     public User() {
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
     public List<Pedido> getPedidos() {

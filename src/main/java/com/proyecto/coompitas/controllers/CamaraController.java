@@ -1,9 +1,8 @@
 package com.proyecto.coompitas.controllers;
 
-import com.proyecto.coompitas.models.Camara;
-import com.proyecto.coompitas.models.Pedido;
-import com.proyecto.coompitas.models.User;
+import com.proyecto.coompitas.models.*;
 import com.proyecto.coompitas.services.CamaraService;
+import com.proyecto.coompitas.services.PedidoProductoService;
 import com.proyecto.coompitas.services.PedidoService;
 import com.proyecto.coompitas.services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class CamaraController {
 
@@ -21,13 +22,16 @@ public class CamaraController {
     private final CamaraService camaraService;
 
     private final PedidoService pedidoService;
+    private final PedidoProductoService pedidoProductoService;
 
     public CamaraController(UserService userService,
                             CamaraService camaraService,
-                            PedidoService pedidoService){
+                            PedidoService pedidoService,
+                            PedidoProductoService pedidoProductoService){
         this.userService = userService;
         this.camaraService = camaraService;
         this.pedidoService = pedidoService;
+        this.pedidoProductoService = pedidoProductoService;
     }
 
 
@@ -66,10 +70,21 @@ public class CamaraController {
             User userLogueado = userService.findUserById(idLogueado);//Busco el usuario logueado que va a abrir la camara
             User userProveedor = userService.findUserById(idProveedor);//Busco el usuario proveedor para acceder a sus productos y demas datos
 
-            Pedido pedidoVacio = new Pedido();//Creo un pedido vacio en este GET para que este disponible en el controlador de pedido y actualizarlo
+            if(userLogueado.getEstado() != 1){ //Comprueba el estado del usuario logueado para ver si creamos un pedido vacio en este get o no
+                Pedido pedidoVacio = new Pedido();//Creo un pedido vacio en este GET para que este disponible en el controlador de pedido y actualizarlo
 
-            pedidoVacio.setComprador(userLogueado);//Seteo el usuario logueado como comprador del pedido
-            pedidoService.crearPedido(pedidoVacio);//Guardo el pedido en la base de datos
+                pedidoVacio.setComprador(userLogueado);//Seteo el usuario logueado como comprador del pedido
+                pedidoService.crearPedido(pedidoVacio);//Guardo el pedido en la base de datos
+
+                userLogueado.setEstado(1);//Seteo el estado del usuario logueado en 1 (Creando pedido)
+                userLogueado.setPasswordConfirmation(userLogueado.getPassword());//Lo importante es poner algo, no se guarda en la base de datos
+                userService.updateUser(userLogueado);//Actualizo el usuario logueado en la base de datos
+            }
+
+            Pedido pedidoEnProceso = pedidoService.buscarPeidoSinCamara(userLogueado);//Busco el pedido en proceso del usuario logueado
+            List<PedidoProducto> relacionesPedido = pedidoProductoService.buscarPorPedido(pedidoEnProceso.getId());
+            viewModel.addAttribute("carrito", relacionesPedido);//Inserto el pedido en proceso en el modelo
+
 
             viewModel.addAttribute("userLogueado", userLogueado);//Inserto el usuario logueado a la pagina
             viewModel.addAttribute("userProveedor", userProveedor);//Inserto el usuario proveedor a la pagina
@@ -94,9 +109,19 @@ public class CamaraController {
              camara.setProveedor(userProveedor);//Seteo el usuario proveedor como proveedor de la camara, los otros valores vinieron en el modelo con el formulario
              camara.setEstadoDeLaCamara(1);
 
-            //amara.getPedidos().get(0).setCamara(camara);//Seteo la camara en el pedido
+             Pedido pedidoEnProceso = pedidoService.buscarPeidoSinCamara(userLogueado);//Busco el pedido en proceso del usuario logueado
 
-             camaraService.createCamara(camara);//Creo la camara
+
+             camaraService.createCamara(camara);//Creo la camara en la base de datos
+
+             pedidoEnProceso.setCamara(camara);//Seteo la camara al pedido en proceso
+
+             pedidoService.crearPedido(pedidoEnProceso);//Actualizo el pedido en proceso en la base de datos
+
+             userLogueado.setEstado(0);//Seteo el estado del usuario logueado en 0 (Genérico)
+             userLogueado.setPasswordConfirmation(userLogueado.getPassword());//Lo importante es poner algo, no se guarda en la base de datos
+             userService.updateUser(userLogueado);//Actualizo el usuario logueado en la base de datos
+
          }
             return "redirect:/home";
      }

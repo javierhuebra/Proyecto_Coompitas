@@ -24,8 +24,9 @@
     </form>
 </div>
 <div th:each="registro : ${carrito}">
-    <p> <span th:text="${registro.cantidad}"></span> x <span th:text="${registro.producto.nombre}"></span></p>
+    <p><span th:text="${registro.cantidad}"></span> x <span th:text="${registro.producto.nombre}"></span> = $<span th:text="${registro.cantidad*registro.producto.precio}"></span></p>
 </div>
+<p>Total: $<span th:text="${pedidoEnProceso.precioTotal}"></span></p>
 <form th:action="@{/camara/proveedores/crear/{idProveedor}(idProveedor=${userProveedor.id})}" method="POST" th:object="${camara}">
 
     <label>

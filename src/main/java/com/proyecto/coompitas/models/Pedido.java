@@ -18,6 +18,8 @@ public class Pedido{
 
     private int estadoDelPedido;
 
+    private double precioTotal;
+
     //PRODUCTOS QUE FORMAN EL PEDIDO
     //Relación N : N con Pedido (Un pedido puede tener muchos productos, un producto puede estar en muchos pedidos)
     @ManyToMany(fetch = FetchType.LAZY)
@@ -48,6 +50,14 @@ public class Pedido{
     private Date updatedAt;
 
     public Pedido() {
+    }
+
+    public double getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public void setPrecioTotal(double precioTotal) {
+        this.precioTotal = precioTotal;
     }
 
     public User getComprador() {

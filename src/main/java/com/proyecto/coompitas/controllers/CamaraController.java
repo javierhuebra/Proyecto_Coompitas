@@ -88,6 +88,7 @@ public class CamaraController {
 
             viewModel.addAttribute("userLogueado", userLogueado);//Inserto el usuario logueado a la pagina
             viewModel.addAttribute("userProveedor", userProveedor);//Inserto el usuario proveedor a la pagina
+            viewModel.addAttribute("pedidoEnProceso", pedidoEnProceso);//Inserto el pedido en proceso a la pagina
             return "paginas_comprador/catalogoProveedorPage";
         }else{
             System.out.println("No hay usuario logueado");

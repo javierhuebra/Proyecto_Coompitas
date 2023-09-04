@@ -53,10 +53,14 @@ public class PedidoController {
             Producto productoACargar = productService.findProductById(idProducto.longValue());//Busco el producto que se quiere agregar al pedido
 
 
+
             PedidoProducto relacionPedido = new PedidoProducto();//Creo la relación
             relacionPedido.setCantidad(cantidad);//Le asigno la cantidad
             relacionPedido.setPedido(pedidoIniciado);//Le asigno el pedido
             relacionPedido.setProducto(productoACargar);//Le asigno el producto
+
+            pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() + (productoACargar.getPrecio() * cantidad));//Le asigno el precio total del pedido
+            pedidoService.crearPedido(pedidoIniciado);//Guardo el pedido
 
             pedidoProductoService.crearRelacion(relacionPedido);//Guardo la relación
 

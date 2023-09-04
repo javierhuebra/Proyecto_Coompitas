@@ -23,4 +23,9 @@ public class PedidoProductoService {
     public List<PedidoProducto> buscarPorPedido(Long idPedido){
         return  pedidoProductoRepository.findAllByPedidoId(idPedido);
     }
+
+    //Buscar si hay un producto en un pedido (Si hay mas solo agarrara el primero, nuestra logica teoricamente no permite que haya mas porque se valida cuando se carga)
+    public PedidoProducto buscarProductoEnPedido(Long idProducto, Long idPedido){
+        return  pedidoProductoRepository.findFirstByPedidoIdAndProductoId(idPedido, idProducto);
+    }
 }

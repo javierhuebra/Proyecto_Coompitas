@@ -11,4 +11,6 @@ public interface PedidoProductoRepository extends CrudRepository<PedidoProducto,
     List<PedidoProducto> findAll();
 
     List<PedidoProducto> findAllByPedidoId(Long idPedido);//Buscar tablas por producto y pedido
+
+    PedidoProducto findFirstByPedidoIdAndProductoId(Long idPedido, Long idProducto);//Buscar tablas por producto y pedido
 }

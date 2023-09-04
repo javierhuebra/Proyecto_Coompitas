@@ -45,7 +45,6 @@ public class PedidoController {
         Long idLogueado = (Long) session.getAttribute("idLogueado");
         if (idLogueado != null) {
 
-
             Pedido pedidoIniciado = pedidoService.buscarPeidoSinCamara(userService.findUserById(idLogueado));
 
             System.out.println(pedidoIniciado.getId());
@@ -53,18 +52,32 @@ public class PedidoController {
             Producto productoACargar = productService.findProductById(idProducto.longValue());//Busco el producto que se quiere agregar al pedido
 
 
+            PedidoProducto relacionPedidoExistente = pedidoProductoService.buscarProductoEnPedido(productoACargar.getId(), pedidoIniciado.getId());//Busco si ya hay una relación con ese producto en el pedido
+            if(relacionPedidoExistente != null){//Si ya hay una relación con ese producto en el pedido
+                System.out.println("Ya hay una relación con ese producto en el pedido");
 
-            PedidoProducto relacionPedido = new PedidoProducto();//Creo la relación
-            relacionPedido.setCantidad(cantidad);//Le asigno la cantidad
-            relacionPedido.setPedido(pedidoIniciado);//Le asigno el pedido
-            relacionPedido.setProducto(productoACargar);//Le asigno el producto
+                relacionPedidoExistente.setCantidad(relacionPedidoExistente.getCantidad() + cantidad);//Le sumo la cantidad
+                pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() + (productoACargar.getPrecio() * cantidad));//Le asigno el precio total del pedido
 
-            pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() + (productoACargar.getPrecio() * cantidad));//Le asigno el precio total del pedido
-            pedidoService.crearPedido(pedidoIniciado);//Guardo el pedido
+                pedidoService.crearPedido(pedidoIniciado);//Guardo el pedido
+                pedidoProductoService.crearRelacion(relacionPedidoExistente);//Guardo la relación
 
-            pedidoProductoService.crearRelacion(relacionPedido);//Guardo la relación
+                return "redirect:/camara/proveedores/catalogo/"+idProveedor;
+            }else{
+                PedidoProducto relacionPedido = new PedidoProducto();//Creo la relación
+                relacionPedido.setCantidad(cantidad);//Le asigno la cantidad
+                relacionPedido.setPedido(pedidoIniciado);//Le asigno el pedido
+                relacionPedido.setProducto(productoACargar);//Le asigno el producto
 
-            return "redirect:/camara/proveedores/catalogo/"+idProveedor;
+                pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() + (productoACargar.getPrecio() * cantidad));//Le asigno el precio total del pedido
+                pedidoService.crearPedido(pedidoIniciado);//Guardo el pedido
+
+                pedidoProductoService.crearRelacion(relacionPedido);//Guardo la relación
+
+                return "redirect:/camara/proveedores/catalogo/"+idProveedor;
+            }
+
+
         }else{
             System.out.println("No hay usuario logueado");
             return "redirect:/login";

@@ -14,6 +14,9 @@ public class PedidoProducto {
 
     private int cantidad;
 
+    private double precioProductos;
+    private double descuentoVigente;
+
     //RELACION DE TABLA INTERMEDIA (Pedido)
     //Relación N : 1 con Producto
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,6 +36,22 @@ public class PedidoProducto {
     private Date updatedAt;
 
     public PedidoProducto() {
+    }
+
+    public double getDescuentoVigente() {
+        return descuentoVigente;
+    }
+
+    public void setDescuentoVigente(double descuentoVigente) {
+        this.descuentoVigente = descuentoVigente;
+    }
+
+    public double getPrecioProductos() {
+        return precioProductos;
+    }
+
+    public void setPrecioProductos(double precioProductos) {
+        this.precioProductos = precioProductos;
     }
 
     public Long getId() {

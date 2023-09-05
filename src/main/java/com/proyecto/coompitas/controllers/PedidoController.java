@@ -82,7 +82,15 @@ public class PedidoController {
                         } else if (relacionPedidoExistente.getDescuentoVigente() < porcentualDescuento) {
                             int cantidadAreformular = relacionPedidoExistente.getCantidad() - cantidad;
                             double precioAcarreadoAreformular = productoACargar.getPrecio() * cantidadAreformular - (productoACargar.getPrecio() * cantidadAreformular * (porcentualDescuento / 100));
+                            pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() - relacionPedidoExistente.getPrecioProductos());
                             relacionPedidoExistente.setPrecioProductos(precioAcarreadoAreformular);
+                            System.out.println("Precio acarreado a reformular: " + precioAcarreadoAreformular);
+                            pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal()+relacionPedidoExistente.getPrecioProductos());
+
+                            pedidoService.crearPedido(pedidoIniciado);//Guardo el pedido
+                            pedidoProductoService.crearRelacion(relacionPedidoExistente);//Guardo la relación
+
+                            return "redirect:/camara/proveedores/catalogo/"+idProveedor;
                         }
 
 

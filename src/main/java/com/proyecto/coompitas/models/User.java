@@ -70,8 +70,26 @@ public class User {
     @OneToMany(mappedBy = "comprador", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Pedido> pedidos;
 
+    //CAMARAS EN LAS QUE PARTICIPA EL USUARIO (Comprador)
+    //Relación N : N con Camara (Un usuario puede participar en muchas cámaras, una cámara puede tener muchos usuarios)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "participantes_camaras",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "camara_id")
+    )
+    private List<Camara> camarasEnLasQueParticipa;
+
 
     public User() {
+    }
+
+    public List<Camara> getCamarasEnLasQueParticipa() {
+        return camarasEnLasQueParticipa;
+    }
+
+    public void setCamarasEnLasQueParticipa(List<Camara> camarasEnLasQueParticipa) {
+        this.camarasEnLasQueParticipa = camarasEnLasQueParticipa;
     }
 
     public int getEstado() {

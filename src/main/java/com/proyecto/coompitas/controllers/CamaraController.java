@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -70,6 +71,8 @@ public class CamaraController {
             User userLogueado = userService.findUserById(idLogueado);//Busco el usuario logueado que va a abrir la camara
             User userProveedor = userService.findUserById(idProveedor);//Busco el usuario proveedor para acceder a sus productos y demas datos
 
+            //Aca se podria poner una validacion que detecte a que proveedor se le esta haciendo el pedido por si cambian de pantalla(posiblemente mas adelante sea necesario)
+
             if(userLogueado.getEstado() != 1){ //Comprueba el estado del usuario logueado para ver si creamos un pedido vacio en este get o no
                 Pedido pedidoVacio = new Pedido();//Creo un pedido vacio en este GET para que este disponible en el controlador de pedido y actualizarlo
 
@@ -96,7 +99,7 @@ public class CamaraController {
         }
     }
 
-    //POST PARA CREAR UNA CAMARA - En proceso
+    //POST PARA CREAR UNA CAMARA
      @PostMapping("/camara/proveedores/crear/{idProveedor}")
      public String crearCamara(@PathVariable("idProveedor") Long idProveedor,
                                @ModelAttribute("camara") Camara camara,
@@ -109,6 +112,12 @@ public class CamaraController {
              camara.setCreador(userLogueado);//Seteo el usuario logueado como creador de la camara
              camara.setProveedor(userProveedor);//Seteo el usuario proveedor como proveedor de la camara, los otros valores vinieron en el modelo con el formulario
              camara.setEstadoDeLaCamara(1);
+
+             //Agrego al usuario logueado como participante de la camara
+             List<User> participantesDeLaCamara = new ArrayList<>(); //Como la lista de participantes esta vacia (null) la inicializo para poder agregarle el usuario logueado
+             participantesDeLaCamara.add(userLogueado);
+             camara.setParticipantes(participantesDeLaCamara);
+             System.out.println(camara.getParticipantes().size());
 
              Pedido pedidoEnProceso = pedidoService.buscarPeidoSinCamara(userLogueado);//Busco el pedido en proceso del usuario logueado
 

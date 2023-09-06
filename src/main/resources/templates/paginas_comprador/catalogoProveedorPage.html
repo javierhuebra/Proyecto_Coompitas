@@ -7,27 +7,54 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Catalogo Proveedor</title>
 </head>
+<style>
+    .contenedor {
+        border: 1px solid black;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .contenedor-principal {
+        display: flex;
+        flex-wrap: wrap;
+    }
+</style>
+
 <body>
 <h1>Catálogo <span th:text="${userProveedor.nombreEmpresa}"></span></h1>
-<div th:each="producto : ${userProveedor.productos}">
-    <form th:action="@{/crear/{idProveedor}/pedido(idProveedor=${userProveedor.id})}" method="POST" >
-        <input type="hidden" name="idProducto" th:value="${producto.id}" />
+<div class="contenedor-principal">
+    <div class="contenedor" th:each="producto : ${userProveedor.productos}">
+        <p>http://imagendelproducto.png</p>
+        <p th:text="${producto.nombre}"></p>
+        <p>$ <span th:text="${producto.precio}"></span></p>
 
-        <span th:text="${producto.nombre}"></span>
-        <span th:text="${producto.precio}"></span>
-        <label>
-            Cantidad:
-            <input type="number" id="cantidad" name="cantidad" >
-        </label>
+        <p th:each="descCant : ${producto.getCantidadesDescuentos()}">Llevando mas de <span
+                th:text="${descCant.cantidad}"></span> tienes un <span th:text="${descCant.descuentoAplicado}"></span>%
+            de descuento</p>
 
-        <input type="submit" value="Agregar al Pedido">
-    </form>
+        <form th:action="@{/crear/{idProveedor}/pedido(idProveedor=${userProveedor.id})}" method="POST">
+            <input type="hidden" name="idProducto" th:value="${producto.id}"/>
+
+            <label>
+                Cantidad:
+                <br>
+                <input type="number" id="cantidad" name="cantidad">
+            </label>
+            <br>
+            <input type="submit" value="Agregar al Pedido">
+        </form>
+    </div>
 </div>
 <div th:each="registro : ${carrito}">
-    <p><span th:text="${registro.cantidad}"></span> x <span th:text="${registro.producto.nombre}"></span> = $<span th:text="${registro.precioProductos}"></span> <span th:if="${registro.precioProductos < registro.cantidad*registro.producto.precio}" style="color: green"> Descuento aplicado</span> </p>
+    <p><span th:text="${registro.cantidad}"></span> x <span th:text="${registro.producto.nombre}"></span> = $<span
+            th:text="${registro.precioProductos}"></span> <span th:if="${registro.descuentoVigente > 0}"
+                                                                style="color: red"
+                                                                th:text="'% ' + ${registro.descuentoVigente} + ' OFF'"></span>
+    </p>
 </div>
 <p>Total: $<span th:text="${pedidoEnProceso.precioTotal}"></span></p>
-<form th:action="@{/camara/proveedores/crear/{idProveedor}(idProveedor=${userProveedor.id})}" method="POST" th:object="${camara}">
+<form th:action="@{/camara/proveedores/crear/{idProveedor}(idProveedor=${userProveedor.id})}" method="POST"
+      th:object="${camara}">
 
     <label>
         Fecha de expiración:

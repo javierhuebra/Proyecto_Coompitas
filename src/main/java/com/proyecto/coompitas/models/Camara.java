@@ -46,7 +46,7 @@ public class Camara{
 
     //USUARIOS QUE PARTICIPAN EN LA CÁMARA (Comprador)
     //Relación N : N con User (Una cámara tiene muchos usuarios, un usuario puede estar en muchas cámaras)
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "participantes_camaras",
             joinColumns = @JoinColumn(name = "camara_id"),

@@ -8,27 +8,31 @@
     <title>Camara</title>
 </head>
 <body>
-    <h1>Cámara de compra para la empresa <span style="color: green" th:text="${camara.proveedor.nombreEmpresa}"></span></h1>
-    <h2>Creada por <span style="color: green" th:text="${camara.creador.nombreTitular}"></span> de la empresa <span style="color: green" th:text="${camara.creador.nombreEmpresa}"></span></h2>
-    <h2>La fecha de expliración de esta cámara es: (agregar la fecha en thymeleaf cuando este validada sino va a tirar error el null)</h2>
+<h1>Cámara de compra para la empresa <span style="color: green" th:text="${camara.proveedor.nombreEmpresa}"></span></h1>
+<h2>Creada por <span style="color: green" th:text="${camara.creador.nombreTitular}"></span> de la empresa <span
+        style="color: green" th:text="${camara.creador.nombreEmpresa}"></span></h2>
+<h2>La fecha de expliración de esta cámara es: (agregar la fecha en thymeleaf cuando este validada sino va a tirar error
+    el null)</h2>
 
-    <div style="padding: 5px; background-color: darkblue">
-        <p style="color: white">Estado de la camara: <span style="color: orangered" th:text="${camara.estadoDeLaCamara}"></span></p>
-        <div style="background-color: aliceblue; margin: 3px" th:each="pedido : ${camara.pedidos}">
-            <p>Estado del pedido: <span style="color: orangered" th:text="${pedido.estadoDelPedido}"></span></p>
-            <p> Pedido realizado por: <span th:text="${pedido.comprador.nombreEmpresa}"></span></p>
-            <div th:each="registro : ${registrosProductoYCantidad}">
-                <p th:if="${registro.pedido.id == pedido.id}">
+<div style="padding: 5px; background-color: darkblue">
+    <p style="color: white">Estado de la camara: <span style="color: orangered"
+                                                       th:text="${camara.estadoDeLaCamara}"></span></p>
+    <div style="background-color: aliceblue; margin: 3px" th:each="pedido : ${camara.pedidos}">
+        <p>Estado del pedido: <span style="color: orangered" th:text="${pedido.estadoDelPedido}"></span></p>
+        <p> Pedido realizado por: <span th:text="${pedido.comprador.nombreEmpresa}"></span></p>
+        <div th:each="registro : ${registrosProductoYCantidad}">
+            <p th:if="${registro.pedido.id == pedido.id}">
                     <span th:text="${registro.producto.nombre}">
                     </span> x <span th:text="${registro.cantidad}">
                     </span> = $<span th:text="${registro.precioProductos}"></span>
                     <span th:if="${registro.descuentoVigente > 0}"
-                          style="color: red"
-                          th:text="'% ' + ${registro.descuentoVigente} + ' OFF'"></span>
-                </p>
-            </div>
-            <p>Total $<span th:text="${pedido.precioTotal}"></span></p>
+                      style="color: red"
+                      th:text="'% ' + ${registro.descuentoVigente} + ' OFF'"></span>
+            </p>
         </div>
+        <p>Total $<span th:text="${pedido.precioTotal}"></span></p>
     </div>
+</div>
+<a th:href="@{/unirse/{idCamara}/productos(idCamara=${camara.id})}">Unirse a la camara</a>
 </body>
 </html>

@@ -22,6 +22,7 @@
 
 <body>
 <h1>Catálogo <span th:text="${userProveedor.nombreEmpresa}"></span></h1>
+
 <div class="contenedor-principal">
     <div class="contenedor" th:each="producto : ${userProveedor.productos}">
         <p>http://imagendelproducto.png</p>
@@ -53,15 +54,27 @@
     </p>
 </div>
 <p>Total: $<span th:text="${pedidoEnProceso.precioTotal}"></span></p>
-<form th:action="@{/camara/proveedores/crear/{idProveedor}(idProveedor=${userProveedor.id})}" method="POST"
-      th:object="${camara}">
+<div th:if="${anexandoComprador}">
+    <p>ANEXANDO COMPRADOR</p>
+    <form th:action="@{/unirse/agregarUsuario/{idCamara}(idCamara=${camara.id})}" method="POST"
+          th:object="${camara}">
 
-    <label>
-        Fecha de expiración:
-        <input type="date" th:field="*{fechaDeExpiracion}">
-    </label>
-    <input type="submit" value="Crear Cámara">
-</form>
+        <input type="submit" value="Crear Cámara">
+    </form>
+</div>
+<div th:unless="${anexandoComprador}">
+    <p>CREANDO CAMARA</p>
+    <form th:action="@{/camara/proveedores/crear/{idProveedor}(idProveedor=${userProveedor.id})}" method="POST"
+          th:object="${camara}">
+
+        <label>
+            Fecha de expiración:
+            <input type="date" th:field="*{fechaDeExpiracion}">
+        </label>
+        <input type="submit" value="Crear Cámara">
+    </form>
+
+</div>
 
 </body>
 </html>

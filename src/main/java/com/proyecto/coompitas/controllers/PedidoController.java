@@ -1,12 +1,10 @@
 package com.proyecto.coompitas.controllers;
 
-import com.proyecto.coompitas.models.CantDesc;
-import com.proyecto.coompitas.models.Pedido;
-import com.proyecto.coompitas.models.PedidoProducto;
-import com.proyecto.coompitas.models.Producto;
+import com.proyecto.coompitas.models.*;
 import com.proyecto.coompitas.services.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,10 +39,18 @@ public class PedidoController {
     public String crearPedido(@PathVariable("idProveedor") Long idProveedor,
                               @RequestParam("idProducto") Integer idProducto,
                               @RequestParam("cantidad") Integer cantidad,
-                              HttpSession session
+                              HttpSession session, Model viewModel
     ) {
         Long idLogueado = (Long) session.getAttribute("idLogueado");
         if (idLogueado != null) {
+
+            Camara camaraVigente = (Camara) session.getAttribute("camara");
+            if(camaraVigente != null){
+                System.out.println("Anexando comprador");
+            }else{
+                System.out.println("Creando comprador propietario");
+
+            }
 
             Pedido pedidoIniciado = pedidoService.buscarPeidoSinCamara(userService.findUserById(idLogueado));
 
@@ -93,6 +99,11 @@ public class PedidoController {
 
             pedidoService.crearPedido(pedidoIniciado);//Guardo el pedido
             pedidoProductoService.crearRelacion(relacionPedido);//Guardo la relación
+
+
+            if(camaraVigente != null){
+                return "redirect:/unirse/" + camaraVigente.getId() + "/productos";
+            }
 
             return "redirect:/camara/proveedores/catalogo/" + idProveedor;
 

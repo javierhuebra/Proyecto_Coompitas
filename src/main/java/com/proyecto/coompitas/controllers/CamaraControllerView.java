@@ -130,8 +130,8 @@ public class CamaraControllerView {
             userLogueado.setPasswordConfirmation(userLogueado.getPassword());//Lo importante es poner algo, no se guarda en la base de datos
             userService.updateUser(userLogueado);//Actualizo el usuario logueado en la base de datos
 
-            session.removeAttribute("camara");//Borro la camara de la session
-
+            session.removeAttribute("camara");//Borro la camara de la session (Con esto me tiró el error que me hizo cambiar de LAZY A EAGER en la relacion de camara con participantes)
+                                                //Masomenos entiendo como fue, porque estamos tratando de acceder a las relaciones de la tabla principal que es camara una vez cerrada la sesión, igual debo reforzar este tema.
             return "redirect:/camara/"+idCamara;//Redirijo a la pagina de la camara
         }else{
             System.out.println("No hay usuario logueado");

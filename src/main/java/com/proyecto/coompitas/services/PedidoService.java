@@ -23,4 +23,8 @@ public class PedidoService {
         return pedidoRepository.findFirstByCompradorAndCamaraIdIsNull(user);
     }
 
+    public List<Pedido> buscarPedidosPorCamara(Long idCamara){
+        return pedidoRepository.findAllByCamaraId(idCamara);
+    }
+
 }

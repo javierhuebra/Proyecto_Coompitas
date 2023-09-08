@@ -51,6 +51,7 @@
             th:text="${registro.precioProductos}"></span> <span th:if="${registro.descuentoVigente > 0}"
                                                                 style="color: red"
                                                                 th:text="'% ' + ${registro.descuentoVigente} + ' OFF'"></span>
+        <span th:if="${cantidadAcumulada}"></span>
     </p>
 </div>
 <p>Total: $<span th:text="${pedidoEnProceso.precioTotal}"></span></p>

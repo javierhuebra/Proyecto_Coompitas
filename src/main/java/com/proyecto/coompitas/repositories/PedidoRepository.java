@@ -26,6 +26,8 @@ public interface PedidoRepository extends CrudRepository<Pedido, Long> {
 
     int countProductosByProductosContaining(Producto producto);
 
+    List<Pedido> findAllByCamaraId(Long idCamara);
+
 
 
 }

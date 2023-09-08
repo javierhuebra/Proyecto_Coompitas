@@ -46,7 +46,7 @@ public class PedidoController {
         if (idLogueado != null) {
 
             Camara camaraVigente = (Camara) session.getAttribute("camara");
-            int cantidadArestar = 0;
+            int cantidadAcarreada = 0;
             if (camaraVigente != null) { //SI HAY UNA CAMARA VIGENTE (Se esta uniendo alguien a la camara)
                 System.out.println("Anexando comprador");
 
@@ -54,8 +54,14 @@ public class PedidoController {
                 System.out.println(pedidosEnCamara.size());
                 for (Pedido pedido : pedidosEnCamara) {//Busco los registros de relacion entre pedido y producto para cada pedido de la camara
                     PedidoProducto registrosDelPedidoYProducto = pedidoProductoService.buscarProductoEnPedido(idProducto.longValue(), pedido.getId());//Accedo al registro de pedido producto que tiene la cantidad de ese producto que hay en la camara
-                    cantidad = cantidad + registrosDelPedidoYProducto.getCantidad();//Le sumo la cantidad que hay en el pedido a la cantidad que se quiere agregar, como es un bucle se llena con la cantidad de ese producto que tienen todos los pedidos
-                    cantidadArestar += registrosDelPedidoYProducto.getCantidad();
+                    if(registrosDelPedidoYProducto == null) {
+
+                        registrosDelPedidoYProducto = new PedidoProducto();
+                        registrosDelPedidoYProducto.setCantidad(0);
+                        registrosDelPedidoYProducto.setProducto(productService.findProductById(idProducto.longValue()));
+                        registrosDelPedidoYProducto.setPedido(pedido);
+                    }
+                    cantidadAcarreada += registrosDelPedidoYProducto.getCantidad();
 
                 }
             } else {
@@ -92,29 +98,56 @@ public class PedidoController {
 
             double porcentualDescuento = 0;
             for (CantDesc cantDesc : productoACargar.getCantidadesDescuentos()) {
-                if (cantidad >= cantDesc.getCantidad()) {
+                if (camaraVigente != null) {
+                    if ((cantidad +cantidadAcarreada) >= cantDesc.getCantidad()) {
 
-                    double porcentajeDescuentoTemp = productoACargar.getPrecio() * cantidad * (porcentualDescuento / 100);
-                    double precioSinDescuento = productoACargar.getPrecio() * cantidad;
-
-
-                    System.out.println(pedidoIniciado.getPrecioTotal());
-                    pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() - (precioSinDescuento - porcentajeDescuentoTemp));//Le asigno el precio total del pedido
-
-                    porcentualDescuento = cantDesc.getDescuentoAplicado();//Ahora modifico el porcentual de descuento para sumarle al total el precio correcto
-
-                    System.out.println("Porcentual descuento: " + porcentualDescuento);
-                    double precioConDescuentoPedidosIguales = (productoACargar.getPrecio() * cantidad) - (productoACargar.getPrecio() * cantidad * (porcentualDescuento / 100));
+                        double porcentajeDescuentoTemp = productoACargar.getPrecio() * cantidad * (porcentualDescuento / 100);
+                        double precioSinDescuento = productoACargar.getPrecio() * cantidad;
 
 
-                    relacionPedido.setDescuentoVigente(porcentualDescuento);
-                    relacionPedido.setPrecioProductos(precioConDescuentoPedidosIguales);
-                    pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() + precioConDescuentoPedidosIguales);
+                        System.out.println(pedidoIniciado.getPrecioTotal());
+                        pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() - (precioSinDescuento - porcentajeDescuentoTemp));//Le asigno el precio total del pedido
 
-                } else {
-                    relacionPedido.setDescuentoVigente(porcentualDescuento);
+                        porcentualDescuento = cantDesc.getDescuentoAplicado();//Ahora modifico el porcentual de descuento para sumarle al total el precio correcto
+
+                        System.out.println("Porcentual descuento: " + porcentualDescuento);
+                        double precioConDescuentoPedidosIguales = (productoACargar.getPrecio() * cantidad) - (productoACargar.getPrecio() * cantidad * (porcentualDescuento / 100));
+
+
+                        relacionPedido.setDescuentoVigente(porcentualDescuento);
+                        relacionPedido.setPrecioProductos(precioConDescuentoPedidosIguales);
+                        pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() + precioConDescuentoPedidosIguales);
+
+                    } else {
+                        relacionPedido.setDescuentoVigente(porcentualDescuento);
+                    }
+                }else{
+                    if (cantidad >= cantDesc.getCantidad()) {
+
+                        double porcentajeDescuentoTemp = productoACargar.getPrecio() * cantidad * (porcentualDescuento / 100);
+                        double precioSinDescuento = productoACargar.getPrecio() * cantidad;
+
+
+                        System.out.println(pedidoIniciado.getPrecioTotal());
+                        pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() - (precioSinDescuento - porcentajeDescuentoTemp));//Le asigno el precio total del pedido
+
+                        porcentualDescuento = cantDesc.getDescuentoAplicado();//Ahora modifico el porcentual de descuento para sumarle al total el precio correcto
+
+                        System.out.println("Porcentual descuento: " + porcentualDescuento);
+                        double precioConDescuentoPedidosIguales = (productoACargar.getPrecio() * cantidad) - (productoACargar.getPrecio() * cantidad * (porcentualDescuento / 100));
+
+
+                        relacionPedido.setDescuentoVigente(porcentualDescuento);
+                        relacionPedido.setPrecioProductos(precioConDescuentoPedidosIguales);
+                        pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() + precioConDescuentoPedidosIguales);
+
+                    } else {
+                        relacionPedido.setDescuentoVigente(porcentualDescuento);
+                    }
                 }
+
             }
+
 
             pedidoService.crearPedido(pedidoIniciado);//Guardo el pedido
             pedidoProductoService.crearRelacion(relacionPedido);//Guardo la relación

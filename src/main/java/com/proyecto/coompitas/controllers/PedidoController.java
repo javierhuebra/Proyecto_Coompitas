@@ -68,6 +68,7 @@ public class PedidoController {
                 System.out.println("Creando comprador propietario");
 
             }
+            //Lo mejor sería hacer los calculos para que en esta solicitud post se modifiquen todos los registros en base al nuevo precio, pero lo voy a hacer cuando se renderiza la pagina porque es mas facil pensar ahi
 
             Pedido pedidoIniciado = pedidoService.buscarPeidoSinCamara(userService.findUserById(idLogueado));
 

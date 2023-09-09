@@ -1,9 +1,6 @@
 package com.proyecto.coompitas.controllers;
 
-import com.proyecto.coompitas.models.Camara;
-import com.proyecto.coompitas.models.Pedido;
-import com.proyecto.coompitas.models.PedidoProducto;
-import com.proyecto.coompitas.models.User;
+import com.proyecto.coompitas.models.*;
 import com.proyecto.coompitas.services.CamaraService;
 import com.proyecto.coompitas.services.PedidoProductoService;
 import com.proyecto.coompitas.services.PedidoService;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class CamaraControllerView {
@@ -123,6 +121,41 @@ public class CamaraControllerView {
             Pedido pedidoEnProceso = pedidoService.buscarPeidoSinCamara(userLogueado);//Busco el pedido en proceso del usuario logueado
             pedidoEnProceso.setCamara(camaraActual);//Seteo la camara al pedido en proceso
             pedidoService.crearPedido(pedidoEnProceso);//Actualizo el pedido en proceso en la base de datos
+
+            //*---------------------------------
+            //Aca debe estar el codigo para actualizar el precio de los pediodos que ya tiene la camara y los descuentos de las relaciones
+
+            List<Pedido> pedidosEnLaCamara = pedidoService.buscarPedidosPorCamara(camaraActual.getId());//Busco los pedidos que tiene la camara
+
+            for(Pedido pedido : pedidosEnLaCamara){//Busco los registros de relacion entre pedido y producto para cada pedido de la camara
+                if(pedido.getId() != pedidoEnProceso.getId()){
+                    for (PedidoProducto relacion : pedidoProductoService.buscarPorPedido(pedido.getId())) {
+                        //Aca va el codigo para actualizar el precio de los pedidos que ya tiene la camara y los descuentos de las relaciones
+                        //System.out.println(relacion.getCantidad());
+                        //--------------------
+                        for(Producto producto : pedidoEnProceso.getProductos()){
+                            if(relacion.getProducto() == producto){
+                                System.out.println(producto.getNombre());
+                                //Aca tengo que actualizar la relación, borrarle el precio que tenia y ponerle el nuevo con el nuevo descuento
+                                //Tambien debo actualizar el pedido, restarle al total el precio que tenia de esa relacion con su descuento anterior y sumarle el nuevo precio con el nuevo descuento
+                                //Luego guardar en la bd tanto la relacion como el pedido
+                                double precioAnterior = relacion.getPrecioProductos();
+                                relacion.setDescuentoVigente(pedidoProductoService.buscarProductoEnPedido(producto.getId(), pedidoEnProceso.getId()).getDescuentoVigente());
+                                relacion.setPrecioProductos(producto.getPrecio() * relacion.getCantidad() * (1 - (relacion.getDescuentoVigente() / 100)));
+
+                                pedido.setPrecioTotal(pedido.getPrecioTotal() - precioAnterior + relacion.getPrecioProductos());
+                                pedidoService.crearPedido(pedido);
+                                pedidoProductoService.crearRelacion(relacion);
+                            }
+                        }
+
+                    }
+                }
+
+            }
+            System.out.println("-----");
+
+            //---------------------------
 
             camaraService.createCamara(camaraActual);//Actualizo la camara en la base de datos
 

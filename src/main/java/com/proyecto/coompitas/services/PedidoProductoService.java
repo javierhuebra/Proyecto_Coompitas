@@ -19,7 +19,7 @@ public class PedidoProductoService {
         return pedidoProductoRepository.save(pedidoProducto);
     }
 
-    //Buscar tablas por producto y pedido
+    //Buscar tablas por pedido
     public List<PedidoProducto> buscarPorPedido(Long idPedido){
         return  pedidoProductoRepository.findAllByPedidoId(idPedido);
     }

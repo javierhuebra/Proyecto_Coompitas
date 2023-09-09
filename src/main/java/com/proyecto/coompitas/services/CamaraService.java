@@ -29,4 +29,14 @@ public class CamaraService {
         return camaraRepository.findById(id).orElse(null);
     }
 
+    //Buscar camaras por proveedor
+    public List<Camara> findCamarasByProveedorId(Long id){
+        return camaraRepository.findByProveedorId(id);
+    }
+
+    //Traer todas las camaras con estado 2
+    public List<Camara> findCamarasByEstado(int estado){
+        return camaraRepository.findByEstadoDeLaCamara(estado);
+    }
+
 }

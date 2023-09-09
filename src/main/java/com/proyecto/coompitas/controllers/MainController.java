@@ -29,7 +29,7 @@ public class MainController {
             User userLogueado = userService.findUserById(idLogueado);
             viewModel.addAttribute("userLogueado", userLogueado);//Inserto el usuario logueado en el modelo para que se pueda usar en la página homePage
 
-            viewModel.addAttribute("camarasCreadas", camaraService.allCamaras());//Inserto todas las cámaras creadas en el modelo para que se pueda usar en la página homePage
+            viewModel.addAttribute("camarasCreadas", camaraService.findCamarasByEstado(2));//Inserto las camaras aceptadas
 
             if(userLogueado.getDirecciones().size() == 0){//Si no tiene direcciones (cuando recien se registra es) es redirigido al perfil para que cargue una
                 return "redirect:/perfil";
@@ -52,6 +52,10 @@ public class MainController {
         if (idLogueado != null) {
             User userLogueado = userService.findUserById(idLogueado);
             viewModel.addAttribute("userLogueado", userLogueado);
+            if(userLogueado.getRolUsuario() == 2){
+                viewModel.addAttribute("camarasProveidas", camaraService.findCamarasByProveedorId(idLogueado));
+            }
+
             return "ciclo_funciones_generales/userProfilePage";
         }
         else{

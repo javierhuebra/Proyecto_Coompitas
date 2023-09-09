@@ -27,4 +27,9 @@ public class PedidoService {
         return pedidoRepository.findAllByCamaraId(idCamara);
     }
 
+    //Buscar pedido por id
+    public Pedido buscarPedidoPorId(Long id){
+        return pedidoRepository.findById(id).orElse(null);
+    }
+
 }

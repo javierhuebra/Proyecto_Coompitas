@@ -8,53 +8,88 @@
     <title>First Direction</title>
 </head>
 <body>
-    <h1>Perfil - Logueado</h1>
-    <p>Cantidad de direcciones: <span th:text="${userLogueado.direcciones.size()}"></span></p>
-    <a href="/perfil/direcciones">Direcciones</a>
-    <a href="/perfil/productos">Productos</a>
-    <br>
-    <div th:if="${userLogueado.direcciones.size() == 0}">
-        <p>Para operar en la app debes registrar por lo menos una dirección! Adelante:</p>
-        <form th:action="@{/direccion/create}" method="POST" th:object="${direccion}">
-            <label>
-                Pais:
-                <input type="text" th:field="*{pais}">
-                <br>
-                <label style="color: red" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></label>
-            </label>
+<h1>Perfil - Logueado</h1>
+<p>Cantidad de direcciones: <span th:text="${userLogueado.direcciones.size()}"></span></p>
+<a href="/perfil/direcciones">Direcciones</a>
+<a href="/perfil/productos">Productos</a>
+<br>
+<div th:if="${userLogueado.direcciones.size() == 0}">
+    <p>Para operar en la app debes registrar por lo menos una dirección! Adelante:</p>
+    <form th:action="@{/direccion/create}" method="POST" th:object="${direccion}">
+        <label>
+            Pais:
+            <input type="text" th:field="*{pais}">
             <br>
-            <label>
-                Provincia:
-                <input type="text" th:field="*{provincia}">
-                <br>
-                <label style="color: red" th:if="${#fields.hasErrors('provincia')}" th:errors="*{provincia}"></label>
-            </label>
+            <label style="color: red" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></label>
+        </label>
+        <br>
+        <label>
+            Provincia:
+            <input type="text" th:field="*{provincia}">
             <br>
-            <label>
-                Ciudad:
-                <input type="text" th:field="*{ciudad}">
-                <br>
-                <span style="color: red" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}"></span>
-            </label>
+            <label style="color: red" th:if="${#fields.hasErrors('provincia')}" th:errors="*{provincia}"></label>
+        </label>
+        <br>
+        <label>
+            Ciudad:
+            <input type="text" th:field="*{ciudad}">
             <br>
-            <label>
-                Codigo Postal:
-                <input type="text" th:field="*{codigoPostal}">
-                <br>
-                <label style="color: red" th:if="${#fields.hasErrors('codigoPostal')}" th:errors="*{codigoPostal}"></label>
-            </label>
+            <span style="color: red" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}"></span>
+        </label>
+        <br>
+        <label>
+            Codigo Postal:
+            <input type="text" th:field="*{codigoPostal}">
             <br>
-            <label>
-                Calle:
-                <input type="text" th:field="*{calle}">
-                <br>
-                <label style="color: red" th:if="${#fields.hasErrors('calle')}" th:errors="*{calle}"></label>
-            </label>
+            <label style="color: red" th:if="${#fields.hasErrors('codigoPostal')}" th:errors="*{codigoPostal}"></label>
+        </label>
+        <br>
+        <label>
+            Calle:
+            <input type="text" th:field="*{calle}">
             <br>
+            <label style="color: red" th:if="${#fields.hasErrors('calle')}" th:errors="*{calle}"></label>
+        </label>
+        <br>
 
-            <input type="submit" value="Guardar Dirección">
-        </form>
+        <input type="submit" value="Guardar Dirección">
+    </form>
+</div>
+<div th:unless="${userLogueado.direcciones.size() == 0}">
+    <div th:if="${camarasProveidas}">
+        <h2>Camaras Proveidas</h2>
+        <div style="border: solid 1px" th:each="camara : ${camarasProveidas}">
+            <p>Estado: <span th:text="${camara.estadoDeLaCamara}"></span></p>
+            <p>Empresa: <span th:text="${camara.creador.nombreEmpresa}"></span></p>
+            <p>Titular: <span th:text="${camara.creador.nombreTitular}"></span></p>
+            <p>Telefono: <span th:text="${camara.creador.telefono}"></span></p>
+            <p>Participantes: <span th:text="${camara.participantes.size()}"></span></p>
+            <p>Fecha de expiración: <span th:text="${camara.fechaDeExpiracion}"></span></p>
+            <p>Precio de envio: <span th:if="${camara.estadoDeLaCamara == 2}" th:text="${camara.precioEnvio}"></span><span th:unless="${camara.estadoDeLaCamara == 2}">Esperando confirmación</span></p>
+            <a href="/">Ver Detalles</a>
+            <div th:if="${camara.estadoDeLaCamara == 1}">
+                <form th:action="@{/perfil/camara/confirmacion/{idCamara}(idCamara =${camara.id})}" method="POST" >
+                    <label>
+                        Precio de envio:
+                        <input type="number" name="precioEnvio">
+                    </label>
+                    <input type="submit" value="Confirmar">
+                </form>
+            </div>
+            <div th:if="${camara.estadoDeLaCamara == 2}">
+                <form th:action="@{/perfil/camara/confirmacion/{idCamara}(idCamara =${camara.id})}" method="POST" >
+                    <label>
+                        Reformular Precio de envio:
+                        <input type="number" name="precioEnvio">
+                    </label>
+                    <input type="submit" value="Guardar">
+                </form>
+            </div>
+        </div>
+    <div th:if="${camarasProveidas.size() == 0}">
+        No te compro nadie pa
     </div>
+</div>
 
 </body>
 </html>

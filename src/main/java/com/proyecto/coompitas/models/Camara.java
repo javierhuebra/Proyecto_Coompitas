@@ -21,6 +21,8 @@ public class Camara{
     //@Min(value = 0, message = "El estado de la cámara no puede ser menor a 0")
     private int estadoDeLaCamara;
 
+    private double precioEnvio;
+
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
@@ -55,6 +57,14 @@ public class Camara{
     private List<User> participantes;
 
     public Camara() {
+    }
+
+    public double getPrecioEnvio() {
+        return precioEnvio;
+    }
+
+    public void setPrecioEnvio(double precioEnvio) {
+        this.precioEnvio = precioEnvio;
     }
 
     public List<User> getParticipantes() {

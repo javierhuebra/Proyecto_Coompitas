@@ -9,4 +9,10 @@ import java.util.List;
 @Repository
 public interface CamaraRepository extends CrudRepository<Camara, Long> {
     List<Camara> findAll();
+
+    //Buscar camaras por usuario proveedor
+    List<Camara> findByProveedorId(Long id);
+
+    //Buscar camaras por estado
+    List<Camara> findByEstadoDeLaCamara(int estado);
 }

@@ -55,7 +55,7 @@ public class CamaraControllerView {
             System.out.println("asdasdas");
 
             viewModel.addAttribute("registrosProductoYCantidad", registrosConProductoYCantidad);//Inserto la lista de registros de la tabla intermedia en el modelo para que se pueda usar en la página camaraPage
-
+            viewModel.addAttribute("usuarioLogueado", userService.findUserById(idLogueado));//Inserto el usuario logueado en el modelo para que se pueda usar en la página camaraPage")
             return "paginas_comprador/camaraPage";
         }else{
             System.out.println("No hay usuario logueado");

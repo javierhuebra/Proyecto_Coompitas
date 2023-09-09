@@ -21,8 +21,10 @@
 <div class="camaras">
     <p  class="titulo">Camaras:</p>
     <div style="background-color: rgba(127,255,0,0.55)" th:each="camara : ${camarasCreadas}">
+        <p>Estado: <span th:text="${camara.estadoDeLaCamara}"></span></p>
         <p>Camara para comprar en <span th:text="${camara.proveedor.nombreEmpresa}"></span></p>
         <p>Creada por la empresa <span th:text="${camara.creador.nombreEmpresa}"></span></p>
+        <p>Participantes: <span th:text="${camara.participantes.size()}"></span></p>
         <p>Fecha de expiración: <span th:text="${camara.fechaDeExpiracion}"></span></p>
         <a th:href="@{/camara/{idCamara}(idCamara=${camara.id})}">Ver</a>
     </div>

@@ -15,8 +15,8 @@
     el null)</h2>
 
 <div style="padding: 5px; background-color: darkblue">
-    <p style="color: white">Estado de la camara: <span style="color: orangered"
-                                                       th:text="${camara.estadoDeLaCamara}"></span></p>
+    <p style="color: white">Estado de la camara: <span style="color: orangered" th:text="${camara.estadoDeLaCamara}"></span></p>
+    <p style="color: white">Precio de envío: $ <span th:text="${camara.precioEnvio}"></span></p>
     <div style="background-color: aliceblue; margin: 3px" th:each="pedido : ${camara.pedidos}">
         <p>Estado del pedido: <span style="color: orangered" th:text="${pedido.estadoDelPedido}"></span></p>
         <p> Pedido realizado por: <span th:text="${pedido.comprador.nombreEmpresa}"></span></p>
@@ -31,6 +31,11 @@
             </p>
         </div>
         <p>Total $<span th:text="${pedido.precioTotal}"></span></p>
+
+        <form th:if="${userLogueado.id == pedido.comprador.id}" th:action="@{'/pedidos/' + ${pedido.id} + '/estado/' + ${camara.id}}" method="POST">
+            <input th:if="${pedido.estadoDelPedido == 0}" type="submit" value="Estoy Listo">
+            <input th:if="${pedido.estadoDelPedido == 1}" type="submit" value="No Estoy Listo">
+        </form>
     </div>
 </div>
 <a th:href="@{/unirse/{idCamara}/productos(idCamara=${camara.id})}">Unirse a la camara</a>

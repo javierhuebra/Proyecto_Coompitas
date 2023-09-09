@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class PedidoController {
@@ -167,5 +168,32 @@ public class PedidoController {
         }
 
 
+    }
+
+    //POST PARA CAMBIAR EL ESTADO DE UN PEDIDO
+    @PostMapping("/pedidos/{idPedido}/estado/{idCamara}")
+    public String cambiarEstadoPedido(@PathVariable("idPedido") Long idPedido,
+                                      @PathVariable("idCamara") Long idCamara,
+                                      HttpSession session) {
+        Long idLogueado = (Long) session.getAttribute("idLogueado");
+        if (idLogueado != null) {
+            Pedido pedido = pedidoService.buscarPedidoPorId(idPedido);
+            //Si el propietario del pedido que quiero confirmar no es el usuario logueado redirecciona sin hacer nada
+            if (!Objects.equals(pedido.getComprador().getId(), idLogueado)) {//En vez de usar el viejo y confialbe != uso equals, porque es un objeto y no un primitivo
+                System.out.println("No es el propietario del pedido");
+                return "redirect:/camara/"+idCamara;
+            }
+            if(pedido.getEstadoDelPedido()==1){
+                pedido.setEstadoDelPedido(0);
+            }else{
+                pedido.setEstadoDelPedido(1);
+            }
+
+            pedidoService.crearPedido(pedido);
+            return "redirect:/camara/"+idCamara;
+        } else {
+            System.out.println("No hay usuario logueado");
+            return "redirect:/login";
+        }
     }
 }

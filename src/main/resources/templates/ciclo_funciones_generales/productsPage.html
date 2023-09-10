@@ -11,7 +11,7 @@
 <h1>Productos Proveeidos</h1>
 <h2>Productos de esta cuenta:</h2>
 <div>
-    <table>
+    <table th:if="${userLogueado.productos.size()>0}">
         <tr>
             <th>Nombre</th>
             <th>Imagen</th>
@@ -37,6 +37,7 @@
 
         </tr>
     </table>
+    <p th:unless="${userLogueado.productos.size()>0}">Esta cuenta no tiene productos cargados</p>
     <br>
 <form th:action="@{/perfil/productos/crear}" method="POST" th:object="${producto}">
 

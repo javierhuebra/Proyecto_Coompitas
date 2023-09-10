@@ -15,4 +15,10 @@ public interface CamaraRepository extends CrudRepository<Camara, Long> {
 
     //Buscar camaras por estado
     List<Camara> findByEstadoDeLaCamara(int estado);
+
+    //Buscar camaras por usuario creador
+    List<Camara> findByCreadorId(Long id);
+
+    //Buscar camaras por usuario que participa
+    List<Camara> findByParticipantesId(Long id);
 }

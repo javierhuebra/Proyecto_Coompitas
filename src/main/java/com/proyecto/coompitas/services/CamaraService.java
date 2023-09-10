@@ -34,9 +34,19 @@ public class CamaraService {
         return camaraRepository.findByProveedorId(id);
     }
 
-    //Traer todas las camaras con estado 2
+    //Traer todas las camaras en funcion del estado que posean
     public List<Camara> findCamarasByEstado(int estado){
         return camaraRepository.findByEstadoDeLaCamara(estado);
+    }
+
+    //Traer todas las camaras por creador
+    public List<Camara> findCamarasByCreadorId(Long id){
+        return camaraRepository.findByCreadorId(id);
+    }
+
+    //Traer todas las camaras en las que el usuario participa
+    public List<Camara> findCamarasByParticipanteId(Long id){
+        return camaraRepository.findByParticipantesId(id);
     }
 
 }

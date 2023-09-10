@@ -1,5 +1,6 @@
 package com.proyecto.coompitas.controllers;
 
+import com.proyecto.coompitas.models.Camara;
 import com.proyecto.coompitas.models.Direccion;
 import com.proyecto.coompitas.models.User;
 import com.proyecto.coompitas.services.CamaraService;
@@ -11,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class MainController {
@@ -54,6 +58,13 @@ public class MainController {
             viewModel.addAttribute("userLogueado", userLogueado);
             if(userLogueado.getRolUsuario() == 2){
                 viewModel.addAttribute("camarasProveidas", camaraService.findCamarasByProveedorId(idLogueado));
+            }else{
+                viewModel.addAttribute("camarasCreadas", camaraService.findCamarasByCreadorId(idLogueado));
+
+                List<Camara> CamarasParticipadasSinLasCreadas = camaraService.findCamarasByParticipanteId(idLogueado);//En esta lista guardo las camaras en las que participa el usuario pero elimino las que creo ya que tambien esta como participante de esas.
+                CamarasParticipadasSinLasCreadas.removeIf(camara -> Objects.equals(camara.getCreador().getId(), idLogueado));//Esta es una forma que me sugirió intellij para eliminar los elementos de la lista que cumplan con la condición
+                System.out.println(CamarasParticipadasSinLasCreadas.size());
+                viewModel.addAttribute("camarasParticipadas", CamarasParticipadasSinLasCreadas);
             }
 
             return "ciclo_funciones_generales/userProfilePage";

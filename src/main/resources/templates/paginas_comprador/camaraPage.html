@@ -30,7 +30,9 @@
                       th:text="'% ' + ${registro.descuentoVigente} + ' OFF'"></span>
             </p>
         </div>
-        <p>Total $<span th:text="${pedido.precioTotal}"></span></p>
+        <p>Costo de su pedido: $<span th:text="${pedido.precioTotal}"></span></p>
+        <p>Costo de su envío: <span th:text="${camara.precioEnvio}"></span>/<span th:text="${camara.participantes.size()}"></span> = $ <span th:text="${camara.precioEnvio/camara.participantes.size()}"></span></p>
+        <p>Total a abonar: $<span th:text="${camara.precioEnvio/camara.participantes.size() + pedido.precioTotal}"></span></p>
 
         <form th:if="${userLogueado.id == pedido.comprador.id}" th:action="@{'/pedidos/' + ${pedido.id} + '/estado/' + ${camara.id}}" method="POST">
             <input th:if="${pedido.estadoDelPedido == 0}" type="submit" value="Estoy Listo">

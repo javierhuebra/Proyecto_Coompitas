@@ -1,10 +1,8 @@
 package com.proyecto.coompitas.controllers;
 
 import com.proyecto.coompitas.models.*;
-import com.proyecto.coompitas.services.CamaraService;
-import com.proyecto.coompitas.services.PedidoProductoService;
-import com.proyecto.coompitas.services.PedidoService;
-import com.proyecto.coompitas.services.UserService;
+import com.proyecto.coompitas.services.*;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,15 +22,18 @@ public class CamaraController {
 
     private final PedidoService pedidoService;
     private final PedidoProductoService pedidoProductoService;
+    private final EmailService emailService;
 
     public CamaraController(UserService userService,
                             CamaraService camaraService,
                             PedidoService pedidoService,
-                            PedidoProductoService pedidoProductoService){
+                            PedidoProductoService pedidoProductoService,
+                            EmailService emailService){
         this.userService = userService;
         this.camaraService = camaraService;
         this.pedidoService = pedidoService;
         this.pedidoProductoService = pedidoProductoService;
+        this.emailService = emailService;
     }
 
 
@@ -103,7 +104,7 @@ public class CamaraController {
      @PostMapping("/camara/proveedores/crear/{idProveedor}")
      public String crearCamara(@PathVariable("idProveedor") Long idProveedor,
                                @ModelAttribute("camara") Camara camara,
-                               HttpSession session){
+                               HttpSession session) throws MessagingException {
          Long idLogueado = (Long) session.getAttribute("idLogueado");
          if (idLogueado != null) {
              User userLogueado = userService.findUserById(idLogueado);//Busco el usuario logueado que va a abrir la camara
@@ -131,6 +132,23 @@ public class CamaraController {
              userLogueado.setEstado(0);//Seteo el estado del usuario logueado en 0 (Genérico)
              userLogueado.setPasswordConfirmation(userLogueado.getPassword());//Lo importante es poner algo, no se guarda en la base de datos
              userService.updateUser(userLogueado);//Actualizo el usuario logueado en la base de datos
+
+             //Envio un correo al proveedor avisandole que se inicio una camara ---------------------------------------------------------------------
+             String contenidoHtml = "<html><head><style>body { font-family: Arial, sans-serif; background-color: #f0f0f0; } " +
+                     "h1 { color: #FFFBEB;background-color: #251749;} p { color: #263159; }</style></head><body>" +
+                     "<h1>"+"La empresa "+userLogueado.getNombreEmpresa()+" ha iniciado una cámara"+"</h1>" +
+                     "<p>Felicitaciones, están juntando compradores para hacerte un gran pedido!</p>" +
+                     "<a href='https://www.youtube.com/'>www.coompas.com</a>"+
+                     "</body></html>";
+
+             try{//PARA HACER UN LOADER ACA HAY QUE EVALUAR CON JAVASCRIPT LA PETICION POST Y MIENTRAS ESPERAMOS LA RESPUESTA PONER VISIBLE EL LOADER
+                 emailService.enviarCorreo(camara.getProveedor().getEmail(), "La empresa "+userLogueado.getNombreEmpresa()+" ha iniciado una cámara", contenidoHtml);
+                 System.out.println("Correo enviado");
+             }catch(MessagingException e){
+                 System.out.println("Error al enviar el correo");
+
+             }
+             //------------------------------------------------------------------------------------------------------------------------------------
 
          }
             return "redirect:/home";

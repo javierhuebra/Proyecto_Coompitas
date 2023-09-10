@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -21,6 +21,7 @@
 <a href="/perfil/direcciones">Direcciones</a>
 <a href="/perfil/productos">Productos</a>
 <br>
+
 <div th:if="${userLogueado.direcciones.size() == 0}">
     <p>Para operar en la app debes registrar por lo menos una dirección! Adelante:</p>
     <form th:action="@{/direccion/create}" method="POST" th:object="${direccion}">

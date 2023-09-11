@@ -6,10 +6,7 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,17 +20,20 @@ public class CamaraController {
     private final PedidoService pedidoService;
     private final PedidoProductoService pedidoProductoService;
     private final EmailService emailService;
+    private final DireccionService direccionService;
 
     public CamaraController(UserService userService,
                             CamaraService camaraService,
                             PedidoService pedidoService,
                             PedidoProductoService pedidoProductoService,
-                            EmailService emailService){
+                            EmailService emailService,
+                            DireccionService direccionService){
         this.userService = userService;
         this.camaraService = camaraService;
         this.pedidoService = pedidoService;
         this.pedidoProductoService = pedidoProductoService;
         this.emailService = emailService;
+        this.direccionService = direccionService;
     }
 
 
@@ -104,6 +104,7 @@ public class CamaraController {
      @PostMapping("/camara/proveedores/crear/{idProveedor}")
      public String crearCamara(@PathVariable("idProveedor") Long idProveedor,
                                @ModelAttribute("camara") Camara camara,
+                               @RequestParam("direccionId") Long direccionId,
                                HttpSession session) throws MessagingException {
          Long idLogueado = (Long) session.getAttribute("idLogueado");
          if (idLogueado != null) {
@@ -112,6 +113,7 @@ public class CamaraController {
 
              camara.setCreador(userLogueado);//Seteo el usuario logueado como creador de la camara
              camara.setProveedor(userProveedor);//Seteo el usuario proveedor como proveedor de la camara, los otros valores vinieron en el modelo con el formulario
+             camara.setDireccionEnvio(direccionService.findDireccionById(direccionId));//Seteo la direccion de envio de la camara
              camara.setEstadoDeLaCamara(1);
 
              //Agrego al usuario logueado como participante de la camara

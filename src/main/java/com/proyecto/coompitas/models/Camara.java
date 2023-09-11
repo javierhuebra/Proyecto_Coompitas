@@ -23,6 +23,10 @@ public class Camara{
 
     private double precioEnvio;
 
+    @ManyToOne(fetch=FetchType.LAZY) //Parece que aunque no quiera generar una relación, debo avisarle con esta anotación cuando quiero tener una variable de otra clase en mi clase
+    @JoinColumn(name = "direccion_id")
+    private Direccion direccionEnvio;
+
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
@@ -57,6 +61,14 @@ public class Camara{
     private List<User> participantes;
 
     public Camara() {
+    }
+
+    public Direccion getDireccionEnvio() {
+        return direccionEnvio;
+    }
+
+    public void setDireccionEnvio(Direccion direccionEnvio) {
+        this.direccionEnvio = direccionEnvio;
     }
 
     public double getPrecioEnvio() {

@@ -72,6 +72,16 @@
             Fecha de expiración:
             <input type="date" th:field="*{fechaDeExpiracion}">
         </label>
+        <label>
+            Dirección de entrega:
+            <select  id="direccionEnvio" name="direccionId">
+                <option th:each="direccion : ${userLogueado.direcciones}"
+                        th:value="${direccion.id}"
+                        th:text="${direccion.pais}+' - '+${direccion.provincia}+' - '+${direccion.ciudad}+' - Calle '+${direccion.calle}">
+                </option>
+            </select>
+        </label>
+        <br>
         <input type="submit" value="Crear Cámara">
     </form>
 

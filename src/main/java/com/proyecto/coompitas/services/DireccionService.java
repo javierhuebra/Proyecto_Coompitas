@@ -16,4 +16,9 @@ public class DireccionService {
     public Direccion saveDireccion(Direccion direccion){
         return direccionRepository.save(direccion);
     }
+
+    //Buscar direccion por id
+    public Direccion findDireccionById(Long id){
+        return direccionRepository.findById(id).orElse(null);
+    }
 }

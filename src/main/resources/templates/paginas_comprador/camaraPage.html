@@ -16,6 +16,8 @@
 
 <div style="padding: 5px; background-color: darkblue">
     <p style="color: white">Estado de la camara: <span style="color: orangered" th:text="${camara.estadoDeLaCamara}"></span></p>
+    <p style="color: white">Fecha de Cierre: <span th:text="${camara.fechaDeExpiracion}"></span></p>
+    <p style="color: white">Dirección de envío: <span th:text="${camara.direccionEnvio.calle} +', '+${camara.direccionEnvio.ciudad}+', '+${camara.direccionEnvio.provincia}+', '+${camara.direccionEnvio.pais} "></span> </p>
     <p style="color: white">Precio de envío: $ <span th:text="${camara.precioEnvio}"></span></p>
     <div style="background-color: aliceblue; margin: 3px" th:each="pedido : ${camara.pedidos}">
         <p>Estado del pedido: <span style="color: orangered" th:text="${pedido.estadoDelPedido}"></span></p>

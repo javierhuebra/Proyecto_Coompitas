@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "direcciones")
@@ -35,6 +37,9 @@ public class Direccion {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
 
+    @OneToMany(mappedBy="direccionEnvio", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    private List<Camara> camara;
+
 
     //USUARIO DUEÑO DE LA DIRECCIÓN
     //Relación N : 1 con User (Una dirección tiene un solo usuario, un usuario puede tener muchas direcciones)
@@ -44,6 +49,8 @@ public class Direccion {
 
     public Direccion() {
     }
+
+
 
     public User getUsuario() {
         return usuario;

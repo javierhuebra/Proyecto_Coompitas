@@ -71,6 +71,7 @@
             <p style="color: red" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
             <p style="color: green" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
             <p>Estado: <span th:text="${camara.estadoDeLaCamara}"></span></p>
+            <p>Dirección de envío: <span th:text="${camara.direccionEnvio.calle} +', '+${camara.direccionEnvio.ciudad}+', '+${camara.direccionEnvio.provincia}+', '+${camara.direccionEnvio.pais} "></span> </p>
             <p>Empresa: <span th:text="${camara.creador.nombreEmpresa}"></span></p>
             <p>Titular: <span th:text="${camara.creador.nombreTitular}"></span></p>
             <p>Telefono: <span th:text="${camara.creador.telefono}"></span></p>

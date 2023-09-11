@@ -23,7 +23,9 @@ public class Camara{
 
     private double precioEnvio;
 
-    @ManyToOne(fetch=FetchType.LAZY) //Parece que aunque no quiera generar una relación, debo avisarle con esta anotación cuando quiero tener una variable de otra clase en mi clase
+    //Relacion que se usa para asignarle una dirección a la camara, solo se relaciona con direcciones
+    //Relación 1 : N con Direccion (Una camara tiene una sola direccion, una direccion puede tener muchas camaras)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "direccion_id")
     private Direccion direccionEnvio;
 

@@ -80,7 +80,7 @@
             <p>Precio de envio: <span th:if="${camara.estadoDeLaCamara == 2}"
                                       th:text="${camara.precioEnvio}"></span><span
                     th:unless="${camara.estadoDeLaCamara == 2}">Esperando confirmación</span></p>
-            <a href="/">Ver Detalles</a>
+            <a th:href="@{camara/{idCamara}(idCamara=${camara.id})}">Ver Detalles</a>
             <div th:if="${camara.estadoDeLaCamara == 1}">
                 <form th:action="@{/perfil/camara/confirmacion/{idCamara}(idCamara =${camara.id})}" method="POST">
                     <label>
@@ -108,12 +108,13 @@
     <div th:if="${camarasCreadas}">
         <h2>Las cámaras que gestionas</h2>
         <div style="border: solid 1px" th:class="${camara.estadoDeLaCamara == 1} ? 'pendiente' : 'aceptada'" th:each="camara : ${camarasCreadas}">
-            <p style="color: red" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN (Puede aparecer una animacion tipo barra de progreso)</p>
+            <p style="color: red; display: inline" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
+            <img style="width: 100px" th:if="${camara.estadoDeLaCamara == 1}" src="https://i.gifer.com/origin/ea/ea3fa7a07d9cb563d67168a6e45ed4e1.gif" alt="">
             <p style="color: green" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
             <p>Estado: <span th:text="${camara.estadoDeLaCamara}"></span></p>
             <p>Proveedor: <span th:text="${camara.proveedor.nombreEmpresa}"></span></p>
 
-            <a href="/">Ver Detalles</a>
+            <a th:href="@{camara/{idCamara}(idCamara=${camara.id})}">Ver Detalles</a>
         </div>
         <div th:if="${camarasCreadas.size() == 0}">
             No eres el propietario de ninguna cámara
@@ -129,7 +130,7 @@
             <p>Proveedor: <span th:text="${camara.proveedor.nombreEmpresa}"></span></p>
             <p>Creador de la camara: <span th:text="${camara.creador.nombreEmpresa}"></span></p>
             <p>Fecha de expiración: <span th:text="${camara.fechaDeExpiracion}"></span></p>
-            <a href="/">Ver Detalles</a>
+            <a th:href="@{camara/{idCamara}(idCamara=${camara.id})}">Ver Detalles</a>
         </div>
         <div th:if="${camarasParticipadas.size() == 0}">
             No tienes ninguna participación vigente

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos</title>
+</head>
+<style>
+    .contenedor {
+        border: 1px solid black;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .contenedor-principal {
+        display: flex;
+        flex-wrap: wrap;
+    }
+</style>
+<body>
+<h1>Todos los productos</h1>
+<h2>(Agregar barra para buscar por nombre, tipo, etc)</h2>
+<div class="contenedor-principal">
+    <div class="contenedor" th:each="producto : ${productos}">
+        <img style="width: 130px"  th:src="${producto.imagen}" alt="imagen del producto" src="">
+        <p th:text="${producto.nombre}"></p>
+        <p>$ <span th:text="${producto.precio}"></span></p>
+
+        <p th:each="descCant : ${producto.getCantidadesDescuentos()}">Llevando mas de <span
+                th:text="${descCant.cantidad}"></span> tienes un <span th:text="${descCant.descuentoAplicado}"></span>%
+            de descuento</p>
+        <p>Proveedor: <span th:text="${producto.proveedor.nombreEmpresa}"></span></p>
+        <img style="width: 60px"  th:src="${producto.proveedor.urlFotoPerfil}" alt="" src="">
+        <a th:href="@{/camara/proveedores/catalogo/{idProveedor}(idProveedor=${producto.proveedor.id})}">Abrir Cámara al Proveedor</a>
+        <a href="/home">Unirse a Cámara del proveedor</a>
+    </div>
+</div>
+</body>
+</html>

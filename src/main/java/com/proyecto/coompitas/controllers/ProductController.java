@@ -80,4 +80,20 @@ public class ProductController {
             return "redirect:/login";
         }
     }
+
+    //GET PARA RENDERIZAR LA VIEW DE TODOS LOS PRODUCTOS
+    @GetMapping("/catalogo/all/productos")
+    public String renderAllProducts(Model viewModel, HttpSession session){
+
+        Long idLogueado = (Long) session.getAttribute("idLogueado");
+        if(idLogueado != null){
+            viewModel.addAttribute("productos", productService.allProducts());
+
+            return "paginas_comprador/catalogoProductosAllPage";
+        }else{
+            System.out.println("No hay usuario logueado");
+            return "redirect:/login";
+        }
+
+    }
 }

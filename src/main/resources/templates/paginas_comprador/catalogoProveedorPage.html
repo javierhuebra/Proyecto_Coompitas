@@ -22,10 +22,10 @@
 
 <body>
 <h1>Catálogo <span th:text="${userProveedor.nombreEmpresa}"></span></h1>
-
+<img style="width: 120px;border-radius: 50%" th:src="${userProveedor.urlFotoPerfil}" alt="" src="">
 <div class="contenedor-principal">
     <div class="contenedor" th:each="producto : ${userProveedor.productos}">
-        <p>http://imagendelproducto.png</p>
+        <img style="width: 130px"  th:src="${producto.imagen}" alt="imagen del producto" src="">
         <p th:text="${producto.nombre}"></p>
         <p>$ <span th:text="${producto.precio}"></span></p>
 

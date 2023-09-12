@@ -24,6 +24,8 @@ public class User {
     //@Min(value = 1, message = "Debe seleccionar un rol de usuario")
     //@Max(value = 2, message = "Debe seleccionar un rol de usuario") comento esto para poder enviar un rol nulo y asignarlo en el controlador (lo pidió el Sieben)
     private int rolUsuario;
+
+    private String urlFotoPerfil;
     @Email(message = "El mail no cumple el formato requerido")
     @NotBlank(message = "El email no puede ser nulo")
     @Column(name ="email",unique = true)
@@ -82,6 +84,14 @@ public class User {
 
 
     public User() {
+    }
+
+    public String getUrlFotoPerfil() {
+        return urlFotoPerfil;
+    }
+
+    public void setUrlFotoPerfil(String urlFotoPerfil) {
+        this.urlFotoPerfil = urlFotoPerfil;
     }
 
     public List<Camara> getCamarasEnLasQueParticipa() {

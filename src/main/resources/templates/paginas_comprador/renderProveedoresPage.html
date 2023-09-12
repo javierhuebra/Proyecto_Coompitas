@@ -7,7 +7,8 @@
 <body>
 <h1>Crear Cámara</h1>
 <h3>Proveedores:</h3>
-<div style="background-color: rgba(0,0,139,0.45)" th:each="userProveedor : ${usersProveedor}">
+<div style="background-color: rgba(0,0,139,0.45); display: flex" th:each="userProveedor : ${usersProveedor}">
+    <img style="width: 60px; border-radius: 50%;" th:src="${userProveedor.urlFotoPerfil}" alt="" src="">
     <p th:text="${userProveedor.nombreEmpresa}"></p>
     <a th:href="@{/camara/proveedores/catalogo/{idProveedor}(idProveedor=${userProveedor.id})}">Abrir una camara</a>
 </div>

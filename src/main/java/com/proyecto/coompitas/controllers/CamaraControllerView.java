@@ -48,18 +48,28 @@ public class CamaraControllerView {
             List<Pedido> pedidosDeLaCamara = camaraActual.getPedidos();//Guardo los pedidos que tiene la camara
             List<PedidoProducto> registrosConProductoYCantidad = new ArrayList<>();//Creo una lista de PedidoProducto, que es la tabla intermedia que se genera cuando se guarda un producto en un pedido, pero le agregamos a mano la cantidad y la necesito tambien
             boolean estanTodosLosPedidosListos = true;
+            boolean estanTodosLosPedidosPagados = true;
 
             for(Pedido pedido : pedidosDeLaCamara){//Busco los registros de relacion entre pedido y producto para cada pedido de la camara
                 registrosConProductoYCantidad.addAll(pedidoProductoService.buscarPorPedido(pedido.getId()));//Agrego a la lista los registros de la tabla intermedia que se generan cuando se guarda un producto en un pedido
                 if(pedido.getEstadoDelPedido() == 0){
                     estanTodosLosPedidosListos = false;
+                    estanTodosLosPedidosPagados = false;
                 }
+                if(pedido.getEstadoDelPedido() == 1){
+                    estanTodosLosPedidosPagados = false;
+                }
+            }
+            if(estanTodosLosPedidosPagados && camaraActual.getEstadoDeLaCamara() == 4){
+                camaraActual.setEstadoDeLaCamara(5);
+                camaraService.createCamara(camaraActual);
             }
 
 
             viewModel.addAttribute("registrosProductoYCantidad", registrosConProductoYCantidad);//Inserto la lista de registros de la tabla intermedia en el modelo para que se pueda usar en la página camaraPage
             viewModel.addAttribute("usuarioLogueado", userService.findUserById(idLogueado));//Inserto el usuario logueado en el modelo para que se pueda usar en la página camaraPage")
             viewModel.addAttribute("pedidosListos", estanTodosLosPedidosListos);//Inserto el usuario logueado en el modelo para que se pueda usar en la página camaraPage")
+            viewModel.addAttribute("pedidosPagados", estanTodosLosPedidosPagados);//Inserto el usuario logueado en el modelo para que se pueda usar en la página camaraPage")
             return "paginas_comprador/camaraPage";
         }else{
             System.out.println("No hay usuario logueado");

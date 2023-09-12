@@ -23,6 +23,9 @@ public class Camara{
 
     private double precioEnvio;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date fechaDeLlegada;
+
     //Relacion que se usa para asignarle una dirección a la camara, solo se relaciona con direcciones
     //Relación 1 : N con Direccion (Una camara tiene una sola direccion, una direccion puede tener muchas camaras)
     @ManyToOne(fetch=FetchType.LAZY)
@@ -63,6 +66,14 @@ public class Camara{
     private List<User> participantes;
 
     public Camara() {
+    }
+
+    public Date getFechaDeLlegada() {
+        return fechaDeLlegada;
+    }
+
+    public void setFechaDeLlegada(Date fechaDeLlegada) {
+        this.fechaDeLlegada = fechaDeLlegada;
     }
 
     public Direccion getDireccionEnvio() {

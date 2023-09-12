@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -33,8 +34,9 @@ public class UserController {
         return "ciclo_registro_login/registrationPage";
     }
 
-    @PostMapping("/user/register")
+    @PostMapping("/user/register/{rol}")
     public String registerUser(@Valid @ModelAttribute("user") User user,
+                               @PathVariable("rol") int rol,
                                BindingResult result,
                                Model viewModel){
         userValidator.validate(user, result);
@@ -43,6 +45,7 @@ public class UserController {
             return "ciclo_registro_login/registrationPage";
         }else{
             try{
+                user.setRolUsuario(rol);
                 userService.registerUser(user);
                 //session.setAttribute("idLogueado", user.getId()); Esto para loguear directamente y que te mande a completar la direccion al perfil, un registro en dos pasos para mejorar UX
             }catch(DataIntegrityViolationException e){

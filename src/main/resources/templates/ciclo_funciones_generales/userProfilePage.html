@@ -70,27 +70,50 @@
         <div style="border: solid 1px" th:each="camara : ${camarasProveidas}">
             <p style="color: red" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
             <p style="color: green" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
+            <p style="color: #0eadc0" th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO REFORMULACIÓN DE COSTO DE ENVÍO</p>
+            <p style="color: #5e0ec0" th:if="${camara.estadoDeLaCamara == 4}">ESPERANDO QUE SE EFECTÚEN TODOS LOS PAGOS</p>
+            <p style="color: #fd33a1" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL PROVEEDOR ENVÍE LA CÁMARA DE PEDIDOS</p>
+            <p style="color: #ffffff;background-color: green" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS EN CAMINO!</p>
+            <p style="color: #ffffff;background-color: green" th:if="${camara.estadoDeLaCamara == 6}">
+                Fecha aproximada de llegada:
+                <span th:text="${camara.fechaDeLlegada}"></span>
+            </p>
             <p>Estado: <span th:text="${camara.estadoDeLaCamara}"></span></p>
             <p>Dirección de envío: <span th:text="${camara.direccionEnvio.calle} +', '+${camara.direccionEnvio.ciudad}+', '+${camara.direccionEnvio.provincia}+', '+${camara.direccionEnvio.pais} "></span> </p>
             <p>Empresa: <span th:text="${camara.creador.nombreEmpresa}"></span></p>
             <p>Titular: <span th:text="${camara.creador.nombreTitular}"></span></p>
             <p>Telefono: <span th:text="${camara.creador.telefono}"></span></p>
-            <p>Participantes: <span th:text="${camara.participantes.size()}"></span></p>
+            <p>Participantes de la cámara: <span th:text="${camara.participantes.size()}"></span></p>
+            <div th:if="${camara.estadoDeLaCamara == 4 || camara.estadoDeLaCamara == 5}">
+                <p th:each="participante : ${camara.participantes}">- Pedido de
+                    <span th:text="${participante.nombreEmpresa}"></span>:
+                    <span th:each="pedidoDelParticipante : ${participante.pedidos}" th:if="${pedidoDelParticipante.camara == camara}">
+                        <span style="color: green" th:if="${pedidoDelParticipante.estadoDelPedido == 2}">PAGADO</span>
+                        <span style="color: red" th:if="${pedidoDelParticipante.estadoDelPedido == 1}">ESPERANDO PAGO</span>
+                </span></p>
+            </div>
             <p>Fecha de expiración: <span th:text="${camara.fechaDeExpiracion}"></span></p>
-            <p>Precio de envio: <span th:if="${camara.estadoDeLaCamara == 2}"
-                                      th:text="${camara.precioEnvio}"></span><span
-                    th:unless="${camara.estadoDeLaCamara == 2}">Esperando confirmación</span></p>
+            <p th:if="${camara.estadoDeLaCamara != 1}">Precio de envio: <span th:text="${camara.precioEnvio}"></span></p>
+            <form th:if="${camara.estadoDeLaCamara == 5}" th:action="@{/camara/{idCamara}/enviar(idCamara = ${camara.id})}" method="POST">
+                <label>
+                    Fecha de llegada estimada:
+                    <br>
+                    <input type="date" name="fechaDeLlegada">
+                </label>
+
+                <input type="submit" value="CÁMARA EN CAMINO">
+            </form>
             <a th:href="@{camara/{idCamara}(idCamara=${camara.id})}">Ver Detalles</a>
-            <div th:if="${camara.estadoDeLaCamara == 1}">
+            <div th:if="${camara.estadoDeLaCamara == 1 }">
                 <form th:action="@{/perfil/camara/confirmacion/{idCamara}(idCamara =${camara.id})}" method="POST">
                     <label>
-                        Precio de envio:
+                        Precio de envio inicial:
                         <input type="number" name="precioEnvio">
                     </label>
                     <input type="submit" value="Confirmar">
                 </form>
             </div>
-            <div th:if="${camara.estadoDeLaCamara == 2}">
+            <div th:if="${camara.estadoDeLaCamara == 3 }">
                 <form th:action="@{/perfil/camara/confirmacion/{idCamara}(idCamara =${camara.id})}" method="POST">
                     <label>
                         Reformular Precio de envio:
@@ -111,6 +134,14 @@
             <p style="color: red; display: inline" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
             <img style="width: 100px" th:if="${camara.estadoDeLaCamara == 1}" src="https://i.gifer.com/origin/ea/ea3fa7a07d9cb563d67168a6e45ed4e1.gif" alt="">
             <p style="color: green" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
+            <p style="color: #0eadc0" th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO COTIZACIÓN DE ENVÍO</p>
+            <p style="color: #5e0ec0" th:if="${camara.estadoDeLaCamara == 4}">ESPERANDO EL PAGO DE LOS PARTICIPANTES</p>
+            <p style="color: #fd33a1" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL PROVEEDOR ENVÍE LA CÁMARA DE PEDIDOS</p>
+            <p style="color: #ffffff;background-color: green" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS EN CAMINO!</p>
+            <p style="color: #ffffff;background-color: green" th:if="${camara.estadoDeLaCamara == 6}">
+                Fecha aproximada de llegada:
+                <span th:text="${camara.fechaDeLlegada}"></span>
+            </p>
             <p>Estado: <span th:text="${camara.estadoDeLaCamara}"></span></p>
             <p>Proveedor: <span th:text="${camara.proveedor.nombreEmpresa}"></span></p>
 
@@ -124,7 +155,14 @@
         <div style="border: solid 1px"  th:each="camara : ${camarasParticipadas}">
 
             <p style="color: green" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
-            <p style="color: orange" th:if="${camara.estadoDeLaCamara != 2}">OTRO ESTADO</p>
+            <p style="color: #0eadc0" th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO COTIZACIÓN DE ENVÍO</p>
+            <p style="color: #5e0ec0" th:if="${camara.estadoDeLaCamara == 4}">ESPERANDO EL PAGO DE LOS PARTICIPANTES</p>
+            <p style="color: #fd33a1" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL PROVEEDOR ENVÍE LA CÁMARA DE PEDIDOS</p>
+            <p style="color: #ffffff;background-color: green" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS EN CAMINO!</p>
+            <p style="color: #ffffff;background-color: green" th:if="${camara.estadoDeLaCamara == 6}">
+                Fecha aproximada de llegada:
+                <span th:text="${camara.fechaDeLlegada}"></span>
+            </p>
             <p>Estado: <span th:text="${camara.estadoDeLaCamara}"></span></p>
 
             <p>Proveedor: <span th:text="${camara.proveedor.nombreEmpresa}"></span></p>

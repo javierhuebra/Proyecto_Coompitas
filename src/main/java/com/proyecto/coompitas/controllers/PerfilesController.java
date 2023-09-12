@@ -31,7 +31,11 @@ public class PerfilesController {
         if(idLogueado != null){
             Camara camara = camaraService.findCamara(idCamara);
             camara.setPrecioEnvio(precioEnvio);
-            camara.setEstadoDeLaCamara(2);
+            if(camara.getEstadoDeLaCamara() == 3){
+                camara.setEstadoDeLaCamara(4);
+            }else{
+                camara.setEstadoDeLaCamara(2);
+            }
             camaraService.createCamara(camaraService.findCamara(idCamara));
         }else{
             System.out.println("No hay usuario logueado");

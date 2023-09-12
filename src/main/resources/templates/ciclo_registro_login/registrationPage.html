@@ -9,7 +9,8 @@
 </head>
 <body>
 <h1>Registro</h1>
-<form th:action="@{/user/register}" method="POST" th:object="${user}">
+<h2>Registrarse como Comprador</h2>
+<form th:action="@{/user/register/1}" method="POST" th:object="${user}">
 
     <label>
         Nombre de Empresa:
@@ -60,14 +61,79 @@
         <br>
         <label style="color: red" th:if="${#fields.hasErrors('passwordConfirmation')}" th:errors="*{passwordConfirmation}"></label>
     </label>
-    <br>
+    <!--<br>
     <label>
         Tipo de Cuenta:
         <input type="radio" th:field="*{rolUsuario}" th:value="1"> Comprador
         <input type="radio" th:field="*{rolUsuario}" th:value="2"> Proveedor
         <br>
         <label style="color: red" th:if="${#fields.hasErrors('rolUsuario')}" th:errors="*{rolUsuario}"></label>
+    </label>-->
+    <br>
+    <input type="submit" value="Crear Cuenta">
+</form>
+<a href="/login">¿Ya tienes cuenta? Inicia Sesión</a>
+
+<h2>Registrarse como Proveedor</h2>
+<form th:action="@{/user/register/2}" method="POST" th:object="${user}">
+
+    <label>
+        Nombre de Empresa:
+        <input type="text" th:field="*{nombreEmpresa}">
+        <br>
+        <label style="color: red" th:if="${#fields.hasErrors('nombreEmpresa')}" th:errors="*{nombreEmpresa}"></label>
     </label>
+    <br>
+    <label>
+        CUIT/CUIL:
+        <input type="text" th:field="*{cuitCuil}">
+        <br>
+        <label style="color: red" th:if="${#fields.hasErrors('cuitCuil')}" th:errors="*{cuitCuil}"></label>
+    </label>
+    <br>
+    <label>
+        Nombre del Titular:
+        <input type="text" th:field="*{nombreTitular}">
+        <br>
+        <label style="color: red" th:if="${#fields.hasErrors('nombreTitular')}" th:errors="*{nombreTitular}"></label>
+    </label>
+    <br>
+    <label>
+        Email:
+        <input type="text" th:field="*{email}">
+        <br>
+        <span style="color: red" th:if="${emailDuplicateError}" th:text="${emailDuplicateError}"></span>
+        <label style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
+    </label>
+    <br>
+    <label>
+        Teléfono:
+        <input type="text" th:field="*{telefono}">
+        <br>
+        <label style="color: red" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></label>
+    </label>
+    <br>
+    <label>
+        Contraseña:
+        <input type="password" th:field="*{password}">
+        <br>
+        <label style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
+    </label>
+    <br>
+    <label>
+        Repita la Contraseña:
+        <input type="password" th:field="*{passwordConfirmation}">
+        <br>
+        <label style="color: red" th:if="${#fields.hasErrors('passwordConfirmation')}" th:errors="*{passwordConfirmation}"></label>
+    </label>
+    <!--<br>
+    <label>
+        Tipo de Cuenta:
+        <input type="radio" th:field="*{rolUsuario}" th:value="1"> Comprador
+        <input type="radio" th:field="*{rolUsuario}" th:value="2"> Proveedor
+        <br>
+        <label style="color: red" th:if="${#fields.hasErrors('rolUsuario')}" th:errors="*{rolUsuario}"></label>
+    </label>-->
     <br>
     <input type="submit" value="Crear Cuenta">
 </form>

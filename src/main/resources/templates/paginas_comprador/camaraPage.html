@@ -9,10 +9,10 @@
 </head>
 <body>
 <h1>Cámara de compra para la empresa <span style="color: green" th:text="${camara.proveedor.nombreEmpresa}"></span></h1>
+<img style="width: 100px" th:src="${camara.proveedor.urlFotoPerfil}" alt="imagen del proveedor" src="">
 <h2>Creada por <span style="color: green" th:text="${camara.creador.nombreTitular}"></span> de la empresa <span
         style="color: green" th:text="${camara.creador.nombreEmpresa}"></span></h2>
-<h2>La fecha de expliración de esta cámara es: (agregar la fecha en thymeleaf cuando este validada sino va a tirar error
-    el null)</h2>
+<img style="width: 100px;height: 100px;border-radius: 50%" th:src="${camara.creador.urlFotoPerfil}" alt="foto perfil creador" src="">
 
 <div style="padding: 5px; background-color: darkblue">
     <p style="color: red" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
@@ -41,6 +41,7 @@
             <span th:if="${pedido.estadoDelPedido == 2}" style="color: white;background-color: green">PAGADO</span>
             <span th:if="${pedido.estadoDelPedido == 1}" style="color: red">ESPERANDO PAGO</span>
         </p>
+        <img style="width: 30px;height: 30px; border-radius: 50%" th:src="${pedido.comprador.urlFotoPerfil}" alt="foto del comprador" src="">
         <p>Estado del pedido: <span style="color: orangered" th:text="${pedido.estadoDelPedido}"></span></p>
         <p> Pedido realizado por: <span th:text="${pedido.comprador.nombreEmpresa}"></span></p>
         <div th:each="registro : ${registrosProductoYCantidad}">
@@ -64,6 +65,6 @@
         <a th:if="${camara.estadoDeLaCamara == 4 && (pedido.comprador == userLogueado)}" th:href="@{/pagar/{idCamara}/{idPedido}(idCamara=${camara.id},idPedido=${pedido.id})}">Pagar Pedido</a>
     </div>
 </div>
-<a th:if="${camara.estadoDeLaCamara == 2 && (camara.creador != userLogueado)}" th:href="@{/unirse/{idCamara}/productos(idCamara=${camara.id})}">Unirse a la camara</a>
+<a th:if="${camara.estadoDeLaCamara == 2 && (camara.creador != userLogueado) && userLogueado.rolUsuario != 2}" th:href="@{/unirse/{idCamara}/productos(idCamara=${camara.id})}">Unirse a la camara</a>
 </body>
 </html>

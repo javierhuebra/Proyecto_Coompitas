@@ -21,7 +21,11 @@
 
 <div class="camaras">
     <p  class="titulo">Camaras:</p>
-    <div style="background-color: rgba(127,255,0,0.55)" th:each="camara : ${camarasCreadas}">
+    <div style="background-color: rgba(127,255,0,0.55);margin-bottom: 10px" th:each="camara : ${camarasCreadas}">
+        <div style="display: flex">
+            <img style="width: 40px;height: 40px;border-radius: 50%" th:src="${camara.proveedor.urlFotoPerfil}" alt="imagen de proveedor" src="">
+            <img style="width: 40px;height: 40px;border-radius: 50%" th:src="${camara.creador.urlFotoPerfil}" alt="imagen de proveedor" src="">
+        </div>
         <p>Estado: <span th:text="${camara.estadoDeLaCamara}"></span></p>
         <p>Camara para comprar en <span th:text="${camara.proveedor.nombreEmpresa}"></span></p>
         <p>Creada por la empresa <span th:text="${camara.creador.nombreEmpresa}"></span></p>

@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -57,14 +58,19 @@ public class MainController {
             User userLogueado = userService.findUserById(idLogueado);
             viewModel.addAttribute("userLogueado", userLogueado);
             if(userLogueado.getRolUsuario() == 2){
-                viewModel.addAttribute("camarasProveidas", camaraService.findCamarasByProveedorId(idLogueado));
+                List<Camara> camarasProveidas = camaraService.findCamarasByProveedorId(idLogueado);
+                Collections.reverse(camarasProveidas);
+                viewModel.addAttribute("camarasProveidas", camarasProveidas);
             }else{
-                viewModel.addAttribute("camarasCreadas", camaraService.findCamarasByCreadorId(idLogueado));
+                List<Camara> camarasCreadas = camaraService.findCamarasByCreadorId(idLogueado);
+                Collections.reverse(camarasCreadas);
+                viewModel.addAttribute("camarasCreadas", camarasCreadas);
 
-                List<Camara> CamarasParticipadasSinLasCreadas = camaraService.findCamarasByParticipanteId(idLogueado);//En esta lista guardo las camaras en las que participa el usuario pero elimino las que creo ya que tambien esta como participante de esas.
-                CamarasParticipadasSinLasCreadas.removeIf(camara -> Objects.equals(camara.getCreador().getId(), idLogueado));//Esta es una forma que me sugirió intellij para eliminar los elementos de la lista que cumplan con la condición
-                System.out.println(CamarasParticipadasSinLasCreadas.size());
-                viewModel.addAttribute("camarasParticipadas", CamarasParticipadasSinLasCreadas);
+                List<Camara> camarasParticipadasSinLasCreadas = camaraService.findCamarasByParticipanteId(idLogueado);//En esta lista guardo las camaras en las que participa el usuario pero elimino las que creo ya que tambien esta como participante de esas.
+                camarasParticipadasSinLasCreadas.removeIf(camara -> Objects.equals(camara.getCreador().getId(), idLogueado));//Esta es una forma que me sugirió intellij para eliminar los elementos de la lista que cumplan con la condición
+
+                Collections.reverse(camarasParticipadasSinLasCreadas);
+                viewModel.addAttribute("camarasParticipadas", camarasParticipadasSinLasCreadas);
             }
 
             return "ciclo_funciones_generales/userProfilePage";

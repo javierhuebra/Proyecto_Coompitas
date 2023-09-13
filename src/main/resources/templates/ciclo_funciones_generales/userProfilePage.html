@@ -17,7 +17,7 @@
 </style>
 <body>
 
-    <img style="width: 120px;border-radius: 50%" th:src="${userLogueado.urlFotoPerfil}" alt="" src="">
+    <img style="width: 120px;height: 120px;border-radius: 50%" th:src="${userLogueado.urlFotoPerfil}" alt="" src="">
     <div>
         <form action="/user/perfil/foto" method="POST">
             <label>
@@ -35,7 +35,7 @@
     </div>
 
 <a href="/perfil/direcciones">Direcciones</a>
-<a href="/perfil/productos">Productos</a>
+<a th:if="${userLogueado.rolUsuario == 2}" href="/perfil/productos">Productos</a>
 <br>
 
 
@@ -85,6 +85,7 @@
     <div th:if="${camarasProveidas}">
         <h2>Camaras Proveidas</h2>
         <div style="border: solid 1px" th:each="camara : ${camarasProveidas}">
+            <img style="width: 50px;height:50px; border-radius: 50%" th:src="${camara.creador.urlFotoPerfil}" alt="" src="">
             <p style="color: red" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
             <p style="color: green" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
             <p style="color: #0eadc0" th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO REFORMULACIÓN DE COSTO DE ENVÍO</p>
@@ -148,6 +149,7 @@
     <div th:if="${camarasCreadas}">
         <h2>Las cámaras que gestionas</h2>
         <div style="border: solid 1px" th:class="${camara.estadoDeLaCamara == 1} ? 'pendiente' : 'aceptada'" th:each="camara : ${camarasCreadas}">
+            <img style="width: 50px;height:50px; border-radius: 50%" th:src="${camara.proveedor.urlFotoPerfil}" alt="" src="">
             <p style="color: red; display: inline" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
             <img style="width: 100px" th:if="${camara.estadoDeLaCamara == 1}" src="https://i.gifer.com/origin/ea/ea3fa7a07d9cb563d67168a6e45ed4e1.gif" alt="">
             <p style="color: green" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
@@ -170,6 +172,10 @@
         <hr>
         <h2>Cámaras en las que participas</h2>
         <div style="border: solid 1px"  th:each="camara : ${camarasParticipadas}">
+            <div style="display: flex">
+                <img style="width: 50px;height:50px; border-radius: 50%" th:src="${camara.proveedor.urlFotoPerfil}" alt="" src="">
+                <img style="width: 50px;height:50px; border-radius: 50%" th:src="${camara.creador.urlFotoPerfil}" alt="" src="">
+            </div>
 
             <p style="color: green" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
             <p style="color: #0eadc0" th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO COTIZACIÓN DE ENVÍO</p>

@@ -16,6 +16,9 @@
     <li th:each="producto : ${productos}" >
         <button class="categoriaBtn" th:text="${producto.categoria}"></button>
     </li>
+    <li>
+        <button id="restet_filtros">Mostrar Todos</button>
+    </li>
 </ul>
 <ul class="lista_productos">
     <li class="producto" th:each="producto : ${productos}">
@@ -36,6 +39,7 @@
     const search_input = document.getElementById('search_input');
     const productos = document.querySelectorAll('.producto');
     const categoriasBtn = document.querySelectorAll('.categoriaBtn');
+    const reset_filtros = document.getElementById('restet_filtros');
 
     search_input.addEventListener('keyup', () => {
         const search_term = search_input.value.toLowerCase();
@@ -71,6 +75,12 @@
                 });
             });
         }
+    });
+
+    reset_filtros.addEventListener('click', () => {
+        productos.forEach((producto) => {
+            producto.style.display = 'block';
+        });
     });
 </script>
 </body>

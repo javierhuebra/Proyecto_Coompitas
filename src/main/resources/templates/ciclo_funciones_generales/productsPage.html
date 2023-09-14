@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,129 +9,168 @@
 </head>
 <body>
 <h1>Productos Proveeidos</h1>
+<input type="text" id="search-input" placeholder="Buscar producto...">
 <h2>Productos de esta cuenta:</h2>
-<div>
-    <table th:if="${userLogueado.productos.size()>0}">
-        <tr>
-            <th>Nombre</th>
-            <th>Imagen</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Categoría</th>
-            <th>Descripción</th>
-            <th>Disponible</th>
-            <th>Acciones</th>
-        </tr>
-        <tr th:each="producto : ${userLogueado.productos}">
-            <td th:text="${producto.nombre}"></td>
-            <td>
-                <img style="height: 50px" th:src="${producto.imagen}" alt="imagen producto">
-            </td>
-            <td th:text="${producto.precio}"></td>
-            <td th:text="${producto.stock}"></td>
-            <td th:text="${producto.categoria}"></td>
-            <td th:text="${producto.descripcion}"></td>
-            <td th:text="${producto.disponible}"></td>
-            <td>
+    <!--    <table th:if="${userLogueado.productos.size()>0}">-->
+    <!--        <tr>-->
+    <!--            <th>Nombre</th>-->
+    <!--            <th>Imagen</th>-->
+    <!--            <th>Precio</th>-->
+    <!--            <th>Stock</th>-->
+    <!--            <th>Categoría</th>-->
+    <!--            <th>Descripción</th>-->
+    <!--            <th>Disponible</th>-->
+    <!--            <th>Acciones</th>-->
+    <!--        </tr>-->
+    <!--        <tr th:each="producto : ${userLogueado.productos}">-->
+    <!--            <td th:text="${producto.nombre}"></td>-->
+    <!--            <td>-->
+    <!--                <img style="height: 50px" th:src="${producto.imagen}" alt="imagen producto">-->
+    <!--            </td>-->
+    <!--            <td th:text="${producto.precio}"></td>-->
+    <!--            <td th:text="${producto.stock}"></td>-->
+    <!--            <td th:text="${producto.categoria}"></td>-->
+    <!--            <td th:text="${producto.descripcion}"></td>-->
+    <!--            <td th:text="${producto.disponible}"></td>-->
+    <!--            <td>-->
+    <!--                <a href="/perfil/productos">Editar</a>-->
+    <!--                <a href="/perfil/productos">Eliminar</a>-->
+    <!--            </td>-->
+
+    <!--        </tr>-->
+    <!--    </table>-->
+    <ul class="lista_productos" th:if="${userLogueado.productos.size()>0}">
+        <li class="producto" th:each="producto : ${userLogueado.productos}">
+            <img style="height: 50px" th:src="${producto.imagen}" alt="imagen producto">
+            <span class="producto_nombre" th:text="${producto.nombre}"></span>
+            <span th:text="${producto.precio}"></span>
+            <span th:text="${producto.stock}"></span>
+            <span th:text="${producto.categoria}"></span>
+            <div>
                 <a href="/perfil/productos">Editar</a>
                 <a href="/perfil/productos">Eliminar</a>
-            </td>
+            </div>
 
-        </tr>
-    </table>
+
+        </li>
+
+    </ul>
     <p th:unless="${userLogueado.productos.size()>0}">Esta cuenta no tiene productos cargados</p>
     <br>
-<form th:action="@{/perfil/productos/crear}" method="POST" th:object="${producto}">
+    <form th:action="@{/perfil/productos/crear}" method="POST" th:object="${producto}">
 
-    <label>
-        Nombre del producto:
-        <input type="text" th:field="*{nombre}">
-        <br>
-        <label style="color: red" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></label>
-    </label>
-    <br>
-    <label>
-        Imagen del producto:
-        <input type="text" th:field="*{imagen}">
-        <br>
-        <label style="color: red" th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"></label>
-    </label>
-    <br>
-    <label>
-        Precio base:
-        <input type="number" th:field="*{precio}">
-        <br>
-        <label style="color: red" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></label>
-    </label>
-    <br>
-    <label>
-        Cantidades y Descuentos:
-
-        <br>
-        <div>
-            Cantidad 1:
-            <input type="number" th:field="*{cantidadesDescuentos[0].cantidad}">
-            <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[0].cantidad')}" th:errors="*{cantidadesDescuentos[0].cantidad}"></label>
-            Descuento 1:
-            <input type="number" th:field="*{cantidadesDescuentos[0].descuentoAplicado}">
-            <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[0].descuentoAplicado')}" th:errors="*{cantidadesDescuentos[0].descuentoAplicado}"></label>
-        </div>
-        <div>
-            Cantidad 2:
-            <input type="number" th:field="*{cantidadesDescuentos[1].cantidad}">
-            <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[1].cantidad')}" th:errors="*{cantidadesDescuentos[1].cantidad}"></label>
-            Descuento 2:
-            <input type="number" th:field="*{cantidadesDescuentos[1].descuentoAplicado}">
-            <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[1].descuentoAplicado')}" th:errors="*{cantidadesDescuentos[1].descuentoAplicado}"></label>
-        </div>
-        <div>
-            Cantidad 3:
-            <input type="number" th:field="*{cantidadesDescuentos[2].cantidad}">
-            <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[2].cantidad')}" th:errors="*{cantidadesDescuentos[2].cantidad}"></label>
-            Descuento 3:
-            <input type="number" th:field="*{cantidadesDescuentos[2].descuentoAplicado}">
-            <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[2].descuentoAplicado')}" th:errors="*{cantidadesDescuentos[2].descuentoAplicado}"></label>
-        </div>
-    </label>
-    <br>
-    <label>
-        Stock:
-        <input type="number" th:field="*{stock}">
-        <br>
-        <label style="color: red" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></label>
-    </label>
-    <br>
-    <label>
-        Categoría:
-        <select id="categoria" name="categoria" th:field="*{categoria}">
-            <option value="">Seleccione una categoría</option>
-            <option th:each="categoria : ${categorias}"
-                    th:value="${categoria}"
-                    th:text="${categoria}">
-            </option>
-        </select>
-        <label style="color: red" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></label>
-    </label>
-    <br>
-    <label>
-        Descrición:
-        <textarea cols="30" rows="10" th:field="*{descripcion}"></textarea>
-        <br>
-        <label style="color: red" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></label>
-    </label>
-    <br>
-    <label>
-        Disponibilidad:
         <label>
-            <input type="radio" th:field="*{disponible}" th:value="true"> Disponible
-        </label>
-        <label>
-            <input type="radio" th:field="*{disponible}" th:value="false"> No disponible
+            Nombre del producto:
+            <input type="text" th:field="*{nombre}">
+            <br>
+            <label style="color: red" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></label>
         </label>
         <br>
-    </label>
-    <br>
-    <input type="submit" value="Crear Producto">
-</form>
+        <label>
+            Imagen del producto:
+            <input type="text" th:field="*{imagen}">
+            <br>
+            <label style="color: red" th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"></label>
+        </label>
+        <br>
+        <label>
+            Precio base:
+            <input type="number" th:field="*{precio}">
+            <br>
+            <label style="color: red" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></label>
+        </label>
+        <br>
+        <label>
+            Cantidades y Descuentos:
+
+            <br>
+            <div>
+                Cantidad 1:
+                <input type="number" th:field="*{cantidadesDescuentos[0].cantidad}">
+                <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[0].cantidad')}"
+                       th:errors="*{cantidadesDescuentos[0].cantidad}"></label>
+                Descuento 1:
+                <input type="number" th:field="*{cantidadesDescuentos[0].descuentoAplicado}">
+                <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[0].descuentoAplicado')}"
+                       th:errors="*{cantidadesDescuentos[0].descuentoAplicado}"></label>
+            </div>
+            <div>
+                Cantidad 2:
+                <input type="number" th:field="*{cantidadesDescuentos[1].cantidad}">
+                <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[1].cantidad')}"
+                       th:errors="*{cantidadesDescuentos[1].cantidad}"></label>
+                Descuento 2:
+                <input type="number" th:field="*{cantidadesDescuentos[1].descuentoAplicado}">
+                <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[1].descuentoAplicado')}"
+                       th:errors="*{cantidadesDescuentos[1].descuentoAplicado}"></label>
+            </div>
+            <div>
+                Cantidad 3:
+                <input type="number" th:field="*{cantidadesDescuentos[2].cantidad}">
+                <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[2].cantidad')}"
+                       th:errors="*{cantidadesDescuentos[2].cantidad}"></label>
+                Descuento 3:
+                <input type="number" th:field="*{cantidadesDescuentos[2].descuentoAplicado}">
+                <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[2].descuentoAplicado')}"
+                       th:errors="*{cantidadesDescuentos[2].descuentoAplicado}"></label>
+            </div>
+        </label>
+        <br>
+        <label>
+            Stock:
+            <input type="number" th:field="*{stock}">
+            <br>
+            <label style="color: red" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></label>
+        </label>
+        <br>
+        <label>
+            Categoría:
+            <select id="categoria" name="categoria" th:field="*{categoria}">
+                <option value="">Seleccione una categoría</option>
+                <option th:each="categoria : ${categorias}"
+                        th:value="${categoria}"
+                        th:text="${categoria}">
+                </option>
+            </select>
+            <label style="color: red" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></label>
+        </label>
+        <br>
+        <label>
+            Descrición:
+            <textarea cols="30" rows="10" th:field="*{descripcion}"></textarea>
+            <br>
+            <label style="color: red" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></label>
+        </label>
+        <br>
+        <label>
+            Disponibilidad:
+            <label>
+                <input type="radio" th:field="*{disponible}" th:value="true"> Disponible
+            </label>
+            <label>
+                <input type="radio" th:field="*{disponible}" th:value="false"> No disponible
+            </label>
+            <br>
+        </label>
+        <br>
+        <input type="submit" value="Crear Producto">
+    </form>
 </body>
+<script>
+    const search_input = document.getElementById('search-input');
+    const lista_productos = document.querySelector('.lista_productos');
+    const productos = document.querySelectorAll('.producto');
+
+    search_input.addEventListener('keyup', () => {
+        const search_term = search_input.value.toLowerCase();
+        for (let i = 0; i < productos.length; i++) {
+            const title = productos[i].querySelector('.producto_nombre').textContent.toLowerCase();
+            if (title.indexOf(search_term) != -1) {
+                productos[i].style.display = 'block';
+            } else {
+                productos[i].style.display = 'none';
+            }
+        }
+    });
+</script>
 </html>

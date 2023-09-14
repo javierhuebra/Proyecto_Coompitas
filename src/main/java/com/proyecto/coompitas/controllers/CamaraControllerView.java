@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 public class CamaraControllerView {
@@ -51,6 +49,8 @@ public class CamaraControllerView {
             boolean estanTodosLosPedidosListos = true;
             boolean estanTodosLosPedidosPagados = true;
 
+            Map<Producto, Integer> mapaProdCant = new HashMap<>();//HashMap para guardar la cantidad total de cada producto en la cámara
+
             for(Pedido pedido : pedidosDeLaCamara){//Busco los registros de relacion entre pedido y producto para cada pedido de la camara
                 registrosConProductoYCantidad.addAll(pedidoProductoService.buscarPorPedido(pedido.getId()));//Agrego a la lista los registros de la tabla intermedia que se generan cuando se guarda un producto en un pedido
                 if(pedido.getEstadoDelPedido() == 0){
@@ -61,19 +61,33 @@ public class CamaraControllerView {
                     estanTodosLosPedidosPagados = false;
                 }
 
-                //Para guardar las cantidades de cada producto dentro de cada cámara
 
-                List<ProdCant> listaProdCant = new ArrayList<>();
-                for(PedidoProducto pedidoProducto : pedidoProductoService.buscarPorPedido(pedido.getId())){
-                    for(Producto producto : pedido.getProductos()){
-                        if(pedidoProducto.getProducto() == producto){
-                            //producto.setCantidad(producto.getCantidad() + pedidoProducto.getCantidad());
-                            ProdCant prodCant = new ProdCant(pedidoProducto.getCantidad(),producto);
-
+                for (PedidoProducto pedidoProducto : pedidoProductoService.buscarPorPedido(pedido.getId())) {
+                    for (Producto producto : pedido.getProductos()) {
+                        if (pedidoProducto.getProducto() == producto) {
+                            int cantidad = pedidoProducto.getCantidad();
+                            if (mapaProdCant.containsKey(producto)) {
+                                // El producto ya existe en el mapa, actualiza la cantidad
+                                int cantidadExistente = mapaProdCant.get(producto);
+                                mapaProdCant.put(producto, cantidadExistente + cantidad);
+                            } else {
+                                // El producto no existe en el mapa, agrégalo
+                                mapaProdCant.put(producto, cantidad);
+                            }
                         }
                     }
                 }
 
+            }
+
+
+            List<ProdCant> cantidadesProductoList = new ArrayList<>();//Lista para enviar al modelo con los productos y sus cantidades
+
+            for (Map.Entry<Producto, Integer> entry : mapaProdCant.entrySet()) {
+                Producto producto = entry.getKey();
+                Integer cantidad = entry.getValue();
+                ProdCant prodCant = new ProdCant(cantidad, producto);
+                cantidadesProductoList.add(prodCant);
             }
 
             if(estanTodosLosPedidosPagados && camaraActual.getEstadoDeLaCamara() == 4){
@@ -86,6 +100,7 @@ public class CamaraControllerView {
             viewModel.addAttribute("usuarioLogueado", userService.findUserById(idLogueado));//Inserto el usuario logueado en el modelo para que se pueda usar en la página camaraPage")
             viewModel.addAttribute("pedidosListos", estanTodosLosPedidosListos);//Inserto el usuario logueado en el modelo para que se pueda usar en la página camaraPage")
             viewModel.addAttribute("pedidosPagados", estanTodosLosPedidosPagados);//Inserto el usuario logueado en el modelo para que se pueda usar en la página camaraPage")
+            viewModel.addAttribute("listTotalCantProd", cantidadesProductoList);//Inserto el usuario logueado en el modelo para que se pueda usar en la página camaraPage")
             return "paginas_comprador/camaraPage";
         }else{
             System.out.println("No hay usuario logueado");

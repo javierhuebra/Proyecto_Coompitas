@@ -31,6 +31,12 @@
     <p style="color: white">Dirección de envío: <span th:text="${camara.direccionEnvio.calle} +', '+${camara.direccionEnvio.ciudad}+', '+${camara.direccionEnvio.provincia}+', '+${camara.direccionEnvio.pais} "></span> </p>
     <p style="color: white">Precio de envío: $ <span th:text="${camara.precioEnvio}"></span></p>
     <p style="color: white">Pedidos listos: <span th:text="${pedidosListos}"></span></p>
+    <p style="color: white">Productos solicitados:</p>
+    <ul style="color: white">
+        <li th:each="prodCant : ${listTotalCantProd}">
+            <span th:text="${prodCant.producto.nombre}"></span>:<span th:text="${prodCant.cantidad}"></span>
+        </li>
+    </ul>
     <p th:if="${camara.estadoDeLaCamara>3}" style="color: white">Pedidos pagados: <span th:text="${pedidosPagados}"></span></p>
     <form th:if="${pedidosListos && (camara.creador == userLogueado)}" th:action="@{/camara/{idCamara}/estadoDePago(idCamara=${camara.id})}" method="POST">
         <input th:if="${camara.estadoDeLaCamara == 2}" type="submit" value="Comenzar Pagos">

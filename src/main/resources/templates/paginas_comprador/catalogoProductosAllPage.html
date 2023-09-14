@@ -53,7 +53,6 @@
     for (let i = 0; i < categorías.length; i++) {
         const categoria = categorías[i].textContent;
         if(categoria !== categoriaExistente){
-            categoriaExistente = categoria;
             const li = document.createElement('li');
             li.textContent = categoria;
             li.classList.add('categoria');
@@ -66,8 +65,10 @@
                         productos[i].style.display = 'none';
                     }
                 }
+
             });
             lista_categorias.appendChild(li);
+            categoriaExistente = categoria;
         }
     }
 </script>

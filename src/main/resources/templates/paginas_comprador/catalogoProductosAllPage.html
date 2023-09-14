@@ -37,6 +37,8 @@
     const search_input = document.getElementById('search_input');
     const lista_productos = document.querySelector('.lista_prodcutos');
     const productos = document.querySelectorAll('.producto');
+    const lista_categorias = document.querySelector('.lista_categorias');
+    const categoriaBtn = document.querySelectorAll('.categoria');
     const categorías = document.querySelectorAll('.producto_categoria');
 
     search_input.addEventListener('keyup', () => {
@@ -49,6 +51,20 @@
                 productos[i].style.display = 'none';
             }
         }
+    });
+
+    categoriaBtn.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const categoria = btn.textContent.toLowerCase();
+            for (let i = 0; i < productos.length; i++) {
+                const categoriaProducto = productos[i].querySelector('.producto_categoria').textContent.toLowerCase();
+                if (categoriaProducto.indexOf(categoria) != -1) {
+                    productos[i].style.display = 'block';
+                } else {
+                    productos[i].style.display = 'none';
+                }
+            }
+        });
     });
 </script>
 </html>

@@ -20,22 +20,62 @@
 
 
 <div class="camaras">
+    <label>
+        Buscar por proveedor:
+        <input type="text" id="search-input-proveedor" placeholder="Busca por proveedor">
+    </label>
+    <label>
+        Buscar por dirección de entrega:
+        <input type="text" id="search-input-direccion" placeholder="Busca por direccion">
+    </label>
     <p  class="titulo">Camaras:</p>
-    <div style="background-color: rgba(127,255,0,0.55);margin-bottom: 10px" th:each="camara : ${camarasCreadas}">
+    <div class="camara" style="background-color: rgba(127,255,0,0.55);margin-bottom: 10px" th:each="camara : ${camarasCreadas}">
         <div style="display: flex">
             <img style="width: 40px;height: 40px;border-radius: 50%" th:src="${camara.proveedor.urlFotoPerfil}" alt="imagen de proveedor" src="">
             <img style="width: 40px;height: 40px;border-radius: 50%" th:src="${camara.creador.urlFotoPerfil}" alt="imagen de proveedor" src="">
         </div>
         <p>Estado: <span th:text="${camara.estadoDeLaCamara}"></span></p>
-        <p>Camara para comprar en <span th:text="${camara.proveedor.nombreEmpresa}"></span></p>
+        <p>Camara para comprar en <span class="proveedor" th:text="${camara.proveedor.nombreEmpresa}"></span></p>
         <p>Creada por la empresa <span th:text="${camara.creador.nombreEmpresa}"></span></p>
         <p>Participantes: <span th:text="${camara.participantes.size()}"></span></p>
         <p>Fecha de expiración: <span th:text="${camara.fechaDeExpiracion}"></span></p>
+        <p>Dirección de entrega <span class="direccion" th:text="${camara.direccionEnvio}"></span></p>
         <a th:href="@{/camara/{idCamara}(idCamara=${camara.id})}">Ver</a>
     </div>
 </div>
 
 
 </body>
+<script>
+    const search_input_proveedor = document.getElementById('search-input-proveedor');
+    const search_input_direccion = document.getElementById('search-input-direccion');
+    const proveedores = document.querySelectorAll('.proveedor');
+    const direcciones = document.querySelectorAll('.direccion');
+    const camaras = document.querySelectorAll('.camara');
 
+    search_input_proveedor.addEventListener('keyup', () => {
+        const search_term = search_input_proveedor.value.toLowerCase();
+        camaras.forEach((camara) => {
+            const proveedor = camara.querySelector('.proveedor').textContent.toLowerCase();
+            if (proveedor.indexOf(search_term) !== -1) {
+                camara.style.display = 'block';
+            } else {
+                camara.style.display = 'none';
+            }
+        });
+    });
+
+    search_input_direccion.addEventListener('keyup', () => {
+        const search_term = search_input_direccion.value.toLowerCase();
+        camaras.forEach((camara) => {
+            const direccion = camara.querySelector('.direccion').textContent.toLowerCase();
+            if (direccion.indexOf(search_term) !== -1) {
+                camara.style.display = 'block';
+            } else {
+                camara.style.display = 'none';
+            }
+        });
+    });
+
+</script>
 </html>

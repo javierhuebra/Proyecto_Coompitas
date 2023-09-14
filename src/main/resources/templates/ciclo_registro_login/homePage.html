@@ -39,7 +39,7 @@
         <p>Creada por la empresa <span th:text="${camara.creador.nombreEmpresa}"></span></p>
         <p>Participantes: <span th:text="${camara.participantes.size()}"></span></p>
         <p>Fecha de expiración: <span th:text="${camara.fechaDeExpiracion}"></span></p>
-        <p>Dirección de entrega <span class="direccion" th:text="${camara.direccionEnvio}"></span></p>
+        <p>Dirección de entrega <span class="direccion" th:text="${camara.direccionEnvio.calle} + ', ' + ${camara.direccionEnvio.ciudad}+ ', ' + ${camara.direccionEnvio.provincia}+ ', ' + ${camara.direccionEnvio.pais}"  ></span></p>
         <a th:href="@{/camara/{idCamara}(idCamara=${camara.id})}">Ver</a>
     </div>
 </div>

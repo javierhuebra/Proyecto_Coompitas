@@ -31,9 +31,8 @@ public class UserController {
         return "ciclo_registro_login/registrationPage";
     }
 
-    @PostMapping("/user/register/{rol}")
+    @PostMapping("/user/register/1")
     public String registerUser(@Valid @ModelAttribute("user") User user,
-                               @PathVariable("rol") int rol,
                                BindingResult result,
                                Model viewModel){
         userValidator.validate(user, result);
@@ -43,7 +42,7 @@ public class UserController {
         }else{
             try{
                 user.setUrlFotoPerfil("https://cdn.create.vista.com/api/media/small/259400730/stock-photo-illustration-businessman-icon-avatar-flat-design-259400730.jpg");
-                user.setRolUsuario(rol);
+                user.setRolUsuario(1);
                 userService.registerUser(user);
                 //session.setAttribute("idLogueado", user.getId()); Esto para loguear directamente y que te mande a completar la direccion al perfil, un registro en dos pasos para mejorar UX
             }catch(DataIntegrityViolationException e){
@@ -52,6 +51,28 @@ public class UserController {
                 return "ciclo_registro_login/registrationPage";
             }
 
+            return "redirect:/login";
+        }
+    }
+    @PostMapping("/user/register/2")
+    public String registerUser2(@Valid @ModelAttribute("user") User user,
+                               BindingResult result,
+                               Model viewModel){
+        userValidator.validate(user, result);
+        if(result.hasErrors()){
+            System.out.println("Hay error-");
+            return "ciclo_registro_login/registrationPage";
+        }else{
+            try{
+                user.setUrlFotoPerfil("https://cdn.create.vista.com/api/media/small/259400730/stock-photo-illustration-businessman-icon-avatar-flat-design-259400730.jpg");
+                user.setRolUsuario(2);
+                userService.registerUser(user);
+                //session.setAttribute("idLogueado", user.getId()); Esto para loguear directamente y que te mande a completar la direccion al perfil, un registro en dos pasos para mejorar UX
+            }catch(DataIntegrityViolationException e){
+                System.out.println("Error de integridad de datos - Email ya existe");
+                viewModel.addAttribute("emailDuplicateError", "El correo electrónico no esta disponible");
+                return "ciclo_registro_login/registrationPage";
+            }
 
             return "redirect:/login";
         }

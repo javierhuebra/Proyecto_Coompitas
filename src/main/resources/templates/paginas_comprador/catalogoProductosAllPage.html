@@ -13,9 +13,7 @@
 <h1>Todos los productos</h1>
 <input type="text" id="search_input" placeholder="Busque un producto...">
 <ul class="lista_categorias">
-    <li th:each="producto : ${productos}">
-        <span class="categoria" th:text="${producto.categoria}"></span>
-    </li>
+
 </ul>
 <ul class="lista_prodcutos">
     <li class="producto" th:each="producto : ${productos}">
@@ -38,7 +36,6 @@
     const lista_productos = document.querySelector('.lista_prodcutos');
     const productos = document.querySelectorAll('.producto');
     const lista_categorias = document.querySelector('.lista_categorias');
-    const categoriaBtn = document.querySelectorAll('.categoria');
     const categorías = document.querySelectorAll('.producto_categoria');
 
     search_input.addEventListener('keyup', () => {
@@ -53,18 +50,26 @@
         }
     });
 
-    categoriaBtn.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            const categoria = btn.textContent.toLowerCase();
+    for (let i = 0; i < categorías.length; i++) {
+        const categoria = categorías[i].textContent;
+        if(categoria === categoriaExistente){
+            continue;
+        }
+        const categoriaExistente = categoria;
+        const li = document.createElement('li');
+        li.textContent = categoria;
+        li.classList.add('categoria');
+        li.addEventListener('click', () => {
             for (let i = 0; i < productos.length; i++) {
-                const categoriaProducto = productos[i].querySelector('.producto_categoria').textContent.toLowerCase();
-                if (categoriaProducto.indexOf(categoria) != -1) {
+                const categoriaProducto = productos[i].querySelector('.producto_categoria').textContent;
+                if(categoriaProducto === categoria){
                     productos[i].style.display = 'block';
                 } else {
                     productos[i].style.display = 'none';
                 }
             }
-        });
-    });
+        }
+        lista_categorias.appendChild(li);
+    }
 </script>
 </html>

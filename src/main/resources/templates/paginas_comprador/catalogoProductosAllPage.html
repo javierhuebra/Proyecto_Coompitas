@@ -5,17 +5,24 @@
     <title>Productos</title>
 </head>
 <style>
-
+.hidden{
+    display: none;
+}
 </style>
 <body>
 <h1>Todos los productos</h1>
 <input type="text" id="search_input" placeholder="Busque un producto...">
+<ul class="lista_categorias">
+    <li th:each="producto : ${productos}">
+        <span class="categoria" th:text="${producto.categoria}"></span>
+    </li>
+</ul>
 <ul class="lista_prodcutos">
     <li class="producto" th:each="producto : ${productos}">
         <img style="width: 130px"  th:src="${producto.imagen}" alt="imagen del producto" src="">
         <p class="producto_nombre" th:text="${producto.nombre}"></p>
         <p>$ <span th:text="${producto.precio}"></span></p>
-
+        <p class="producto_categoria hidden" th:text="${producto.categoria}"></p>
         <p th:each="descCant : ${producto.getCantidadesDescuentos()}">Llevando mas de <span
                 th:text="${descCant.cantidad}"></span> tienes un <span th:text="${descCant.descuentoAplicado}"></span>%
             de descuento</p>
@@ -30,6 +37,7 @@
     const search_input = document.getElementById('search_input');
     const lista_productos = document.querySelector('.lista_prodcutos');
     const productos = document.querySelectorAll('.producto');
+    const categorías = document.querySelectorAll('.producto_categoria');
 
     search_input.addEventListener('keyup', () => {
         const search_term = search_input.value.toLowerCase();

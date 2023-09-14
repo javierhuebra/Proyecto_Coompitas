@@ -101,7 +101,7 @@ public class PedidoController {
             double porcentualDescuento = 0;
             for (CantDesc cantDesc : productoACargar.getCantidadesDescuentos()) {
                 if (camaraVigente != null) {
-                    if ((cantidad +cantidadAcarreada) >= cantDesc.getCantidad()) {
+                    if ((cantidad + cantidadAcarreada) >= cantDesc.getCantidad()) {
 
                         double porcentajeDescuentoTemp = productoACargar.getPrecio() * cantidad * (porcentualDescuento / 100);
                         double precioSinDescuento = productoACargar.getPrecio() * cantidad;

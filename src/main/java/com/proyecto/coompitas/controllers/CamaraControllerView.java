@@ -1,5 +1,6 @@
 package com.proyecto.coompitas.controllers;
 
+import com.proyecto.coompitas.classes.ProdCant;
 import com.proyecto.coompitas.models.*;
 import com.proyecto.coompitas.services.CamaraService;
 import com.proyecto.coompitas.services.PedidoProductoService;
@@ -59,7 +60,22 @@ public class CamaraControllerView {
                 if(pedido.getEstadoDelPedido() == 1){
                     estanTodosLosPedidosPagados = false;
                 }
+
+                //Para guardar las cantidades de cada producto dentro de cada cámara
+
+                List<ProdCant> listaProdCant = new ArrayList<>();
+                for(PedidoProducto pedidoProducto : pedidoProductoService.buscarPorPedido(pedido.getId())){
+                    for(Producto producto : pedido.getProductos()){
+                        if(pedidoProducto.getProducto() == producto){
+                            //producto.setCantidad(producto.getCantidad() + pedidoProducto.getCantidad());
+                            ProdCant prodCant = new ProdCant(pedidoProducto.getCantidad(),producto);
+
+                        }
+                    }
+                }
+
             }
+
             if(estanTodosLosPedidosPagados && camaraActual.getEstadoDeLaCamara() == 4){
                 camaraActual.setEstadoDeLaCamara(5);
                 camaraService.createCamara(camaraActual);

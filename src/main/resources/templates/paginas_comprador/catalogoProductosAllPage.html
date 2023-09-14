@@ -5,24 +5,15 @@
     <title>Productos</title>
 </head>
 <style>
-    .contenedor {
-        border: 1px solid black;
-        margin: 10px;
-        padding: 10px;
-    }
 
-    .contenedor-principal {
-        display: flex;
-        flex-wrap: wrap;
-    }
 </style>
 <body>
 <h1>Todos los productos</h1>
-<h2>(Agregar barra para buscar por nombre, tipo, etc)</h2>
-<div class="contenedor-principal">
-    <div class="contenedor" th:each="producto : ${productos}">
+<input type="text" id="search_input" placeholder="Busque un producto...">
+<ul class="lista_prodcutos">
+    <li class="producto" th:each="producto : ${productos}">
         <img style="width: 130px"  th:src="${producto.imagen}" alt="imagen del producto" src="">
-        <p th:text="${producto.nombre}"></p>
+        <p class="producto_nombre" th:text="${producto.nombre}"></p>
         <p>$ <span th:text="${producto.precio}"></span></p>
 
         <p th:each="descCant : ${producto.getCantidadesDescuentos()}">Llevando mas de <span
@@ -32,7 +23,24 @@
         <img style="width: 60px"  th:src="${producto.proveedor.urlFotoPerfil}" alt="" src="">
         <a th:href="@{/camara/proveedores/catalogo/{idProveedor}(idProveedor=${producto.proveedor.id})}">Abrir Cámara al Proveedor</a>
         <a href="/home">Unirse a Cámara del proveedor</a>
-    </div>
-</div>
+    </li>
+</ul>
 </body>
+<script>
+    const search_input = document.getElementById('search_input');
+    const lista_productos = document.querySelector('.lista_prodcutos');
+    const productos = document.querySelectorAll('.producto');
+
+    search_input.addEventListener('keyup', () => {
+        const search_term = search_input.value.toLowerCase();
+        for (let i = 0; i < productos.length; i++) {
+            const title = productos[i].querySelector('.producto_nombre').textContent.toLowerCase();
+            if (title.indexOf(search_term) != -1) {
+                productos[i].style.display = 'block';
+            } else {
+                productos[i].style.display = 'none';
+            }
+        }
+    });
+</script>
 </html>

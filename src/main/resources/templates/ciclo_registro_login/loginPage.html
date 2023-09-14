@@ -6,27 +6,37 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<h1>Login</h1>
-<p th:text="${error}" style="color: red;"></p>
-<form th:action="@{/user/login}" method="POST" th:object="${userLogin}">
-    <label>
-        Email:
-        <input type="text" th:field="*{email}">
-        <br>
-        <label style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
-    </label>
-    <br>
-    <label>
-        Password:
-        <input type="password" th:field="*{password}">
-        <br>
-        <label style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
-    </label>
-    <br>
-    <input type="submit" value="Login">
-</form>
-<a href="/registration">¿No tienes cuenta? Regístrate</a>
+<body class="flex justify-center items-center w-full h-screen bg-[#0A192F]">
+
+    <!-- Container para el login -->
+    <div class="flex flex-col min-w-[250px] md:w-[300px] text-[#CEDCF9] bg-[#172B46] p-5">
+        <h1 class="text-2xl md:text-3xl text-center mt-2 mb-5">Login</h1>
+        <p th:text="${error}" class="text-red-500"></p>
+
+        <!-- Form de Inicio de sesión -->
+        <form th:action="@{/user/login}" method="POST" th:object="${userLogin}">
+
+            <!-- Input de Email -->
+            <label class="flex flex-col mb-5 text-sm">
+                <input class="p-2 rounded-sm" type="text" th:field="*{email}" placeholder="Email">
+                
+                <!-- Validación-->
+                <label class="text-red-500" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
+            </label>
+            
+            <!-- Input de Contraseña -->
+            <label class="flex flex-col mb-4 text-sm">
+                <input class="p-2 rounded-sm" type="password" th:field="*{password}" placeholder="Password">
+
+                <!-- Validación-->
+                <label class="text-red-500" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
+            </label>
+            
+            <input class="bg-gray-500 py-1 px-4 md:text-xl rounded-sm mb-4" type="submit" value="Login">
+        </form>
+        <a href="/registration" class="text-[12px] md:text-base">¿No tienes cuenta? Regístrate</a>
+    </div>
 </body>
 </html>

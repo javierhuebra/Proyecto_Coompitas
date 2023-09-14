@@ -5,23 +5,25 @@
     <title>Productos</title>
 </head>
 <style>
-.hidden{
-    display: none;
-}
+    .hidden{
+        display: none;
+    }
 </style>
 <body>
 <h1>Todos los productos</h1>
 <input type="text" id="search_input" placeholder="Busque un producto...">
 <ul class="lista_categorias">
-
+    <li th:each="producto : ${productos}" >
+        <button class="categoriaBtn" th:text="${producto.categoria}"></button>
+    </li>
 </ul>
-<ul class="lista_prodcutos">
+<ul class="lista_productos">
     <li class="producto" th:each="producto : ${productos}">
         <img style="width: 130px"  th:src="${producto.imagen}" alt="imagen del producto" src="">
         <p class="producto_nombre" th:text="${producto.nombre}"></p>
         <p>$ <span th:text="${producto.precio}"></span></p>
         <p class="producto_categoria hidden" th:text="${producto.categoria}"></p>
-        <p th:each="descCant : ${producto.getCantidadesDescuentos()}">Llevando mas de <span
+        <p th:each="descCant : ${producto.getCantidadesDescuentos()}">Llevando más de <span
                 th:text="${descCant.cantidad}"></span> tienes un <span th:text="${descCant.descuentoAplicado}"></span>%
             de descuento</p>
         <p>Proveedor: <span th:text="${producto.proveedor.nombreEmpresa}"></span></p>
@@ -30,46 +32,46 @@
         <a href="/home">Unirse a Cámara del proveedor</a>
     </li>
 </ul>
-</body>
 <script>
     const search_input = document.getElementById('search_input');
-    const lista_productos = document.querySelector('.lista_prodcutos');
     const productos = document.querySelectorAll('.producto');
-    const lista_categorias = document.querySelector('.lista_categorias');
-    const categorías = document.querySelectorAll('.producto_categoria');
+    const categoriasBtn = document.querySelectorAll('.categoriaBtn');
 
     search_input.addEventListener('keyup', () => {
         const search_term = search_input.value.toLowerCase();
-        for (let i = 0; i < productos.length; i++) {
-            const title = productos[i].querySelector('.producto_nombre').textContent.toLowerCase();
-            if (title.indexOf(search_term) != -1) {
-                productos[i].style.display = 'block';
+        productos.forEach((producto) => {
+            const title = producto.querySelector('.producto_nombre').textContent.toLowerCase();
+            if (title.indexOf(search_term) !== -1) {
+                producto.style.display = 'block';
             } else {
-                productos[i].style.display = 'none';
+                producto.style.display = 'none';
             }
+        });
+    });
+
+    const categoriasVistas = {};
+
+    categoriasBtn.forEach((botonCategoria) => {
+        const categoriaValue = botonCategoria.textContent;
+
+        if (categoriasVistas[categoriaValue]) {
+            botonCategoria.parentElement.remove();
+        } else {
+            categoriasVistas[categoriaValue] = true;
+
+            botonCategoria.addEventListener('click', () => {
+                const categoria = botonCategoria.textContent;
+                productos.forEach((producto) => {
+                    const categoriaProducto = producto.querySelector('.producto_categoria').textContent;
+                    if (categoriaProducto === categoria) {
+                        producto.style.display = 'block';
+                    } else {
+                        producto.style.display = 'none';
+                    }
+                });
+            });
         }
     });
-    let categoriaExistente = "";
-    for (let i = 0; i < categorías.length; i++) {
-        const categoria = categorías[i].textContent;
-        if(categoria !== categoriaExistente){
-            const li = document.createElement('li');
-            li.textContent = categoria;
-            li.classList.add('categoria');
-            li.addEventListener('click', () => {
-                for (let i = 0; i < productos.length; i++) {
-                    const categoriaProducto = productos[i].querySelector('.producto_categoria').textContent;
-                    if(categoriaProducto === categoria){
-                        productos[i].style.display = 'block';
-                    } else {
-                        productos[i].style.display = 'none';
-                    }
-                }
-
-            });
-            lista_categorias.appendChild(li);
-            categoriaExistente = categoria;
-        }
-    }
 </script>
+</body>
 </html>

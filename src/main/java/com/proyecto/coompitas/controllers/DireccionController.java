@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -73,5 +74,18 @@ public class DireccionController {
 
         viewModel.addAttribute("direcciones", userLogueado.getDirecciones());//Inyecto solo las direcciones del usuario en la pagina adressesPage.html
         return "ciclo_funciones_generales/adressesPage";
+    }
+
+    //DELETE PARA ELIMINAR UNA DIRECCIÓN
+    @GetMapping("/direccion/delete/{idDireccion}")
+    public String deleteDireccion(@PathVariable("idDireccion") Long idDireccion,HttpSession session){
+        Long idLogueado = (Long) session.getAttribute("idLogueado");
+        if (idLogueado == null){
+            System.out.println("No hay usuario logueado - Direccion Controller - DELETE");
+            return "redirect:/login";
+        }
+
+        direccionService.deleteDireccion(idDireccion);
+        return "redirect:/perfil/direcciones";
     }
 }

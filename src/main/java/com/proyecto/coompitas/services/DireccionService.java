@@ -21,4 +21,9 @@ public class DireccionService {
     public Direccion findDireccionById(Long id){
         return direccionRepository.findById(id).orElse(null);
     }
+
+    //Eliminar direccion
+    public void deleteDireccion(Long id){
+        direccionRepository.deleteById(id);
+    }
 }

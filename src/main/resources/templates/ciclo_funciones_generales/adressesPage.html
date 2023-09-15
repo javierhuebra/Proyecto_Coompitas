@@ -11,6 +11,7 @@
 <p>Tus direcciones:</p>
 <div th:each="direccionesDeUsuario : ${direcciones}">
   <p>- <span  th:text="${direccionesDeUsuario.provincia}+' '+${direccionesDeUsuario.ciudad}+' '+${direccionesDeUsuario.codigoPostal}"></span></p>
+  <a th:if="${direcciones.size()>1}" th:href="@{/direccion/delete/{idDireccion}(idDireccion = ${direccionesDeUsuario.id})}">Eliminar</a>
 </div>
 <br>
 <p>Cargar una nueva dirección:</p>

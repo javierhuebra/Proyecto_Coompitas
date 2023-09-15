@@ -1,6 +1,7 @@
 package com.proyecto.coompitas.services;
 
 import com.proyecto.coompitas.models.Camara;
+import com.proyecto.coompitas.models.Pedido;
 import com.proyecto.coompitas.repositories.CamaraRepository;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,22 @@ public class CamaraService {
     //Traer todas las camaras en las que el usuario participa
     public List<Camara> findCamarasByParticipanteId(Long id){
         return camaraRepository.findByParticipantesId(id);
+    }
+
+    //Anular cámara (Setea el estado de la camara y pedidos en -1)
+    public void anularCamara(Long id, int estado){
+        Camara camara = camaraRepository.findById(id).orElse(null);
+        if(camara == null){
+            System.out.println("No existe la camara");
+            return;
+        }
+        camara.setEstadoDeLaCamara(estado);
+
+        for (Pedido pedido: camara.getPedidos()) {
+            pedido.setEstadoDelPedido(-1);
+        }
+
+        camaraRepository.save(camara);
     }
 
 }

@@ -48,10 +48,20 @@
 <body style="position: relative">
 <div style="height: 100%; width: 100vw;background-color: rgba(26,26,26,0.7);position: absolute" th:if="${camara.estadoDeLaCamara == -1 || camara.estadoDeLaCamara == -2}">
     <div style="height: 100vh;display: flex;flex-direction: column;justify-content: center">
-        <h1 style="color: white;text-align: center;font-size: 40px">Lo sentimos 😔</h1>
-        <h1 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">LA CÁMARA HA SIDO CANCELADA POR EL CREADOR</h1>
-        <h2 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">Se ha notificado con una advertencia al usuario.</h2>
-        <h2 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">Si la cuenta recibe mas de 3 (tres) advertencias será suspendida.</h2>
+
+        <div th:if="${userLogueado != camara.creador}">
+
+            <h1 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">LA CÁMARA HA SIDO CANCELADA POR EL CREADOR</h1>
+            <h2 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">Disculpe las molestias. Se ha notificado con una advertencia al usuario.</h2>
+            <h2 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">Si la cuenta recibe mas de 3 (tres) advertencias será suspendida.</h2>
+        </div>
+        <div th:if="${userLogueado == camara.creador}">
+            <h1 style="color: white;text-align: center;font-size: 40px">CÁMARA CANCELADA 🛑</h1>
+            <h1 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">Si cancelas una cámara corres riesgo de suspensión &#10060;</h1>
+            <h2 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">La cancelación de estas operaciones perjudica a tus Coompitas </h2>
+            <h2 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">Si la cuenta recibe mas de 3 (tres) advertencias será suspendida.</h2>
+        </div>
+
 
         <h1 th:if="${camara.estadoDeLaCamara == -2}" style="color: red;text-align: center">LA CÁMARA HA SIDO RECHAZADA</h1>
         <a style="color: red;text-align: center" href="/perfil">Volver</a>

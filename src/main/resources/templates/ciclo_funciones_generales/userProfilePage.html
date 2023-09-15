@@ -157,7 +157,7 @@
 
     <div th:if="${camarasCreadas}">
         <h2>Las cámaras que gestionas</h2>
-        <div style="border: solid 1px" th:class="${camara.estadoDeLaCamara == 1} ? 'pendiente' : ${camara.estadoDeLaCamara == -1 ? 'cancelada' : 'aceptada'}" th:each="camara : ${camarasCreadas}">
+        <div style="border: solid 1px" th:class="${camara.estadoDeLaCamara == 1} ? 'pendiente' : ${camara.estadoDeLaCamara == -1 || camara.estadoDeLaCamara == -2 ? 'cancelada' : 'aceptada'}" th:each="camara : ${camarasCreadas}">
             <img style="width: 50px;height:50px; border-radius: 50%" th:src="${camara.proveedor.urlFotoPerfil}" alt="" src="">
             <p style="color: white;background-color: red; display: inline" th:if="${camara.estadoDeLaCamara == -1}">CÁMARA CANCELADA</p>
             <p style="color: white;background-color: red; display: inline" th:if="${camara.estadoDeLaCamara == -2}">CÁMARA RECHAZADA POR PROVEEDOR</p>

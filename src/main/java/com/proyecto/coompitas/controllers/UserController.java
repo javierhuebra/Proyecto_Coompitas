@@ -31,6 +31,7 @@ public class UserController {
         return "ciclo_registro_login/registrationPage";
     }
 
+    //Estos controladores estan duplicados porque no se me ocurrio una forma de hacerlo con un solo controlador por el tema de los errores de validacion
     @PostMapping("/user/register/1")
     public String registerUser(@Valid @ModelAttribute("user") User user,
                                BindingResult result,
@@ -54,6 +55,7 @@ public class UserController {
             return "redirect:/login";
         }
     }
+    //Estos controladores estan duplicados porque no se me ocurrio una forma de hacerlo con un solo controlador por el tema de los errores de validacion
     @PostMapping("/user/register/2")
     public String registerUser2(@Valid @ModelAttribute("user") User user,
                                BindingResult result,

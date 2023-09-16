@@ -32,4 +32,9 @@ public class PedidoService {
         return pedidoRepository.findById(id).orElse(null);
     }
 
+    //Eliminar pedido
+    public void eliminarPedido(Long id){
+        pedidoRepository.deleteById(id);
+    }
+
 }

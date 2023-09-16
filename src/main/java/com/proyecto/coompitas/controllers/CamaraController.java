@@ -86,6 +86,18 @@ public class CamaraController {
             }
 
             Pedido pedidoEnProceso = pedidoService.buscarPeidoSinCamara(userLogueado);//Busco el pedido en proceso del usuario logueado
+
+            //Valido que el usuario logueado tenga productos de este proveedor -----------------
+            for(Producto producto : pedidoEnProceso.getProductos()){
+                if(producto.getProveedor() != userProveedor){
+                    System.out.println("El usuario logueado no tiene productos de este proveedor");
+
+                    List<Producto> listaProductos = new ArrayList<>();
+                    pedidoEnProceso.setProductos(listaProductos);
+                    pedidoService.crearPedido(pedidoEnProceso);//Actualizo el pedido en proceso en la base de datos
+                    //return "redirect:/camara/proveedores/catalogo/"+producto.getProveedor().getId()+"?error=1";
+                }
+            }
             List<PedidoProducto> relacionesPedido = pedidoProductoService.buscarPorPedido(pedidoEnProceso.getId());
             viewModel.addAttribute("carrito", relacionesPedido);//Inserto el pedido en proceso en el modelo
 
@@ -123,6 +135,8 @@ public class CamaraController {
              System.out.println(camara.getParticipantes().size());
 
              Pedido pedidoEnProceso = pedidoService.buscarPeidoSinCamara(userLogueado);//Busco el pedido en proceso del usuario logueado
+
+
 
 
              camaraService.createCamara(camara);//Creo la camara en la base de datos

@@ -29,4 +29,10 @@ public class ProductService {
     public List<Producto> allProducts() {
         return productRepository.findAll();
     }
+
+    //Eliminar producto por id
+    public void eliminarProducto(Long id){
+        productRepository.deleteById(id);
+    }
+
 }

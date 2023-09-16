@@ -41,14 +41,17 @@
     <!--    </table>-->
     <ul class="lista_productos" th:if="${userLogueado.productos.size()>0}">
         <li class="producto" th:each="producto : ${userLogueado.productos}">
-            <img style="height: 50px" th:src="${producto.imagen}" alt="imagen producto">
+            <img style="height: 50px" th:src="${producto.imagen}" alt="imagen producto" src="">
             <span class="producto_nombre" th:text="${producto.nombre}"></span>
             <span th:text="${producto.precio}"></span>
             <span th:text="${producto.stock}"></span>
             <span th:text="${producto.categoria}"></span>
             <div>
-                <a href="/perfil/productos">Editar</a>
-                <a href="/perfil/productos">Eliminar</a>
+                <a th:href="@{/perfil/productos/editar/{idProducto}(idProducto = ${producto.id})}" >Editar</a>
+                <form th:action="@{/eliminar/{idProducto}(idProducto = ${producto.id})}" th:method="DELETE">
+
+                    <input type="submit" value="ELIMINAR">
+                </form>
             </div>
 
 
@@ -58,6 +61,7 @@
     <p th:unless="${userLogueado.productos.size()>0}">Esta cuenta no tiene productos cargados</p>
     <br>
     <form th:action="@{/perfil/productos/crear}" method="POST" th:object="${producto}">
+        <input type="hidden" name="id" th:value="${producto.id}">
 
         <label>
             Nombre del producto:
@@ -153,7 +157,13 @@
             <br>
         </label>
         <br>
-        <input type="submit" value="Crear Producto">
+        <label th:if="${producto.id}">
+            <input type="submit" value="Editar Producto">
+        </label>
+        <label th:unless="${producto.id}">
+            <input type="submit" value="Crear Producto">
+        </label>
+
     </form>
 </body>
 <script>

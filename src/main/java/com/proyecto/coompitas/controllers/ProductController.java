@@ -10,9 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ProductController {
@@ -95,5 +93,44 @@ public class ProductController {
             return "redirect:/login";
         }
 
+    }
+
+    //GET PARA RENDERIZAR EL EDIT DE LOS PRODUCTOS //Estan puestos re mal los if, lo hice apurado juaasda
+    @GetMapping("/perfil/productos/editar/{idProducto}")
+    public String renderEditProduct(@PathVariable("idProducto") Long idProducto,
+                                    Model viewModel,
+                                    HttpSession session){
+        Long idLogueado = (Long) session.getAttribute("idLogueado");
+        if(idLogueado != null){
+            Producto producto = productService.findProductById(idProducto);
+            User userLogueado = userService.findUserById(idLogueado);
+
+            if(producto != null){
+                viewModel.addAttribute("userLogueado", userLogueado);//Inserto el usuario en la view
+                viewModel.addAttribute("categorias", Constantes.categorias);//Inserto las categorias al modelo
+                viewModel.addAttribute("producto", producto);//Inserto el producto en el modelo
+                return "ciclo_funciones_generales/productsPage";
+
+            }else{
+                System.out.println("No se encontro el producto");
+                return "redirect:/perfil/productos";
+            }
+        }else{
+            System.out.println("No hay usuario logueado");
+            return "redirect:/login";
+        }
+    }
+    //DELETE PARA ELIMINAR UN PRODUCTO
+    @DeleteMapping("/eliminar/{idProducto}")
+    public String eliminarProducto(@PathVariable("idProducto") Long idProducto,
+                                   HttpSession session){
+        Long idLogueado = (Long) session.getAttribute("idLogueado");
+        if(idLogueado != null){
+            productService.eliminarProducto(idProducto);
+            return "redirect:/perfil/productos";
+        }else{
+            System.out.println("No hay usuario logueado");
+            return "redirect:/login";
+        }
     }
 }

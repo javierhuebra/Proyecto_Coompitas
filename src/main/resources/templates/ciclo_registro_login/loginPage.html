@@ -20,7 +20,7 @@
 
             <!-- Input de Email -->
             <label class="flex flex-col mb-5 text-sm">
-                <input class="p-2 rounded-sm" type="text" th:field="*{email}" placeholder="Email">
+                <input class="p-2 rounded-sm text-black" type="text" th:field="*{email}" placeholder="Email">
                 
                 <!-- Validación-->
                 <label class="text-red-500" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
@@ -28,7 +28,7 @@
             
             <!-- Input de Contraseña -->
             <label class="flex flex-col mb-4 text-sm">
-                <input class="p-2 rounded-sm" type="password" th:field="*{password}" placeholder="Password">
+                <input class="p-2 rounded-sm text-black" type="password" th:field="*{password}" placeholder="Password">
 
                 <!-- Validación-->
                 <label class="text-red-500" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>

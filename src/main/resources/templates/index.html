@@ -1,253 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Coompitas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #1a1a1a; /* Fondo oscuro */
-    color: #fff; /* Texto blanco */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-a {
-    text-decoration: none;
-    color: #3498db; /* Color de enlace */
-}
-
-header {
-    background-color: #111; /* Color de fondo oscuro para el encabezado */
-    margin: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-header img {
-    width: 70px;
-    height: 50px;
-}
-
-main {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-/* Estilos para el modo oscuro */
-.dark-mode {
-    background-color: #1a1a1a;
-    color: #fff;
-}
-
-/* Estilos para la sección principal */
-main section {
-    margin-bottom: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    padding: 20px;
-}
-
-.main-info{
-    display: flex;
-    flex-direction: column;
-}
-
-main section h1 {
-    font-size: 2.5rem;
-    margin: 0;
-}
-
-main section p {
-    font-size: 1.2rem;
-    line-height: 1.5;
-    margin: 0;
-}
-
-main section a {
-    color: #3498db;
-    border-bottom: 1px solid #3498db;
-    transition: border-color 0.3s;
-}
-
-main section a:hover {
-    border-color: transparent;
-}
-
-/* Estilos para las tarjetas */
-.cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-}
-
-.cards div{
-    display: flex;
-}
-
-.card {
-    flex-direction: column;
-    background-color: #333; /* Color de fondo para las tarjetas */
-    color: #fff;
-    padding: 20px;
-    margin: 10px;
-    flex-basis: calc(33.333% - 20px); /* Tamaño de las tarjetas */
-    border-radius: 5px;
-    transition: transform 0.3s;
-    text-align: center;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-}
-
-.card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}
-
-.card p {
-    font-size: 1rem;
-}
-
-.card a {
-    color: #3498db;
-}
-
-/* Estilos para el footer */
-footer {
-    background-color: #111;
-    color: #fff;
-    margin: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-footer img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-}
-
-/* Estilos adicionales */
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
-
-ul li {
-    margin-right: 20px;
-}
-
-/* Estilos para el modo oscuro */
-.dark-mode ul {
-    color: #fff;
-}
-
-.dark-mode a {
-    color: #3498db;
-    border-color: #3498db;
-}
-
-.dark-mode a:hover {
-    background-color: #3498db;
-    border-color: #3498db;
-}
-
-/* Media query para pantallas pequeñas */
-@media (max-width: 768px) {
-    .cards {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .card {
-        flex-basis: calc(100% - 20px);
-    }
-}
+      video::-webkit-media-controls {
+        display: none;
+      }
     </style>
-</head>
-<body>
-<header>
-    <img src="#" alt="coompitas_logo">
-    <div>
-        <a href="/login">Iniciar sesion</a>
-    </div>
-    
-</header>
-<main>
-    <section>
-        <div>
-        <h1>No compitas, haz compitas</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos expedita explicabo impedit odio praesentium quas ratione rem reprehenderit voluptatem voluptatum? Accusamus, consequatur facilis maiores repellat sequi suscipit totam ullam voluptatum.</p>
-        <a href="/registration">Registrarse</a>
-        </div>
-        <img class="ill" src="#" alt="imagen_ilustrativa">
-    </section>
-    <section class="main-info">
-        <h2>¿Como funcionamos?</h2>
+  </head>
+  <body class="w-full h-screen bg-[#0A192F] text-[#CEDCF9]">
+    <!-- Navbar -->
+    <header class="w-full h-[150px] bg-black">
+      <nav class="flex justify-between items-center mx-10 p-5">
+        <img
+          class="w-[150px] h-[100px]"
+          src="../static/logo_coompitas.png"
+          alt="coompitas_logo"
+        />
+        <a class="text-[37px]" href="/login">Iniciar sesion</a>
+      </nav>
+    </header>
 
-        <div>
-            <video src="" controls autoplay loop preload="auto"></video>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, adipisci alias asperiores atque autem cumque cupiditate</p>
+    <!-- Main content -->
+    <main class="flex flex-col justify-center items-center mt-[150px] md:mt-[250px] px-5">
+      <section class="flex flex-col md:flex-row justify-center lg:gap-10 items-center mb-[150px] md:mb-[250px] w-full">
+        <div class="flex flex-col justify-center items-center text-center">
+          <h1 class="text-7xl lg:text-[100px] mb-5">No compitas, haz compitas</h1>
+          <p class="text-3xl lg:text-5xl mb-5 max-w-[1000px]">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Dignissimos expedita explicabo impedit odio praesentium quas ratione
+          </p>
+          <a
+            class="bg-gray-500 p-4 text-3xl lg:text-5xl rounded-sm"
+            href="/registration"
+            >Registrarse</a
+          >
         </div>
-    </section>
-    <h2>Sobre Nosotros</h2> 
-    <section class="cards">
+        <img
+          class="hidden lg:block md:min-w-[700px]"
+          src="../static/illustration.png"
+          alt="imagen_ilustrativa"
+        />
+      </section>
+      <section class="flex flex-col justify-center items-center text-center mb-[150px] lg:w-full">
+        <h2 class="text-6xl lg:text-7xl mb-5 md:mb-10">¿Como funcionamos?</h2>
+        <video
+          class="w-full lg:w-[1500px] mb-5 md:mb-10"
+          src="../static/cat-video.mp4"
+          autoplay
+          loop
+          preload="auto"
+        ></video>
+        <p class="text-3xl w-[1000px]">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium,
+          adipisci alias asperiores atque autem cumque cupiditate
+        </p>
+      </section>
+
+      <section class="flex flex-col justify-center items-center">
+        <h3 class="text-5xl mb-10">Sobre Nosotros</h3>
+        <!-- Carrousel -->
         <div>
-            <div class="card">
-                <img src="#" alt="Imagen de muestra">
-                <h3>Titulo</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, adipisci alias asperiores atque autem cumque cupiditate</p>
-                <a href="#">Ver más...</a>
-            </div>
-            <div class="card">
-                <img src="#" alt="Imagen de muestra">
-                <h3>Titulo</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, adipisci alias asperiores atque autem cumque cupiditate</p>
-                <a href="#">Ver más...</a>
-            </div>
-            <div class="card">
-                <img src="#" alt="Imagen de muestra">
-                <h3>Titulo</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, adipisci alias asperiores atque autem cumque cupiditate</p>
-                <a href="#">Ver más...</a>
-            </div>  
+          <div class="flex flex-col justify-center self-center gap-5 p-5 m-5 text-black text-center bg-white w-[350px]">
+            <img src="../static/illustration.png" alt="Imagen de muestra" />
+            <h3 class="text-5xl">Titulo</h3>
+            <p class="text-2xl">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Accusantium, adipisci alias asperiores atque autem cumque
+              cupiditate.
+            </p>
+            <a href="#" class="text-2xl">Ver más...</a>
+          </div>
+          <div class="flex flex-col justify-center self-center gap-5 p-5 m-5 text-black text-center bg-white w-[350px]">
+            <img src="../static/illustration.png" alt="Imagen de muestra" />
+            <h3 class="text-5xl">Titulo</h3>
+            <p class="text-2xl">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Accusantium, adipisci alias asperiores atque autem cumque
+              cupiditate.
+            </p>
+            <a href="#" class="text-2xl">Ver más...</a>
+          </div>
+          <div class="flex flex-col justify-center self-center gap-5 p-5 m-5 text-black text-center bg-white w-[350px]">
+            <img src="../static/illustration.png" alt="Imagen de muestra" />
+            <h3 class="text-5xl">Titulo</h3>
+            <p class="text-2xl">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Accusantium, adipisci alias asperiores atque autem cumque
+              cupiditate.
+            </p>
+            <a href="#" class="text-2xl">Ver más...</a>
+          </div>
         </div>
-    </section>
-</main>
-<footer>
-    <ul>
-        <li><a href=""><img src="" alt=""></a></li>
-        <li><a href=""><img src="" alt=""></a></li>
-    </ul>
-    <div>
-        <img src="#" alt="coompitas_logo">
+      </section>
+    </main>
+    <footer class="flex justify-between items-center bg-black h-[150px] px-5">
+      <ul class="hidden">
+        <li>
+          <a href=""><img src="" alt="" /></a>
+        </li>
+        <li>
+          <a href=""><img src="" alt="" /></a>
+        </li>
+      </ul>
+      <div class="flex flex-col items-center justify-center">
+        <img class="w-[70px] h-[50px]" src="../static/logo_coompitas.png" alt="coompitas_logo" />
         <p>© 2023 Coompitas</p>
-    </div>
-    <ul>
+      </div>
+      <ul class="flex gap-5">
         <li><a href="#">Contacto</a></li>
         <li><a href="#">Preguntas frecuentes</a></li>
         <li><a href="#">Terminos y condiciones</a></li>
-    </ul>
-
-</footer>
-</body>
+      </ul>
+    </footer>
+  </body>
 </html>

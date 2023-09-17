@@ -1,8 +1,10 @@
 package com.proyecto.coompitas.controllers;
 
 import com.proyecto.coompitas.classes.Constantes;
+import com.proyecto.coompitas.models.CantDesc;
 import com.proyecto.coompitas.models.Producto;
 import com.proyecto.coompitas.models.User;
+import com.proyecto.coompitas.services.CantDescService;
 import com.proyecto.coompitas.services.ProductService;
 import com.proyecto.coompitas.services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -12,14 +14,18 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class ProductController {
     private final ProductService productService;
     private final UserService userService;
+    private final CantDescService cantDescService;
 
-    public ProductController(ProductService productService, UserService userService) {
+    public ProductController(ProductService productService, UserService userService, CantDescService cantDescService) {
         this.productService = productService;
         this.userService = userService;
+        this.cantDescService = cantDescService;
     }
 
     //GET PARA PESTAÑA CREAR PRODUCTOS
@@ -64,9 +70,17 @@ public class ProductController {
             }
             producto.setProveedor(userService.findUserById(idLogueado));
 
+            if(producto.getId() != null){
+                System.out.println("No puede haber mas de 3 cantidades y descuentos");//Esto pasa porque esta mal diagramado el programa y no sobre escribe cuando edita, hay que refactorizar, se queda asi para el MVP
+
+                cantDescService.deleteAllByProductoId(producto.getId());
+
+            }
+
             //Recorrer la lista de cantidades y descuentos y setearle el producto a cada uno
             for(int i = 0; i < producto.getCantidadesDescuentos().size(); i++){
                 System.out.println("Cantidad "+i+": "+producto.getCantidadesDescuentos().get(i).getCantidad());
+                System.out.println(producto.getCantidadesDescuentos().size());
                 producto.getCantidadesDescuentos().get(i).setProducto(producto);
                 //Falta hacer un if para validar las cantidades y descuentos que tengan sentido
             }
@@ -105,7 +119,11 @@ public class ProductController {
             Producto producto = productService.findProductById(idProducto);
             User userLogueado = userService.findUserById(idLogueado);
 
+
             if(producto != null){
+
+                //producto.getCantidadesDescuentos().clear();//Limpio la lista de cantidades y descuentos para que no se repitan al editar (esto esta mal desde el momento que definimos las cantidades y descuentos, hay que refacorizar para hacer un buen codigo)
+
                 viewModel.addAttribute("userLogueado", userLogueado);//Inserto el usuario en la view
                 viewModel.addAttribute("categorias", Constantes.categorias);//Inserto las categorias al modelo
                 viewModel.addAttribute("producto", producto);//Inserto el producto en el modelo

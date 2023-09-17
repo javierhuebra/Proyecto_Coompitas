@@ -88,6 +88,8 @@ public class PedidoController {
 
             }
 
+            //productoACargar.setStock(productoACargar.getStock() - cantidad);//Le resto la cantidad de productos que se agregaron al pedido al stock del producto
+
             relacionPedido.setCantidad(cantidad);//Le asigno la cantidad
 
             relacionPedido.setPedido(pedidoIniciado);//Le asigno el pedido

@@ -84,11 +84,14 @@ public class PedidoController {
 
                 pedidoIniciado.setPrecioTotal(pedidoIniciado.getPrecioTotal() - relacionPedidoExistente.getPrecioProductos());//Le resto el precio de la relación que ya estaba
 
+                //Para controlar el stock
+                productoACargar.setStock(productoACargar.getStock() + relacionPedidoExistente.getCantidad());//Le sumo la cantidad de productos que se agregaron al pedido al stock del producto
+
                 relacionPedido = relacionPedidoExistente;//Le asigno la relación existente
 
             }
-
-            //productoACargar.setStock(productoACargar.getStock() - cantidad);//Le resto la cantidad de productos que se agregaron al pedido al stock del producto
+            //Para controlar el stock - falta restituir el stock cuando no se concreta el pedido pero esto es para tener una guía cuando haya que terminar la app y competirle a mercado libre we
+            productoACargar.setStock(productoACargar.getStock() - cantidad);//Le resto la cantidad de productos que se agregaron al pedido al stock del producto
 
             relacionPedido.setCantidad(cantidad);//Le asigno la cantidad
 

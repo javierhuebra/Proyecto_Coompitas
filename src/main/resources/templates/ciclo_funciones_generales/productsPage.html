@@ -49,7 +49,6 @@
             <div>
                 <a th:href="@{/perfil/productos/editar/{idProducto}(idProducto = ${producto.id})}" >Editar</a>
                 <form th:action="@{/eliminar/{idProducto}(idProducto = ${producto.id})}" th:method="DELETE">
-
                     <input type="submit" value="ELIMINAR">
                 </form>
             </div>

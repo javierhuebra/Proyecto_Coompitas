@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,138 +9,141 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="flex flex-col justify-around w-full" id="body-id">
-    <header class="w-full h-[10%] bg-black">
-        <nav class="flex justify-between max-w-[1200px] items-center p-3 mx-auto">
+<body class="flex flex-col justify-between min-h-[100vh]" id="body-id">
+<header class="w-full h-[80px] bg-black">
+    <nav class="flex justify-between max-w-[1200px] items-center p-3 mx-auto">
         <!--Este div lo puse para probar, sacalo si queres para toquetear porque no
             estaba centrado el logo a la par que la foto de perfil-->
-            <div class="flex justify-center items-center h-full">
-                <img class="w-[60px] h-[40px]" src="./logo_coompitas.png" alt="Logo Coompitas">
-            </div>
-            <div class="inline-block relative">
-                <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario" th:src="${userLogueado.urlFotoPerfil}">
-                <div id="drop-items" class=" w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-lg">
-                    <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
-                    <hr>
-                    <a href="/perfil">Ir al perfil</a>
-                    <a th:if="${userLogueado.rolUsuario == 1}" href="/camara/proveedores">Crear Cámara</a>
-                    <a th:if="${userLogueado.rolUsuario == 1}" href="/catalogo/all/productos">Elegir por producto</a>
-                    <a href="/logout" class="font-bold text-red-500">Cerrar Sesión</a>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <main class="mx-auto max-w-[1200px] my-10">
-        <div class="flex flex-col justify-center mx-auto p-3 w-full">
-            <!--Filtros para camaras-->
-            <div class="flex flex-col md:flex-row">
-                <div class="flex-col md:flex-row">
-                    <label>Buscar por proveedor:</label>
-                    <input class="p-2" type="text" id="search-input-proveedor" placeholder="Terrabussi, Marolio">
-                </div>
-
-                <div class="flex-col md:flex-row">
-                    <label>Buscar por dirección de entrega:</label>
-                    <input class="p-2" type="text" id="search-input-direccion" placeholder="Buenos aires, Tigre">
-                </div>
-            </div>
-
-            <!--Todas las camaras abiertas a nuevos usuarios-->
-
-            <!--Contador de camaras activas-->
-            <p>Camaras activas <span th:text="${camarasCreadas.size()}"></span></p>
-
-            <!--Si hay camaras, las muestra.-->
-            <div th:if="${camarasCreadas.size() > 0}" class="flex flex-col md:flex-row md:flex-wrap mt-5">
-                <div class="flex flex-col justify-center items-center p-3 my-10 md:m-3 gap-1 border border-black" th:each="camara : ${camarasCreadas}">
-                    <img class="w-[70px] h-[70px] rounded-full" th:src="${camara.proveedor.urlFotoPerfil}" alt="imagen de proveedor" src="">
-                    <p class="text-2xl font-bold" th:text="${camara.proveedor.nombreEmpresa}"></p>
-                    <p>Participantes: <span th:text="${camara.participantes.size()}"></span></p>
-                    <p>Fecha de expiración: <span th:text="${camara.fechaDeExpiracion}"></span></p>
-                    <div class="flex flex-col text-center">
-                        <p>Dirección de entrega:</p>
-                        <span class="direccion" th:text="${camara.direccionEnvio.calle} + ', ' + ${camara.direccionEnvio.ciudad}+ ', ' + ${camara.direccionEnvio.provincia}+ ', ' + ${camara.direccionEnvio.pais}"  ></span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <p>Creada por </p>
-                        <img class="h-[30px]" th:src="${camara.creador.urlFotoPerfil}" alt="imagen de proveedor" src="">
-                    </div>
-                    <a th:href="@{/camara/{idCamara}(idCamara=${camara.id})}">Ver</a>
-                </div>
-            </div>
-
-            <!--Si no hay camaras, muestra el texto-->
-            <div th:if="${camarasCreadas.size() == 0}">
-                <p>No hay camaras papito lindpo</p>
+        <div class="flex justify-center items-center h-full">
+            <img class="w-[60px] h-[40px]" src="./logo_coompitas.png" alt="Logo Coompitas">
+        </div>
+        <div class="inline-block relative">
+            <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario"
+                 th:src="${userLogueado.urlFotoPerfil}">
+            <div id="drop-items"
+                 class=" w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-lg">
+                <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
+                <hr>
+                <a href="/perfil">Ir al perfil</a>
+                <a th:if="${userLogueado.rolUsuario == 1}" href="/camara/proveedores">Crear Cámara</a>
+                <a th:if="${userLogueado.rolUsuario == 1}" href="/catalogo/all/productos">Elegir por producto</a>
+                <a href="/logout" class="font-bold text-red-500">Cerrar Sesión</a>
             </div>
         </div>
-    </main>
-    <footer class="bg-black h-[80px] px-5 flex justify-center items-center">
-            <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
-                <li><a href="#">Contacto</a></li>
-                <li><a href="#">Preguntas frecuentes</a></li>
-                <li><a href="#">Terminos y condiciones</a></li>
-            </ul>
-    </footer>
-    </body>
-    <script>
-        <!--Esta logica es para el dropdown-->
+    </nav>
+</header>
 
-        let bodyId = document.getElementById('body-id');
-        let dropdown = document.getElementById('dropdown');
-        let dropItems = document.getElementById('drop-items');
-        let isOpen = false;
+<main class="mx-auto max-w-[1200px] ">
+    <div class="flex flex-col justify-center mx-auto p-3 w-full">
+        <!--Filtros para camaras-->
+        <div class="flex flex-col md:flex-row">
+            <div class="flex-col md:flex-row">
+                <label>Buscar por proveedor:</label>
+                <input class="p-2" type="text" id="search-input-proveedor" placeholder="Terrabussi, Marolio">
+            </div>
 
-        dropdown.addEventListener('click', () => {
-        if(isOpen == false){
+            <div class="flex-col md:flex-row">
+                <label>Buscar por dirección de entrega:</label>
+                <input class="p-2" type="text" id="search-input-direccion" placeholder="Buenos aires, Tigre">
+            </div>
+        </div>
+
+        <!--Todas las camaras abiertas a nuevos usuarios-->
+
+        <!--Contador de camaras activas-->
+        <p>Camaras activas <span th:text="${camarasCreadas.size()}"></span></p>
+
+        <!--Si hay camaras, las muestra.-->
+        <div th:if="${camarasCreadas.size() > 0}" class="flex flex-col md:flex-row md:flex-wrap mt-5">
+            <div class="camara flex flex-col justify-center items-center p-3 my-10 md:m-3 gap-1 border border-black"
+                 th:each="camara : ${camarasCreadas}">
+                <img class="w-[70px] h-[70px] rounded-full" th:src="${camara.proveedor.urlFotoPerfil}"
+                     alt="imagen de proveedor" src="">
+                <p class="proveedor text-2xl font-bold" th:text="${camara.proveedor.nombreEmpresa}"></p>
+                <p>Participantes: <span th:text="${camara.participantes.size()}"></span></p>
+                <p>Fecha de expiración: <span th:text="${camara.fechaDeExpiracion}"></span></p>
+                <div class="flex flex-col text-center">
+                    <p>Dirección de entrega:</p>
+                    <span class="direccion"
+                          th:text="${camara.direccionEnvio.calle} + ', ' + ${camara.direccionEnvio.ciudad}+ ', ' + ${camara.direccionEnvio.provincia}+ ', ' + ${camara.direccionEnvio.pais}"></span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <p>Creada por </p>
+                    <img class="h-[30px]" th:src="${camara.creador.urlFotoPerfil}" alt="imagen de proveedor" src="">
+                </div>
+                <a th:href="@{/camara/{idCamara}(idCamara=${camara.id})}">Ver</a>
+            </div>
+        </div>
+
+        <!--Si no hay camaras, muestra el texto-->
+        <div th:if="${camarasCreadas.size() == 0}">
+            <p>No hay camaras papito lindpo</p>
+        </div>
+    </div>
+</main>
+<footer class="bg-black h-[80px] px-5 flex justify-center items-center">
+    <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Terminos y condiciones</a></li>
+    </ul>
+</footer>
+</body>
+<script>
+    <!--Esta el dropdown-->
+    let bodyVariable = document.getElementById('body-id');
+    let dropdown = document.getElementById('dropdown');
+    let dropItems = document.getElementById('drop-items');
+    let isOpen = false;
+
+    dropdown.addEventListener('click', () => {
+        if (isOpen === false) {
             dropItems.style.display = "flex";
             isOpen = true;
         } else {
             dropItems.style.display = "none";
             isOpen = false;
         }
-        });
+    });
 
-        bodyId.addEventListener('click', (e) => {
-            const isClickInsideDropdown = dropdown.contains(e.target);
+    bodyVariable.addEventListener('click', (e) => {
+        const isClickInsideDropdown = dropdown.contains(e.target);
 
-            if (!isClickInsideDropdown && isOpen) {
-                dropItems.style.display = "none";
-                isOpen = false;
+        if (!isClickInsideDropdown && isOpen) {
+            dropItems.style.display = "none";
+            isOpen = false;
+        }
+    });
+
+    <!--Esta logica es para los filtros-->
+
+    const search_input_proveedor = document.getElementById('search-input-proveedor');
+    const search_input_direccion = document.getElementById('search-input-direccion');
+
+    const camaras = document.querySelectorAll('.camara');
+
+    search_input_proveedor.addEventListener('keyup', () => {
+        const search_term = search_input_proveedor.value.toLowerCase();
+        camaras.forEach((camara) => {
+            const proveedor = camara.querySelector('.proveedor').textContent.toLowerCase();
+            if (proveedor.indexOf(search_term) !== -1) {
+                camara.style.display = 'block';
+            } else {
+                camara.style.display = 'none';
             }
         });
+    });
 
-        <!--Esta logica es para los filtros-->
-
-        const search_input_proveedor = document.getElementById('search-input-proveedor');
-        const search_input_direccion = document.getElementById('search-input-direccion');
-        const proveedores = document.querySelectorAll('.proveedor');
-        const direcciones = document.querySelectorAll('.direccion');
-        const camaras = document.querySelectorAll('.camara');
-
-        search_input_proveedor.addEventListener('keyup', () => {
-            const search_term = search_input_proveedor.value.toLowerCase();
-            camaras.forEach((camara) => {
-                const proveedor = camara.querySelector('.proveedor').textContent.toLowerCase();
-                if (proveedor.indexOf(search_term) !== -1) {
-                    camara.style.display = 'block';
-                } else {
-                    camara.style.display = 'none';
-                }
-            });
+    search_input_direccion.addEventListener('keyup', () => {
+        const search_term = search_input_direccion.value.toLowerCase();
+        camaras.forEach((camara) => {
+            const direccion = camara.querySelector('.direccion').textContent.toLowerCase();
+            if (direccion.indexOf(search_term) !== -1) {
+                camara.style.display = 'block';
+            } else {
+                camara.style.display = 'none';
+            }
         });
-
-        search_input_direccion.addEventListener('keyup', () => {
-            const search_term = search_input_direccion.value.toLowerCase();
-            camaras.forEach((camara) => {
-                const direccion = camara.querySelector('.direccion').textContent.toLowerCase();
-                if (direccion.indexOf(search_term) !== -1) {
-                    camara.style.display = 'block';
-                } else {
-                    camara.style.display = 'none';
-                }
-            });
-        });
-    </script>
+    });
+</script>
 </html>

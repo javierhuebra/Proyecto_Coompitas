@@ -54,7 +54,7 @@ public class DireccionController {
         }else{
             direccion.setUsuario(userLogueado);
             direccionService.saveDireccion(direccion);
-            return "redirect:/home";
+            return "redirect:/perfil";
         }
 
     }

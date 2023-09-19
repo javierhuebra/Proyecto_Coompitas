@@ -72,6 +72,7 @@ public class DireccionController {
 
         User userLogueado = userService.findUserById(idLogueado);
 
+        viewModel.addAttribute("userLogueado", userLogueado);
         viewModel.addAttribute("direcciones", userLogueado.getDirecciones());//Inyecto solo las direcciones del usuario en la pagina adressesPage.html
         return "ciclo_funciones_generales/adressesPage";
     }

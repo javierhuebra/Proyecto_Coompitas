@@ -51,6 +51,7 @@ public class PedidoController {
             if (camaraVigente != null) { //SI HAY UNA CAMARA VIGENTE (Se esta uniendo alguien a la camara)
                 System.out.println("Anexando comprador");
 
+
                 List<Pedido> pedidosEnCamara = pedidoService.buscarPedidosPorCamara(camaraVigente.getId());//Guardo los pedidos que tiene la camara para poder evaluar las cantidades de productos solicitadas en la camara
                 System.out.println(pedidosEnCamara.size());
                 for (Pedido pedido : pedidosEnCamara) {//Busco los registros de relacion entre pedido y producto para cada pedido de la camara

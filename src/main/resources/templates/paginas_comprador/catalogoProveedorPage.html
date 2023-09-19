@@ -27,6 +27,7 @@
     <div class="contenedor" th:each="producto : ${userProveedor.productos}">
         <img style="width: 130px"  th:src="${producto.imagen}" alt="imagen del producto" src="">
         <p th:text="${producto.nombre}"></p>
+        <p>Stock: <span th:text="${producto.stock}"></span></p>
         <p>$ <span th:text="${producto.precio}"></span></p>
 
         <p th:each="descCant : ${producto.getCantidadesDescuentos()}">Llevando mas de <span

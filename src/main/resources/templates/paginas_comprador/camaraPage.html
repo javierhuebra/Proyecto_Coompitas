@@ -159,7 +159,7 @@
            th:href="@{/pagar/{idCamara}/{idPedido}(idCamara=${camara.id},idPedido=${pedido.id})}">Pagar Pedido</a>
     </div>
 </div>
-<a th:if="${camara.estadoDeLaCamara == 2 && (camara.creador != userLogueado) && userLogueado.rolUsuario != 2}"
+<a th:if="${camara.estadoDeLaCamara == 2 && (camara.creador != userLogueado) && userLogueado.rolUsuario != 2 && !camara.participantes.contains(userLogueado) }"
    th:href="@{/unirse/{idCamara}/productos(idCamara=${camara.id})}">Unirse a la camara</a>
 </body>
 </html>

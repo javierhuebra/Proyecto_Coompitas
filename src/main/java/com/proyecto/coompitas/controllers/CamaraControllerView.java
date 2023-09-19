@@ -119,6 +119,12 @@ public class CamaraControllerView {
             User userLogueado = userService.findUserById(idLogueado);//Busco el usuario logueado que va a abrir la camara
             User userProveedor = camaraActual.getProveedor();//Extraigo el usuario que provee la camara
 
+            //Hay que validar que un usuario se pueda unir solo una vez a la camara
+            if(camaraActual.getParticipantes().contains(userLogueado)){
+                System.out.println("El usuario ya esta en la camara");
+                return "redirect:/camara/" + camaraActual.getId();
+            }
+
             if(userLogueado.getEstado() != 1){ //Comprueba el estado del usuario logueado para ver si creamos un pedido vacio en este get o no
                 Pedido pedidoVacio = new Pedido();//Creo un pedido vacio en este GET para que este disponible en el controlador de pedido y actualizarlo
 
@@ -161,6 +167,8 @@ public class CamaraControllerView {
         if (idLogueado != null) {
             User userLogueado = userService.findUserById(idLogueado);//Busco el usuario logueado que va a abrir la camara
             Camara camaraActual = (Camara) session.getAttribute("camara");//Busco la camara actual que se esta trabajando
+
+
             camaraActual.getParticipantes().add(userLogueado);//Agrego el usuario logueado a la lista de participantes de la camara
 
             Pedido pedidoEnProceso = pedidoService.buscarPeidoSinCamara(userLogueado);//Busco el pedido en proceso del usuario logueado

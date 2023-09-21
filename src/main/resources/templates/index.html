@@ -1,119 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Coompitas</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      video::-webkit-media-controls {
-        display: none;
+<head>
+  <meta charset="UTF-8" />
+  <title>Coompitas</title>
+  <!-- Tailwind CDN (NO APTO DEPLOYADO) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/5264c4476b.js" crossorigin="anonymous"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+  <style>
+    body{
+      font-family: 'Raleway', sans-serif;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
       }
-    </style>
-  </head>
-  <body class="w-full h-screen bg-[#0A192F] text-[#CEDCF9]">
-    <!-- Navbar -->
-    <header class="w-full h-[150px] bg-black">
-      <nav class="flex justify-between items-center mx-10 p-5">
-        <img
-          class="w-[150px] h-[100px]"
-          src="./logo_coompitas.png"
-          alt="coompitas_logo"
-        />
-        <a class="text-[37px]" href="/login">Iniciar sesion</a>
-      </nav>
-    </header>
+      to {
+        opacity: 1;
+      }
+    }
 
-    <!-- Main content -->
-    <main class="flex flex-col justify-center items-center mt-[150px] md:mt-[250px] px-5">
-      <section class="flex flex-col md:flex-row justify-center lg:gap-10 items-center mb-[150px] md:mb-[250px] w-full">
-        <div class="flex flex-col justify-center items-center text-center">
-          <h1 class="text-7xl lg:text-[100px] mb-5">No compitas, haz compitas</h1>
-          <p class="text-3xl lg:text-5xl mb-5 max-w-[1000px]">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Dignissimos expedita explicabo impedit odio praesentium quas ratione
-          </p>
-          <a
-            class="bg-gray-500 p-4 text-3xl lg:text-5xl rounded-sm"
-            href="/registration"
-            >Registrarse</a
-          >
-        </div>
-        <img
-          class="hidden lg:block md:min-w-[700px]"
-          src="./illustration.png"
-          alt="imagen_ilustrativa"
-        />
-      </section>
-      <section class="flex flex-col justify-center items-center text-center mb-[150px] lg:w-full">
-        <h2 class="text-6xl lg:text-7xl mb-5 md:mb-10">¿Como funcionamos?</h2>
-        <video
-          class="w-full lg:w-[1500px] mb-5 md:mb-10"
-          src="./cat-video.mp4"
-          autoplay
-          loop
-          preload="auto"
-        ></video>
-        <p class="text-3xl w-[1000px]">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium,
-          adipisci alias asperiores atque autem cumque cupiditate
-        </p>
-      </section>
+    /* Aplica la animación a tu elemento */
+    .head-fadein {
+      animation: fadeIn 1s ease-in-out;
+    }
+  </style>
+</head>
+<body class="w-full h-screen bg-[#211C2E] text-white">
+<!-- Navbar -->
+<header class="w-full h-[80px] mb-[200px]">
+  <nav class="flex justify-between items-center max-w-[1200px] p-5 lg:p-3 mx-auto">
+      <img
+              class="w-[200px] xl:w-[150px]"
+              src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg"
+              alt="coompitas_logo"
+      />
+      <a class="text-4xl lg:text-2xl xl:text-xl transform transition duration-500 hover:scale-105 hover:font-bold" href="/login">Iniciar sesion</a>
+  </nav>
+</header>
 
-      <section class="flex flex-col justify-center items-center">
-        <h3 class="text-5xl mb-10">Sobre Nosotros</h3>
-        <!-- Carrousel -->
-        <div>
-          <div class="flex flex-col justify-center self-center gap-5 p-5 m-5 text-black text-center bg-white w-[350px]">
-            <img src="../static/illustration.png" alt="Imagen de muestra" />
-            <h3 class="text-5xl">Titulo</h3>
-            <p class="text-2xl">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Accusantium, adipisci alias asperiores atque autem cumque
-              cupiditate.
-            </p>
-            <a href="#" class="text-2xl">Ver más...</a>
-          </div>
-          <div class="flex flex-col justify-center self-center gap-5 p-5 m-5 text-black text-center bg-white w-[350px]">
-            <img src="../static/illustration.png" alt="Imagen de muestra" />
-            <h3 class="text-5xl">Titulo</h3>
-            <p class="text-2xl">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Accusantium, adipisci alias asperiores atque autem cumque
-              cupiditate.
-            </p>
-            <a href="#" class="text-2xl">Ver más...</a>
-          </div>
-          <div class="flex flex-col justify-center self-center gap-5 p-5 m-5 text-black text-center bg-white w-[350px]">
-            <img src="../static/illustration.png" alt="Imagen de muestra" />
-            <h3 class="text-5xl">Titulo</h3>
-            <p class="text-2xl">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Accusantium, adipisci alias asperiores atque autem cumque
-              cupiditate.
-            </p>
-            <a href="#" class="text-2xl">Ver más...</a>
-          </div>
+<!-- Main content -->
+<main class="w-full flex flex-col justify-between items-center md:mt-10">
+  <section class="head-fadein flex flex-col justify-center lg:flex-row lg:gap-10 items-center mb-[200px] lg:mb-[300px] w-full xl:max-w-[1200px]">
+    <div class=" flex flex-col justify-evenly items-center xl:items-start text-center xl:text-start xl:w-[60%]">
+      <h1 class="text-8xl md:text-7xl lg:text-6xl xl:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">No compitas, haz compitas</h1>
+      <p class="text-3xl lg:text-2xl my-5">
+        Nos dedicamos a la consolidación y unificación estratégica de pequeñas y medianas empresas con el propósito de facilitar la adquisición de productos al por mayor como una entidad colectiva.
+      </p>
+      <a
+              class="text-3xl lg:text-xl text-center border border-white rounded-lg py-2 px-3 transform transition duration-400 hover:bg-white hover:text-black"
+              href="/registration"
+      >Registrarse</a
+      >
+    </div>
+    <img
+            class="hidden xl:block xl:min-w-[500px]"
+            src="https://res.cloudinary.com/dqudradf7/image/upload/v1694636884/undraw_shared_goals_re_jvqd_tnhait.svg" alt="imagen_ilustrativa"
+    />
+  </section>
+  <section class="flex flex-col justify-evenly items-center text-center mb-[200px] max-w-[1200px]">
+    <h2 class="text-4xl mb-5 md:mb-10">¿Como funcionamos?</h2>
+    <video
+            class="p-5 mb-5 md:mb-10"
+            src="./cat-video.mp4"
+            autoplay
+            loop
+            preload="auto"
+    ></video>
+    <div class="text-2xl max-w-[1000px]">
+      <p class="mb-5">
+        En Coompitas, ofrecemos la opción de compras al por mayor, lo que significa que puedes adquirir productos en grandes cantidades a precios más económicos en conjunto con otras medianas y pequeñas empresas como la tuya.
+      </p>
+      <p>
+        Simplemente selecciona la cantidad deseada de productos, invita a tus compitas a sumarse y verás automáticamente el descuento aplicado en tu carrito de compras, ¡y en el de todos! Estamos aquí para ayudarte en cada paso del proceso y garantizar que obtengas el mejor valor por tu inversión.
+      </p>
+    </div>
+  </section>
+
+  <section class="flex flex-col justify-center items-center max-w-[1200px]">
+      <h3 class="text-4xl mb-10">Mas info</h3>
+      <div class="flex flex-col gap-5 md:flex-row flex-wrap justify-center">
+        <div class="flex flex-col justify-evenly items-center gap-3 text-center max-w-[350px] bg-slate-700 rounded-lg border border-white p-4">
+          <img class="aspect-auto mb-2" src="../images/cat.jpg" alt="Foto">
+          <h4 class="text-xl">Titulo info</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam facilisis, tellus sed gravida rutrum, ex leo consequat dui, ac dignissim nunc risus ut ligula.</p>
+          <a href="#">Ver más</a>
         </div>
-      </section>
-    </main>
-    <footer class="flex justify-between items-center bg-black h-[150px] px-5">
-      <ul class="hidden">
-        <li>
-          <a href=""><img src="" alt="" /></a>
-        </li>
-        <li>
-          <a href=""><img src="" alt="" /></a>
-        </li>
-      </ul>
-      <div class="flex flex-col items-center justify-center">
-        <img class="w-[70px] h-[50px]" src="./logo_coompitas.png" alt="coompitas_logo" />
-        <p>© 2023 Coompitas</p>
+        <div class="flex flex-col justify-evenly items-center gap-3 text-center max-w-[350px] bg-slate-700 rounded-lg border border-white p-4">
+          <img class="aspect-auto" src="../images/cat.jpg" alt="Foto">
+          <h4 class="text-xl">Titulo info</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam facilisis, tellus sed gravida rutrum, ex leo consequat dui, ac dignissim nunc risus ut ligula.</p>
+          <a href="#">Ver más</a>
+        </div>
+        <div class="flex flex-col justify-evenly items-center gap-3 text-center max-w-[350px] bg-slate-700 rounded-lg border border-white p-4">
+          <img class="aspect-auto" src="../images/cat.jpg" alt="Foto">
+          <h4 class="text-xl">Titulo info</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam facilisis, tellus sed gravida rutrum, ex leo consequat dui, ac dignissim nunc risus ut ligula.</p>
+          <a href="#">Ver más</a>
+        </div>
       </div>
-      <ul class="flex gap-5">
-        <li><a href="#">Contacto</a></li>
-        <li><a href="#">Preguntas frecuentes</a></li>
-        <li><a href="#">Terminos y condiciones</a></li>
-      </ul>
-    </footer>
-  </body>
+  </section>
+</main>
+<footer class="flex justify-between items-center bg-gradient-to-t from-[#1A1625] via-[#1A1625] h-[150px] px-5">
+  <ul class="hidden">
+    <li>
+      <a href=""><img src="" alt="" /></a>
+    </li>
+    <li>
+      <a href=""><img src="" alt="" /></a>
+    </li>
+  </ul>
+  <div class="flex flex-col items-center justify-center">
+    <img class="w-[70px] h-[70px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695225117/Texto_del_p%C3%A1rrafo_yo20zy.svg" alt="coompitas_logo" />
+    <p>© 2023 Coompitas</p>
+  </div>
+  <ul class="flex gap-5">
+    <li><a href="#">Contacto</a></li>
+    <li><a href="#">Preguntas frecuentes</a></li>
+    <li><a href="#">Terminos y condiciones</a></li>
+  </ul>
+</footer>
+</body>
 </html>

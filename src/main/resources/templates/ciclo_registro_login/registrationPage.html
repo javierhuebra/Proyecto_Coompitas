@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Registration</title>
     <link rel="stylesheet" href="/stylesheets/register.css">
+    <link rel="stylesheet" href="/stylesheets/hover.css">
 </head>
 <body class="body">
 <header class="header">
@@ -15,7 +16,7 @@
 </header>
 <main class="main">
     <div id="form-comprador" class="register-container">
-        <button class="switch-btn" id="switch-vendedor">¿Quieres vender?</button>
+        <button class="switch-btn hvr-wobble-to-top-right" id="switch-vendedor">¿Quieres vender?</button>
         <h2 class="title">Comprador</h2>
         <form class="form" th:action="@{/user/register/1}" method="POST" th:object="${user}">
             <label class="label">

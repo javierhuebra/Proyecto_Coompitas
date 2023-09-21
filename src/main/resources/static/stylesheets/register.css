@@ -55,6 +55,7 @@ html {
     padding: 0.5em;
     border-radius: 10px;
     border: none;
+    cursor: pointer;
 }
 .title {
     text-align: center;
@@ -107,7 +108,7 @@ html {
     background: #CEDCF9;
     color: #0A192F;
     border: #0A192F solid 1px;
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 .efecto-top {
     position: absolute;

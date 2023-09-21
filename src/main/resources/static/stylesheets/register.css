@@ -25,7 +25,6 @@ html {
 .logo {
     height: 90%;
 }
-
 .main {
     position: relative;
     display: flex;
@@ -33,69 +32,77 @@ html {
     justify-content: center;
     align-items: center;
 }
-
-.login-container {
+#form-comprador{
     display: flex;
+}
+#form-proveedor{
+    display: none;
+}
+.register-container {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     width: 80%;
-    height: 60%;
-    max-width: 400px;
-    max-height: 550px;
+    height: 90%;
+    max-width: 450px;
     background: linear-gradient(154deg, #526681 0%, rgba(3.54, 13.34, 26.56, 0) 100%);
     border-radius: 10px;
     border: 1px white solid
 }
-
-.title {
-    height: 10%;
-    text-align: center;
-    padding: 1em 0;
-    color: #CEDCF9;
-    font-size: 2em;
+.switch-btn{
+    width: 70%;
+    margin: 0.5em auto;
+    padding: 0.5em;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
 }
-
+.switch-btn:hover{
+    background: #50347E;
+    color: #CEDCF9;
+    transform: scale(1.1);
+}
+.title {
+    text-align: center;
+    color: #CEDCF9;
+    font-size: 1.2em;
+    max-height: 50px;
+}
 .form {
     display: flex;
     width: 90%;
     height: 90%;
-    padding: 1em 0;
     flex-direction: column;
     justify-content: space-evenly;
 }
-
 .label {
     color: #CEDCF9;
     font-size: 1.2em;
+    margin: 0.2em;
     display: flex;
     flex-direction: column;
     justify-content: start;
 }
-
 .input {
     background: white;
     border-radius: 10px;
     border: none;
     padding: 0.5em;
-    margin: 0.5em 0;
 }
-
 .input::placeholder {
     color: #ccc;
 }
-
-.register-link {
+.login-link {
     color: #CEDCF9;
     text-decoration: none;
     text-align: center;
 }
-
-.login-btn {
+.register-btn {
     color: #CEDCF9;
     font-size: 1.2rem;
-    max-width: 100px;
-    margin: 0.5em auto;
+    width: fit-content;
+    margin: 0.1em auto;
     padding: 1em;
     background: none;
     border-radius: 10px;
@@ -103,13 +110,12 @@ html {
     cursor: pointer;
     transition: all 0.3s;
 }
-.login-btn:hover{
+.register-btn:hover{
     background: #CEDCF9;
     color: #0A192F;
     border: #0A192F solid 1px;
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
-
 .efecto-top {
     position: absolute;
     width: 0;
@@ -130,10 +136,13 @@ html {
     box-shadow: 0 0 6em 3em #50347E;
     transform: translateX(-50%); /* Centrar horizontalmente */
 }
-
 @media (min-width: 768px) {
+    .title{
+        font-size: 1.5em;
+    }
     .input{
-        padding: 1em;
+        margin: 0.2em;
+        padding: 0.8em;
     }
     .efecto-top {
         margin: 0 auto;

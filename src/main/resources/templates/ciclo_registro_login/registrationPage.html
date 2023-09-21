@@ -1,117 +1,128 @@
 <!doctype html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Registration</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/stylesheets/register.css">
+    <link rel="stylesheet" href="/stylesheets/hover.css">
 </head>
-<body class="flex justify-center items-center w-full h-screen gap-10 bg-[#0A192F] text-white">
-    <!-- Form para compradores -->
-    
-    <div id="form-comprador" class="flex flex-col min-w-[250px] bg-[#172B46] p-5">
-        <!-- Botones que van cambiando de formulario dependiendo el boton clickeado -->
-        <!-- Por default se veria el formulario de comprador -->
-        <div class="text-center mb-2 bg-gray-500 hover:bg-black hover:font-bold">
-            <button id="switch-vendedor">¿Quieres vender?</button>
-        </div>
-        <h2 class="text-center mb-5">Registrarse como Comprador</h2>
-        <form th:action="@{/user/register/1}" method="POST" th:object="${user}">
-        
-            <label class="flex flex-col mb-3">
-                <input class="text-black" type="text" th:field="*{nombreEmpresa}" placeholder="Nombre de la Empresa">
-                <label class="text-red-500" th:if="${#fields.hasErrors('nombreEmpresa')}" th:errors="*{nombreEmpresa}"></label>
+<body class="body">
+<header class="header">
+    <a href=""><img class="logo" src="/logo_coompitas.png" alt="logo-coompitas"></a>
+    <div class="efecto-top"></div>
+</header>
+<main class="main">
+    <div id="form-comprador" class="register-container">
+        <button class="switch-btn" id="switch-vendedor">¿Quieres vender?</button>
+        <h2 class="title">Comprador</h2>
+        <form class="form" th:action="@{/user/register/1}" method="POST" th:object="${user}">
+            <label class="label">
+                Nombre de la empresa
+                <input class="input" type="text" th:field="*{nombreEmpresa}" placeholder="Nombre de la Empresa">
+                <label class="error" th:if="${#fields.hasErrors('nombreEmpresa')}" th:errors="*{nombreEmpresa}"></label>
             </label>
-            <label class="flex flex-col mb-3">
-                <input class="text-black" type="text" th:field="*{cuitCuil}" placeholder="CUIT/CUIL">
-                <label class="text-red-500" th:if="${#fields.hasErrors('cuitCuil')}" th:errors="*{cuitCuil}"></label>
+            <label class="label">
+                Cuil
+                <input class="input" type="text" th:field="*{cuitCuil}" placeholder="CUIT/CUIL">
+                <label class="error" th:if="${#fields.hasErrors('cuitCuil')}" th:errors="*{cuitCuil}"></label>
             </label>
-            <label class="flex flex-col mb-3">
-                <input class="text-black" type="text" th:field="*{nombreTitular}" placeholder="Nombre del Titular">
-                <label class="text-red-500" th:if="${#fields.hasErrors('nombreTitular')}" th:errors="*{nombreTitular}"></label>
+            <label class="label">
+                Nombre del Titular
+                <input class="input" type="text" th:field="*{nombreTitular}" placeholder="Nombre del Titular">
+                <label class="error" th:if="${#fields.hasErrors('nombreTitular')}" th:errors="*{nombreTitular}"></label>
             </label>
-            <label class="flex flex-col mb-3">
-                <input class="text-black" type="text" th:field="*{email}" placeholder="Email">
-                <span class="text-red-500" th:if="${emailDuplicateError}" th:text="${emailDuplicateError}"></span>
-                <label class="text-red-500" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
+            <label class="label">
+                Email
+                <input class="input" type="text" th:field="*{email}" placeholder="Email">
+                <span class="error" th:if="${emailDuplicateError}" th:text="${emailDuplicateError}"></span>
+                <label class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
             </label>
-            <label class="flex flex-col mb-3">
-                <input class="text-black" type="text" th:field="*{telefono}" placeholder="Teléfono">
-                <label class="text-red-500" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></label>
+            <label class="label">
+                Teléfono
+                <input class="input" type="text" th:field="*{telefono}" placeholder="Teléfono">
+                <label class="error" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></label>
             </label>
-            <label class="flex flex-col mb-3">
-                <input class="text-black" type="password" th:field="*{password}" placeholder="Contraseña">
-                <label class="text-red-500" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
+            <label class="label">
+                Contraseña
+                <input class="input" type="password" th:field="*{password}" placeholder="Contraseña">
+                <label class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
             </label>
-            <label class="flex flex-col mb-3">
-                <input class="text-black" type="password" th:field="*{passwordConfirmation}" placeholder="Repita la Contraseña">
-                <label class="text-red-500" th:if="${#fields.hasErrors('passwordConfirmation')}" th:errors="*{passwordConfirmation}"></label>
+            <label class="label">
+                Confirmar contraseña
+                <input class="input" type="password" th:field="*{passwordConfirmation}" placeholder="Repita la Contraseña">
+                <label class="error" th:if="${#fields.hasErrors('passwordConfirmation')}"
+                       th:errors="*{passwordConfirmation}"></label>
             </label>
-            <input class="text-center mb-2 bg-gray-500 hover:bg-black hover:font-bold" type="submit" value="Crear Cuenta">
+            <a href="/login" class="login-link">¿Ya tienes cuenta? Inicia Sesión</a>
+            <input class="register-btn" type="submit" value="Crear Cuenta">
         </form>
-        <a href="/login" class="text-[12px] md:text-base">¿Ya tienes cuenta? Inicia Sesión</a>
-    </div>
 
-    <!-- Form para proveedores -->
-    <div id="form-proveedor" class="flex flex-col min-w-[250px] bg-[#172B46] p-5 hidden">
-        <!-- Botones que van cambiando de formulario dependiendo el boton clickeado -->
-        <!-- Por default se veria el formulario de comprador -->
-        <div class="text-center mb-2 bg-gray-500 hover:bg-black hover:font-bold">
-            <button id="switch-comprador">¿Quieres comprar?</button>
-        </div>
-        <h2 class="text-center mb-5">Registrarse como Proveedor</h2>
-        <form th:action="@{/user/register/2}" method="POST" th:object="${user}">
-    
-            <label class="flex flex-col mb-3">
-                <input class="text-black" type="text" th:field="*{nombreEmpresa}" placeholder="Nombre de la Empresa">
-                <label class="text-red-500" th:if="${#fields.hasErrors('nombreEmpresa')}" th:errors="*{nombreEmpresa}"></label>
+    </div>
+    <div id="form-proveedor" class="register-container">
+        <button id="switch-comprador" class="switch-btn">¿Quieres comprar?</button>
+        <h2 class="title">Proveedor</h2>
+        <form class="form" th:action="@{/user/register/2}" method="POST" th:object="${user}">
+            <label class="label">
+                Nombre de la empresa
+                <input class="input" type="text" th:field="*{nombreEmpresa}" placeholder="Nombre de la Empresa">
+                <label class="error" th:if="${#fields.hasErrors('nombreEmpresa')}" th:errors="*{nombreEmpresa}"></label>
             </label>
-            <label class="flex flex-col mb-3">
-                <input class="text-black" type="text" th:field="*{cuitCuil}" placeholder="CUIT/CUIL">
-                <label class="text-red-500" th:if="${#fields.hasErrors('cuitCuil')}" th:errors="*{cuitCuil}"></label>
+            <label class="label">
+                Cuit
+                <input class="input" type="text" th:field="*{cuitCuil}" placeholder="CUIT/CUIL">
+                <label class="error" th:if="${#fields.hasErrors('cuitCuil')}" th:errors="*{cuitCuil}"></label>
             </label>
-            <label class="flex flex-col mb-3">
-                <input class="text-black" type="text" th:field="*{nombreTitular}" placeholder="Nombre del Titular">
-                <label class="text-red-500" th:if="${#fields.hasErrors('nombreTitular')}" th:errors="*{nombreTitular}"></label>
+            <label class="label">
+                Nombre del Titular
+                <input class="input" type="text" th:field="*{nombreTitular}" placeholder="Nombre del Titular">
+                <label class="error" th:if="${#fields.hasErrors('nombreTitular')}" th:errors="*{nombreTitular}"></label>
             </label>
-            <label class="flex flex-col mb-3">
-                <input class="text-black" type="text" th:field="*{email}" placeholder="Email">
-                <span class="text-red-500" th:if="${emailDuplicateError}" th:text="${emailDuplicateError}"></span>
-                <label class="text-red-500" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
+            <label class="label">
+                Email
+                <input class="input" type="text" th:field="*{email}" placeholder="Email">
+                <span class="error" th:if="${emailDuplicateError}" th:text="${emailDuplicateError}"></span>
+                <label class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
             </label>
-            <label class="flex flex-col mb-3">
-                <input class="text-black" type="text" th:field="*{telefono}" placeholder="Teléfono">
-                <label class="text-red-500" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></label>
+            <label class="label">
+                Teléfono
+                <input class="input" type="text" th:field="*{telefono}" placeholder="Teléfono">
+                <label class="error" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></label>
             </label>
-            <label class="flex flex-col mb-3">
-                <input class="text-black" type="password" th:field="*{password}" placeholder="Contraseña">
-                <label class="text-red-500" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
+            <label class="label">
+                Contraseña
+                <input class="input" type="password" th:field="*{password}" placeholder="Contraseña">
+                <label class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
             </label>
-            <label class="flex flex-col mb-3">
-                <input class="text-black" type="password" th:field="*{passwordConfirmation}" placeholder="Repita la Contraseña">
-                <label class="text-red-500" th:if="${#fields.hasErrors('passwordConfirmation')}" th:errors="*{passwordConfirmation}"></label>
+            <label class="label">
+                Confirmar contraseña
+                <input class="input" type="password" th:field="*{passwordConfirmation}" placeholder="Repita la Contraseña">
+                <label class="error" th:if="${#fields.hasErrors('passwordConfirmation')}"
+                       th:errors="*{passwordConfirmation}"></label>
             </label>
-            <input class="text-center mb-2 bg-gray-500 hover:bg-black hover:font-bold" type="submit" value="Crear Cuenta">
+            <a href="/login" class="login-link">¿Ya tienes cuenta? Inicia Sesión</a>
+            <input class="register-btn" type="submit" value="Crear Cuenta">
         </form>
-        <a href="/login" class="text-[12px] md:text-base">¿Ya tienes cuenta? Inicia Sesión</a>
     </div>
-    <script>
-        let comprador = document.getElementById("form-comprador");
-        let proveedor = document.getElementById("form-proveedor");
-        let switchComprador = document.getElementById("switch-comprador");
-        let switchVendedor = document.getElementById("switch-vendedor");
+    <div class="efecto-bottom"></div>
+</main>
+<script>
+    let comprador = document.getElementById("form-comprador");
+    let proveedor = document.getElementById("form-proveedor");
+    let switchComprador = document.getElementById("switch-comprador");
+    let switchVendedor = document.getElementById("switch-vendedor");
 
-        switchVendedor.addEventListener("click", () => {
-            comprador.style.display = "none";
-            proveedor.style.display = "flex";
-        })
+    switchVendedor.addEventListener("click", () => {
+        comprador.style.display = "none";
+        proveedor.style.display = "flex";
+    })
 
-        switchComprador.addEventListener("click", () => {
-            proveedor.style.display = "none";
-            comprador.style.display = "flex";
-        })
-    </script>
+    switchComprador.addEventListener("click", () => {
+        proveedor.style.display = "none";
+        comprador.style.display = "flex";
+    })
+</script>
 </body>
 </html>

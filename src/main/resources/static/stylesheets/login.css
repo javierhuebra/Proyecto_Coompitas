@@ -18,7 +18,7 @@ html {
 .header {
     position: relative;
     height: 10%;
-    max-height: 90px;
+    max-height: 120px;
     padding: 20px;
 }
 
@@ -41,8 +41,8 @@ html {
     align-items: center;
     width: 80%;
     height: 60%;
-    max-width: 500px;
-    max-height: 600px;
+    max-width: 400px;
+    max-height: 550px;
     background: linear-gradient(154deg, #526681 0%, rgba(3.54, 13.34, 26.56, 0) 100%);
     border-radius: 10px;
     border: 1px white solid
@@ -51,6 +51,7 @@ html {
 .title {
     height: 10%;
     text-align: center;
+    padding: 1em 0;
     color: #CEDCF9;
     font-size: 2em;
 }
@@ -59,6 +60,7 @@ html {
     display: flex;
     width: 90%;
     height: 90%;
+    padding: 1em 0;
     flex-direction: column;
     justify-content: space-evenly;
 }
@@ -76,7 +78,7 @@ html {
     border-radius: 10px;
     border: none;
     padding: 0.5em;
-    margin: 0.5em;
+    margin: 0.5em 0;
 }
 
 .input::placeholder {
@@ -97,6 +99,14 @@ html {
     background: none;
     border-radius: 10px;
     border: 1px solid #CEDCF9;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.login-btn:hover{
+    background: #CEDCF9;
+    color: #0A192F;
+    border: #0A192F solid 1px;
+    transform: scale(1.2);
 }
 
 .efecto-top {
@@ -107,6 +117,7 @@ html {
     top: 0;
     background: #50347E;
     box-shadow: 0 0 6em 3em #50347E;
+    transform: translateX(-50%); /* Centrar horizontalmente */
 }
 .efecto-bottom {
     position: absolute;
@@ -116,4 +127,19 @@ html {
     top: 100%;
     background: #50347E;
     box-shadow: 0 0 6em 3em #50347E;
+    transform: translateX(-50%); /* Centrar horizontalmente */
+}
+
+@media (min-width: 768px) {
+    .efecto-top {
+        margin: 0 auto;
+        width: 150px;
+        box-shadow: 0 0 9em 1.5em #50347E;
+    }
+
+    .efecto-bottom {
+        margin: 0 auto;
+        width: 350px;
+        box-shadow: 0 0 11em 2em #50347E;
+    }
 }

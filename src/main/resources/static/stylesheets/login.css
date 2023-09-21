@@ -93,7 +93,8 @@ html {
 
 .login-btn {
     color: #CEDCF9;
-    max-width: 80px;
+    font-size: 1.2rem;
+    max-width: 100px;
     margin: 0.5em auto;
     padding: 1em;
     background: none;
@@ -131,6 +132,9 @@ html {
 }
 
 @media (min-width: 768px) {
+    .input{
+        padding: 1em;
+    }
     .efecto-top {
         margin: 0 auto;
         width: 150px;

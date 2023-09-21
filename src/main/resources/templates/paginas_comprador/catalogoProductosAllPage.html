@@ -3,13 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Productos</title>
+    <link rel="stylesheet" href="/stylesheets/catalogoProductosAllPage.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<style>
-    .hidden{
-        display: none;
-    }
-</style>
 <body>
+<header class="w-full h-[80px] bg-black">
+    <nav class="flex justify-between max-w-[1200px] items-center p-3 mx-auto">
+        <!--Este div lo puse para probar, sacalo si queres para toquetear porque no
+            estaba centrado el logo a la par que la foto de perfil-->
+        <div class="flex justify-center items-center h-full">
+            <a href="/home">
+                <img class="w-[60px] h-[40px]" src="./logo_coompitas.png" alt="Logo Coompitas">
+            </a>
+        </div>
+        <div class="inline-block relative">
+            <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario"
+                 th:src="${userLogueado.urlFotoPerfil}">
+            <div id="drop-items"
+                 class=" w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-md">
+                <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
+                <hr>
+                <a href="/perfil">Ir al perfil</a>
+                <a th:if="${userLogueado.rolUsuario == 1}" href="/camara/proveedores">Crear Cámara</a>
+                <a th:if="${userLogueado.rolUsuario == 1}" href="/catalogo/all/productos">Elegir por producto</a>
+                <a href="/logout" class="font-bold text-red-500">Cerrar Sesión</a>
+            </div>
+        </div>
+    </nav>
+</header>
 <h1>Todos los productos</h1>
 <input type="text" id="search_input" placeholder="Busque un producto...">
 <ul class="lista_categorias">
@@ -36,7 +57,39 @@
         <a href="/home">Unirse a Cámara del proveedor</a>
     </li>
 </ul>
+<footer class="bg-black h-[80px] px-5 flex justify-center items-center">
+    <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Terminos y condiciones</a></li>
+    </ul>
+</footer>
 <script>
+    <!--Esta logica es para el dropdown-->
+    let bodyVariable = document.getElementById('body-id');
+    let dropdown = document.getElementById('dropdown');
+    let dropItems = document.getElementById('drop-items');
+    let isOpen = false;
+
+    dropdown.addEventListener('click', () => {
+        if (isOpen === false) {
+            dropItems.style.display = "flex";
+            isOpen = true;
+        } else {
+            dropItems.style.display = "none";
+            isOpen = false;
+        }
+    });
+
+    bodyVariable.addEventListener('click', (e) => {
+        const isClickInsideDropdown = dropdown.contains(e.target);
+
+        if (!isClickInsideDropdown && isOpen) {
+            dropItems.style.display = "none";
+            isOpen = false;
+        }
+    });
+    // Esta logica es para los filtros
     const search_input = document.getElementById('search_input');
     const productos = document.querySelectorAll('.producto');
     const categoriasBtn = document.querySelectorAll('.categoriaBtn');

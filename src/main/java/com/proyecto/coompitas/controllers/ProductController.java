@@ -98,8 +98,11 @@ public class ProductController {
     public String renderAllProducts(Model viewModel, HttpSession session){
 
         Long idLogueado = (Long) session.getAttribute("idLogueado");
+        User userLogueado = userService.findUserById(idLogueado);//Busco el usuario logueado que va a abrir la camara
         if(idLogueado != null){
             viewModel.addAttribute("productos", productService.allProducts());
+            viewModel.addAttribute("userLogueado", userLogueado);//Inserto el usuario en la view
+
 
             return "paginas_comprador/catalogoProductosAllPage";
         }else{

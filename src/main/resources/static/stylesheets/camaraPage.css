@@ -59,11 +59,16 @@
 }
 .btn-cancelar-camara{
     background-color: #ff0000;
+    font-weight: bold;
+    cursor: pointer;
     color: white;
     border: none;
     border-radius: 8px;
     padding: 5px;
     margin-bottom: 5px;
+}
+.btn-cancelar-camara:hover{
+    background-color: #ff4d4d;
 }
 .cont-estados{
     background-color: #0eadc0;

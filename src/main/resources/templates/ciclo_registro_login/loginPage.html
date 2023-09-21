@@ -6,25 +6,33 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
-    <link rel="stylesheet" href="/static/stylesheets/login.css">
+    <link rel="stylesheet" href="/stylesheets/login.css">
 </head>
 <body class="body">
+<header class="header">
+    <a href=""><img class="logo" src="/logo_coompitas.png" alt="logo-coompitas"></a>
+    <div class="efecto-top"></div>
+</header>
+<main class="main">
     <div class="login-container">
         <h1 class="title">Login</h1>
         <p th:text="${error}" class="error"></p>
         <form class="form" th:action="@{/user/login}" method="POST" th:object="${userLogin}">
-            <label class="">
+            <label class="label">
+                Email
                 <input class="input" type="text" th:field="*{email}" placeholder="Email">
                 <label class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
             </label>
-            <label class="">
+            <label class="label">
+                Contraseña
                 <input class="input" type="password" th:field="*{password}" placeholder="Password">
                 <label class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
             </label>
-
+            <a href="/registration" class="register-link">¿No tienes cuenta? Regístrate</a>
             <input class="login-btn" type="submit" value="Login">
         </form>
-        <a href="/registration" class="register-link">¿No tienes cuenta? Regístrate</a>
     </div>
+    <div class="efecto-bottom"></div>
+</main>
 </body>
 </html>

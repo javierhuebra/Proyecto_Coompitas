@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.body {
+    background-color: #0A192F;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    background: linear-gradient(154deg, #526681 0%, rgba(3.54, 13.34, 26.56, 0) 100%);
+    border-radius: 10px;
+    border: 1px white solid
+}

@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/stylesheets/camaraPage.css">
     <title>Camara</title>
 </head>
 <style>
@@ -46,120 +47,158 @@
     }
 </style>
 <body style="position: relative">
-<div style="height: 100%; width: 100vw;background-color: rgba(26,26,26,0.7);position: absolute" th:if="${camara.estadoDeLaCamara == -1 || camara.estadoDeLaCamara == -2}">
-    <div style="height: 100vh;display: flex;flex-direction: column;justify-content: center">
+<div class="header">
 
-        <div th:if="${userLogueado != camara.creador}">
-
-            <h1 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">LA CÁMARA HA SIDO CANCELADA POR EL CREADOR</h1>
-            <h2 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">Disculpe las molestias. Se ha notificado con una advertencia al usuario.</h2>
-            <h2 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">Si la cuenta recibe mas de 3 (tres) advertencias será suspendida.</h2>
-        </div>
-        <div th:if="${userLogueado == camara.creador}">
-            <h1 style="color: white;text-align: center;font-size: 40px">CÁMARA CANCELADA 🛑</h1>
-            <h1 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">Si cancelas una cámara corres riesgo de suspensión &#10060;</h1>
-            <h2 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">La cancelación de estas operaciones perjudica a tus Coompitas </h2>
-            <h2 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">Si la cuenta recibe mas de 3 (tres) advertencias será suspendida.</h2>
-        </div>
-
-
-        <h1 th:if="${camara.estadoDeLaCamara == -2}" style="color: red;text-align: center">LA CÁMARA HA SIDO RECHAZADA</h1>
-        <a style="color: red;text-align: center" href="/perfil">Volver</a>
-    </div>
 </div>
-<h1>Cámara de compra para la empresa <span style="color: green" th:text="${camara.proveedor.nombreEmpresa}"></span></h1>
-<img style="width: 100px" th:src="${camara.proveedor.urlFotoPerfil}" alt="imagen del proveedor" src="">
-<h2>Creada por <span style="color: green" th:text="${camara.creador.nombreTitular}"></span> de la empresa <span
-        style="color: green" th:text="${camara.creador.nombreEmpresa}"></span></h2>
-<img style="width: 100px;height: 100px;border-radius: 50%" th:src="${camara.creador.urlFotoPerfil}"
-     alt="foto perfil creador" src="">
+<div class="cont-view">
+    <div style="height: 100%; width: 100vw;background-color: rgba(26,26,26,0.7);position: absolute"
+         th:if="${camara.estadoDeLaCamara == -1 || camara.estadoDeLaCamara == -2}">
+        <div style="height: 100vh;display: flex;flex-direction: column;justify-content: center">
 
-<div style="padding: 5px; background-color: darkblue">
-    <form th:if="${(camara.creador == userLogueado) && (camara.estadoDeLaCamara != -1 && camara.estadoDeLaCamara != -2) && (camara.estadoDeLaCamara<4)}"
-          th:action="@{/camara/creador/anular/{idCamara}(idCamara = ${camara.id})}" method="POST">
-        <input type="submit" value="CANCELAR CÁMARA">
-    </form>
-    <p style="color: red" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
-    <p style="color: green" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
-    <p style="color: #0eadc0" th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO REFORMULACIÓN DE COSTO DE ENVÍO</p>
-    <p style="color: #5e0ec0" th:if="${camara.estadoDeLaCamara == 4}">ESPERANDO QUE SE EFECTÚEN TODOS LOS PAGOS</p>
-    <p style="color: #fd33a1" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL PROVEEDOR ENVÍE LA CÁMARA DE
-        PEDIDOS</p>
-    <p style="color: #ffffff;background-color: green" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS EN
-        CAMINO!</p>
-    <p style="color: #ffffff;background-color: green" th:if="${camara.estadoDeLaCamara == 6}">
-        Fecha aproximada de llegada:
-        <span th:text="${camara.fechaDeLlegada}"></span>
-    </p>
+            <div th:if="${userLogueado != camara.creador}">
 
-    <p style="color: white">Estado de la camara: <span style="color: orangered"
-                                                       th:text="${camara.estadoDeLaCamara}"></span></p>
-    <p style="color: white">Fecha de Cierre: <span th:text="${camara.fechaDeExpiracion}"></span></p>
-    <p style="color: white">Dirección de envío: <span
-            th:text="${camara.direccionEnvio.calle} +', '+${camara.direccionEnvio.ciudad}+', '+${camara.direccionEnvio.provincia}+', '+${camara.direccionEnvio.pais} "></span>
-    </p>
-    <p style="color: white">Precio de envío: $ <span th:text="${camara.precioEnvio}"></span></p>
-    <p style="color: white">Pedidos listos: <span th:text="${pedidosListos}"></span></p>
-    <p style="color: white">Objetivos de descuento alcanzados:</p>
-    <ul style="color: white">
-        <li th:each="prodCant : ${listTotalCantProd}">
-            <span th:text="${prodCant.producto.nombre}"></span>: <span
-                th:text="${prodCant.cantidad} + ' Unidades'"></span>
-            <div style="display: flex">
-                <img style="height: 50px" th:src="${prodCant.producto.imagen}" alt="" src="">
-                <div th:each="cant :${prodCant.producto.cantidadesDescuentos}"
-                     th:class="${prodCant.cantidad>=cant.cantidad ? 'alcanzado barra' : 'no-alcanzado barra'}">
-                    <p class="cantidad" th:text="'>= '+${cant.cantidad}+' Unidades'"></p>
-                    <p class="descuento"><span th:text="${cant.descuentoAplicado}"></span>% OFF</p>
-                </div>
+                <h1 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">LA CÁMARA HA SIDO
+                    CANCELADA POR EL CREADOR</h1>
+                <h2 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">Disculpe las
+                    molestias. Se ha notificado con una advertencia al usuario.</h2>
+                <h2 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">Si la cuenta recibe
+                    mas de 3 (tres) advertencias será suspendida.</h2>
+            </div>
+            <div th:if="${userLogueado == camara.creador}">
+                <h1 style="color: white;text-align: center;font-size: 40px">CÁMARA CANCELADA 🛑</h1>
+                <h1 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">Si cancelas una
+                    cámara corres riesgo de suspensión &#10060;</h1>
+                <h2 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">La cancelación de
+                    estas operaciones perjudica a tus Coompitas </h2>
+                <h2 th:if="${camara.estadoDeLaCamara == -1}" style="color: red;text-align: center">Si la cuenta recibe
+                    mas de 3 (tres) advertencias será suspendida.</h2>
             </div>
 
-        </li>
-    </ul>
-    <p th:if="${camara.estadoDeLaCamara>3}" style="color: white">Pedidos pagados: <span
-            th:text="${pedidosPagados}"></span></p>
-    <form th:if="${pedidosListos && (camara.creador == userLogueado)}"
-          th:action="@{/camara/{idCamara}/estadoDePago(idCamara=${camara.id})}" method="POST">
-        <input th:if="${camara.estadoDeLaCamara == 2}" type="submit" value="Comenzar Pagos">
-        <input th:if="${camara.estadoDeLaCamara == 3}" type="submit" value="Volver a reclutar compradores">
-    </form>
-    <div style="background-color: aliceblue; margin: 3px" th:each="pedido : ${camara.pedidos}">
-        <p th:if="${camara.estadoDeLaCamara >= 4}">
-            <span th:if="${pedido.estadoDelPedido == 2}" style="color: white;background-color: green">PAGADO</span>
-            <span th:if="${pedido.estadoDelPedido == 1}" style="color: red">ESPERANDO PAGO</span>
-        </p>
-        <img style="width: 30px;height: 30px; border-radius: 50%" th:src="${pedido.comprador.urlFotoPerfil}"
-             alt="foto del comprador" src="">
-        <p>Estado del pedido: <span style="color: orangered" th:text="${pedido.estadoDelPedido}"></span></p>
-        <p> Pedido realizado por: <span th:text="${pedido.comprador.nombreEmpresa}"></span></p>
-        <div th:each="registro : ${registrosProductoYCantidad}">
 
-            <div th:if="${registro.pedido.id == pedido.id}">
-                <img style="width: 50px" th:src="${registro.producto.imagen}" alt="" src="">
-                <span th:text="${registro.producto.nombre}">
+            <h1 th:if="${camara.estadoDeLaCamara == -2}" style="color: red;text-align: center">LA CÁMARA HA SIDO
+                RECHAZADA</h1>
+            <a style="color: red;text-align: center" href="/perfil">Volver</a>
+        </div>
+    </div>
+    <!--encabezado de camara info violeta-->
+    <div class="cont-encabezado">
+        <div class="cont-img-users">
+            <img class="img img-proveedor" th:src="${camara.proveedor.urlFotoPerfil}" alt="imagen del proveedor" src="">
+            <img class="img img-comprador" th:src="${camara.creador.urlFotoPerfil}"
+                 alt="foto perfil creador" src="">
+        </div>
+        <div class="cont-titulos">
+            <h1 class="titulo">Cámara de compra para <span style="color: green"
+                                                           th:text="${camara.proveedor.nombreEmpresa}"></span></h1>
+            <h2 class="subtitulo">Creador: <span style="color: green" th:text="${camara.creador.nombreEmpresa}"></span>
+            </h2>
+        </div>
+    </div>
+
+
+
+    <!--contenedor del estado de la camara-->
+    <div class="cont-camara">
+        <form th:if="${(camara.creador == userLogueado) && (camara.estadoDeLaCamara != -1 && camara.estadoDeLaCamara != -2) && (camara.estadoDeLaCamara<4)}"
+              th:action="@{/camara/creador/anular/{idCamara}(idCamara = ${camara.id})}" method="POST">
+            <input type="submit" value="CANCELAR CÁMARA">
+        </form>
+        <div class="cont-estados">
+
+            <p style="color: red" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
+            <p style="color: green" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
+            <p style="color: #0eadc0" th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO REFORMULACIÓN DE COSTO DE ENVÍO</p>
+            <p style="color: #5e0ec0" th:if="${camara.estadoDeLaCamara == 4}">ESPERANDO QUE SE EFECTÚEN TODOS LOS PAGOS</p>
+            <p style="color: #fd33a1" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL PROVEEDOR ENVÍE LA CÁMARA DE
+                PEDIDOS</p>
+            <p style="color: #ffffff;background-color: green" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS EN
+                CAMINO!</p>
+        </div>
+
+        <p style="color: #ffffff;background-color: green" th:if="${camara.estadoDeLaCamara == 6}">
+            Fecha aproximada de llegada:
+            <span th:text="${camara.fechaDeLlegada}"></span>
+        </p>
+
+
+        <!--contenedor de la info de la camara-->
+        <div class="cont-info">
+            <p>Fecha de Cierre: <span th:text="${camara.fechaDeExpiracion}"></span></p>
+            <p>Dirección de envío: <span
+                    th:text="${camara.direccionEnvio.calle} +', '+${camara.direccionEnvio.ciudad}+', '+${camara.direccionEnvio.provincia}+', '+${camara.direccionEnvio.pais} "></span>
+            </p>
+            <p>Participantes: <span th:text="${camara.participantes.size()}"></span></p>
+            <p class="precio-envio">Precio de envío: <span th:text="'$ '+${camara.precioEnvio}"></span></p>
+            <!--<p>Pedidos listos: <span th:text="${pedidosListos}"></span></p>-->
+        </div>
+
+
+        <!--container de objetivos-->
+        <div class="cont-objectivos">
+            <p class="tit-obj">Objetivos de descuento alcanzados</p>
+            <ul class="obj-ul">
+                <li th:each="prodCant : ${listTotalCantProd}">
+                    <span class="obj-nombre" th:text="${prodCant.producto.nombre}"></span>: <span class="obj-cant"
+                        th:text="${prodCant.cantidad} + ' Unidades'"></span>
+                    <div style="display: flex">
+                        <img style="height: 50px" th:src="${prodCant.producto.imagen}" alt="" src="">
+                        <div th:each="cant :${prodCant.producto.cantidadesDescuentos}"
+                             th:class="${prodCant.cantidad>=cant.cantidad ? 'alcanzado barra' : 'no-alcanzado barra'}">
+                            <p class="cantidad" th:text="'>= '+${cant.cantidad}+' Unidades'"></p>
+                            <p class="descuento"><span th:text="${cant.descuentoAplicado}"></span>% OFF</p>
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <p th:if="${camara.estadoDeLaCamara>3}" style="color: white">Pedidos pagados: <span
+                th:text="${pedidosPagados}"></span></p>
+        <form th:if="${pedidosListos && (camara.creador == userLogueado)}"
+              th:action="@{/camara/{idCamara}/estadoDePago(idCamara=${camara.id})}" method="POST">
+            <input th:if="${camara.estadoDeLaCamara == 2}" type="submit" value="Comenzar Pagos">
+            <input th:if="${camara.estadoDeLaCamara == 3}" type="submit" value="Volver a reclutar compradores">
+        </form>
+        <div style="background-color: aliceblue; margin: 3px" th:each="pedido : ${camara.pedidos}">
+            <p th:if="${camara.estadoDeLaCamara >= 4}">
+                <span th:if="${pedido.estadoDelPedido == 2}" style="color: white;background-color: green">PAGADO</span>
+                <span th:if="${pedido.estadoDelPedido == 1}" style="color: red">ESPERANDO PAGO</span>
+            </p>
+            <img style="width: 30px;height: 30px; border-radius: 50%" th:src="${pedido.comprador.urlFotoPerfil}"
+                 alt="foto del comprador" src="">
+            <p>Estado del pedido: <span style="color: orangered" th:text="${pedido.estadoDelPedido}"></span></p>
+            <p> Pedido realizado por: <span th:text="${pedido.comprador.nombreEmpresa}"></span></p>
+            <div th:each="registro : ${registrosProductoYCantidad}">
+
+                <div th:if="${registro.pedido.id == pedido.id}">
+                    <img style="width: 50px" th:src="${registro.producto.imagen}" alt="" src="">
+                    <span th:text="${registro.producto.nombre}">
                     </span> x <span th:text="${registro.cantidad}">
                     </span> = $<span th:text="${registro.precioProductos}"></span>
-                <span th:if="${registro.descuentoVigente > 0}"
-                      style="color: red"
-                      th:text="'% ' + ${registro.descuentoVigente} + ' OFF'"></span>
+                    <span th:if="${registro.descuentoVigente > 0}"
+                          style="color: red"
+                          th:text="'% ' + ${registro.descuentoVigente} + ' OFF'"></span>
+                </div>
             </div>
-        </div>
-        <p>Costo de su pedido: $<span th:text="${pedido.precioTotal}"></span></p>
-        <p>Costo de su envío: <span th:text="${camara.precioEnvio}"></span>/<span
-                th:text="${camara.participantes.size()}"></span> = $ <span
-                th:text="${camara.precioEnvio/camara.participantes.size()}"></span></p>
-        <p>Total: $<span th:text="${camara.precioEnvio/camara.participantes.size() + pedido.precioTotal}"></span></p>
+            <p>Costo de su pedido: $<span th:text="${pedido.precioTotal}"></span></p>
+            <p>Costo de su envío: <span th:text="${camara.precioEnvio}"></span>/<span
+                    th:text="${camara.participantes.size()}"></span> = $ <span
+                    th:text="${camara.precioEnvio/camara.participantes.size()}"></span></p>
+            <p>Total: $<span th:text="${camara.precioEnvio/camara.participantes.size() + pedido.precioTotal}"></span>
+            </p>
 
-        <form th:if="${(userLogueado.id == pedido.comprador.id) && camara.estadoDeLaCamara == 2}"
-              th:action="@{'/pedidos/' + ${pedido.id} + '/estado/' + ${camara.id}}" method="POST">
-            <input th:if="${pedido.estadoDelPedido == 0}" type="submit" value="Estoy Listo">
-            <input th:if="${pedido.estadoDelPedido == 1}" type="submit" value="No Estoy Listo">
-        </form>
-        <a th:if="${camara.estadoDeLaCamara == 4 && (pedido.comprador == userLogueado)}"
-           th:href="@{/pagar/{idCamara}/{idPedido}(idCamara=${camara.id},idPedido=${pedido.id})}">Pagar Pedido</a>
+            <form th:if="${(userLogueado.id == pedido.comprador.id) && camara.estadoDeLaCamara == 2}"
+                  th:action="@{'/pedidos/' + ${pedido.id} + '/estado/' + ${camara.id}}" method="POST">
+                <input th:if="${pedido.estadoDelPedido == 0}" type="submit" value="Estoy Listo">
+                <input th:if="${pedido.estadoDelPedido == 1}" type="submit" value="No Estoy Listo">
+            </form>
+            <a th:if="${camara.estadoDeLaCamara == 4 && (pedido.comprador == userLogueado)}"
+               th:href="@{/pagar/{idCamara}/{idPedido}(idCamara=${camara.id},idPedido=${pedido.id})}">Pagar Pedido</a>
+        </div>
     </div>
+    <a th:if="${camara.estadoDeLaCamara == 2 && (camara.creador != userLogueado) && userLogueado.rolUsuario != 2 && !camara.participantes.contains(userLogueado) }"
+       th:href="@{/unirse/{idCamara}/productos(idCamara=${camara.id})}">Unirse a la camara</a>
 </div>
-<a th:if="${camara.estadoDeLaCamara == 2 && (camara.creador != userLogueado) && userLogueado.rolUsuario != 2 && !camara.participantes.contains(userLogueado) }"
-   th:href="@{/unirse/{idCamara}/productos(idCamara=${camara.id})}">Unirse a la camara</a>
 </body>
 </html>

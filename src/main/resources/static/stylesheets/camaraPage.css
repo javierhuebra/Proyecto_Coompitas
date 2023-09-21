@@ -1,0 +1,105 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto Light", sans-serif;
+}
+.header{
+    background-color: black;
+    height: 80px;
+}
+.cont-view{
+    padding: 5px;
+}
+/*encabezado*/
+.cont-encabezado{
+    display: flex;
+    height: 100px;
+    background-color: blueviolet;
+    border-radius: 16px;
+    margin-bottom: 5px;
+}
+.cont-img-users{
+    position: relative;
+}
+.cont-titulos{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+}
+.titulo{
+    font-size: 18px;
+}
+.subtitulo{
+    font-size: 15px;
+}
+.img{
+    height: 100%;
+    width: 100px;
+    border-radius: 50%;
+    background-color: white;
+    border: 3px solid white;
+}
+.img-comprador{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    bottom: -5px;
+    right: -5px;
+}
+
+/*contenedor camara*/
+.cont-camara{
+
+}
+
+.cont-estados{
+    background-color: #0eadc0;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    text-align: center;
+    padding: 5px;
+}
+
+.cont-info{
+    background-color: #0eadc0;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+.cont-info p{
+    font-weight: bold;
+}
+.cont-info span{
+    color: white;
+    font-weight: normal;
+}
+.precio-envio{
+    text-align: right;
+    margin-top: 20px;
+    background-color: #00d5ad;
+}
+.cont-objectivos{
+    background-color: #0eadc0;
+    border-radius: 8px;
+    padding: 10px;
+}
+.tit-obj{
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.obj-ul{
+    color: white;
+}
+.obj-nombre{
+    font-weight: bold;
+    text-transform: capitalize;
+}
+.obj-cant{
+
+}

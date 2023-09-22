@@ -32,6 +32,7 @@
     background-color: #0A192F;
     padding: 8px;
     display: none;
+    z-index: 110;
 }
 .dropdown-interior{
     height: 100%;
@@ -59,6 +60,7 @@
     max-width: 1200px;
     min-height: calc(100vh - 80px);
     margin: auto;
+    position: relative;
 }
 /*encabezado*/
 .cont-encabezado{
@@ -285,7 +287,7 @@
     color: #CEDCF9;
 }
 .descuento-aplicado-cont{
-    background-color: greenyellow;
+    background-color: #08ce00;
     height: 90%;
     display: flex;
     justify-content: center;
@@ -306,7 +308,7 @@
 .text-descuento{
     z-index: 50;
     font-weight: bold;
-    color: red;
+    color: #ffffff;
 }
 .prod-cost{
     border-bottom: 1px solid gray;
@@ -340,7 +342,7 @@
 .ahorro-msg{
     margin-left: 5px;
     position: relative;
-    background-color: greenyellow;
+    background-color: #08ce00;
     font-weight: bold;
 }
 .ahorro-msg-false{
@@ -353,5 +355,81 @@
     right: -5px;
     top: -5px;
     z-index: 20;
+}
+
+.cancelada{
+    height: 100%;
+    width: 100%;
+    background-color: rgba(26,26,26,0.85);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+.btn-pedido{
+    padding: 5px 20px;
+    margin-top: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-nolisto{
+    background-color: #cc0000;
+    color: white;
+}
+.btn-comenzarpagos{
+    margin-top: 0;
+    margin-bottom: 5px;
+    background-color: #0eadc0;
+}
+.ancor-unirse{
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.btn-ancor-unirse{
+    background-color: green;
+    width: 160px;
+    text-align: center;
+    padding: 5px 20px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.btn-ancor-unirse:hover{
+    background-color: #08ce00;
+}
+.msg-estados-pedido{
+    margin-left: 5px;
+    font-weight: bold;
+}
+.listo-msg{
+    color: greenyellow;
+}
+.nolisto-msg{
+    color: red;
+}
+.ped-propietario{
+    border-color: yellowgreen;
+    box-shadow: 0px 0px 10px yellowgreen;
+}
+.pagar-div{
+    background-color: #0eadc0;
+    width: 160px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 5px;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+.pagar-div:hover{
+    background-color: #309fab;
+    cursor: pointer;
+}
+.pagar-div a{
+    text-decoration: none;
+    color: white;
+
 }
 

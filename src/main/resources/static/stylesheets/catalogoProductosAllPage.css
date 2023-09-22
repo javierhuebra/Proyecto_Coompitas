@@ -1,3 +1,71 @@
 .hidden{
     display: none;
 }
+.container-principal{
+    max-width: 1200px;
+    margin: auto;
+}
+.titulo-prin{
+    font-size: 25px;
+    text-align: center;
+}
+.lista_categorias{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.lista_categorias li{
+    background-color: red;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    padding: 0 5px;
+}
+.buscar-div{
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+#search_input{
+    background-color: rgba(220, 220, 220, 0.6);
+}
+.lista_productos{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.producto{
+    width:23%;
+    border-radius: 8px;
+    border: 2px solid black;
+    margin-bottom: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.img-producto{
+    height: 100px;
+    border-radius: 16px;
+}
+.producto_nombre{
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+.boton-abrir-cam{
+    background-color: #0eadc0;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+.boton-abrir-cam a{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}

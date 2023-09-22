@@ -13,7 +13,7 @@
             estaba centrado el logo a la par que la foto de perfil-->
         <div class="flex justify-center items-center h-full">
             <a href="/home">
-                <img class="w-[60px] h-[40px]" src="./logo_coompitas.png" alt="Logo Coompitas">
+                <img class="w-[60px] h-[40px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg" alt="Logo Coompitas">
             </a>
         </div>
         <div class="inline-block relative">
@@ -31,32 +31,48 @@
         </div>
     </nav>
 </header>
-<h1>Todos los productos</h1>
-<input type="text" id="search_input" placeholder="Busque un producto...">
-<ul class="lista_categorias">
-    <li th:each="producto : ${productos}" >
-        <button class="categoriaBtn" th:text="${producto.categoria}"></button>
-    </li>
-    <li>
-        <button id="restet_filtros">Mostrar Todos</button>
-    </li>
-</ul>
-<ul class="lista_productos">
-    <li class="producto" th:each="producto : ${productos}">
-        <img style="width: 130px"  th:src="${producto.imagen}" alt="imagen del producto" src="">
-        <p class="producto_nombre" th:text="${producto.nombre}"></p>
-        <p>Stock: <span th:text="${producto.stock}"></span></p>
-        <p>$ <span th:text="${producto.precio}"></span></p>
-        <p class="producto_categoria hidden" th:text="${producto.categoria}"></p>
-        <p th:each="descCant : ${producto.getCantidadesDescuentos()}">Llevando más de <span
-                th:text="${descCant.cantidad}"></span> tienes un <span th:text="${descCant.descuentoAplicado}"></span>%
-            de descuento</p>
-        <p>Proveedor: <span th:text="${producto.proveedor.nombreEmpresa}"></span></p>
-        <img style="width: 60px"  th:src="${producto.proveedor.urlFotoPerfil}" alt="" src="">
-        <a th:href="@{/camara/proveedores/catalogo/{idProveedor}(idProveedor=${producto.proveedor.id})}">Abrir Cámara al Proveedor</a>
-        <a href="/home">Unirse a Cámara del proveedor</a>
-    </li>
-</ul>
+
+<div class="container-principal">
+    <h1 class="titulo-prin">Todos los productos</h1>
+    <ul class="lista_categorias">
+        <li th:each="producto : ${productos}" >
+            <button class="categoriaBtn" th:text="${producto.categoria}"></button>
+        </li>
+        <li>
+            <button id="restet_filtros">Mostrar Todos</button>
+        </li>
+    </ul>
+    <div class="buscar-div">
+        <label>Buscar por producto:
+            <input type="text" id="search_input" placeholder="Busque un producto...">
+        </label>
+    </div>
+
+
+    <ul class="lista_productos">
+        <li class="producto" th:each="producto : ${productos}">
+            <img class="img-producto" style="width: 130px"  th:src="${producto.imagen}" alt="imagen del producto" src="">
+            <p class="producto_nombre" th:text="${producto.nombre}"></p>
+            <p>Stock: <span th:text="${producto.stock}"></span></p>
+            <p>$ <span th:text="${producto.precio}"></span></p>
+            <p class="producto_categoria hidden" th:text="${producto.categoria}"></p>
+
+            <div class="descuentos">
+                <p th:each="descCant : ${producto.getCantidadesDescuentos()}"> + <span
+                        th:text="${descCant.cantidad}"></span> unidades <span th:text="${descCant.descuentoAplicado}"></span> % OFF</p>
+            </div>
+
+            <p>Proveedor: <span th:text="${producto.proveedor.nombreEmpresa}"></span></p>
+            <img style="width: 60px"  th:src="${producto.proveedor.urlFotoPerfil}" alt="" src="">
+
+            <div class="boton-abrir-cam">
+                <a th:href="@{/camara/proveedores/catalogo/{idProveedor}(idProveedor=${producto.proveedor.id})}">Abrir Cámara al Proveedor</a>
+            </div>
+
+        </li>
+    </ul>
+
+</div>
 <footer class="bg-black h-[80px] px-5 flex justify-center items-center">
     <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
         <li><a href="#">Contacto</a></li>

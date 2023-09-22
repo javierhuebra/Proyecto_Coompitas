@@ -7,31 +7,32 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/stylesheets/camaraPage.css">
     <title>Camara</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body id="body-id">
-<div class="header">
-    <div class="cont-header">
-        <a href="/home">
-            <img class="logo-coompitas"
-                 src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg"
-                 alt="">
-        </a>
-
-        <img id="dropdown" src="" class="url-usuario" th:src="${userLogueado.urlFotoPerfil}" alt="">
-
-        <div id="drop-items" class="dropdown-c">
-            <div class="dropdown-interior">
-                <p class="saludin">Hola <span th:text="${userLogueado.nombreEmpresa}"></span></p>
-                <a href="/perfil">Perfil</a>
-                <a href="/camara/proveedores">Abrir cámara</a>
-                <a href="/catalogo/all/productos">Elegir por producto</a>
-                <a href="/logout">Cerrar Sesión</a>
+<header class="w-full h-[80px] bg-black">
+    <nav class="flex justify-between items-center max-w-[1200px] mx-auto">
+        <div class="flex justify-center items-center">
+            <a href="/home">
+                <img class="w-[100px] h-[80px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg" alt="Logo Coompitas">
+            </a>
+        </div>
+        <div class="inline-block relative mt-[5px]">
+            <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario"
+                 th:src="${userLogueado.urlFotoPerfil}">
+            <div id="drop-items"
+                 class=" w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-md">
+                <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
+                <hr>
+                <a href="/perfil">Ir al perfil</a>
+                <a th:if="${userLogueado.rolUsuario == 1}" href="/camara/proveedores">Crear Cámara</a>
+                <a th:if="${userLogueado.rolUsuario == 1}" href="/catalogo/all/productos">Elegir por producto</a>
+                <a href="/logout" class="font-bold text-red-500">Cerrar Sesión</a>
             </div>
         </div>
-    </div>
-
-</div>
+    </nav>
+</header>
 
 <div class="cont-view">
     <div class="cancelada" th:if="${camara.estadoDeLaCamara == -1 || camara.estadoDeLaCamara == -2}">

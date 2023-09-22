@@ -11,15 +11,13 @@
 
 <body class="flex flex-col justify-between min-h-[100vh]" id="body-id">
 <header class="w-full h-[80px] bg-black">
-    <nav class="flex justify-between max-w-[1200px] items-center p-3 mx-auto">
-        <!--Este div lo puse para probar, sacalo si queres para toquetear porque no
-            estaba centrado el logo a la par que la foto de perfil-->
-        <div class="flex justify-center items-center h-full">
+    <nav class="flex justify-between items-center max-w-[1200px] mx-auto">
+        <div class="flex justify-center items-center">
             <a href="/home">
-                <img class="w-[60px] h-[40px]" src="./logo_coompitas.png" alt="Logo Coompitas">
+                <img class="w-[100px] h-[80px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg" alt="Logo Coompitas">
             </a>
         </div>
-        <div class="inline-block relative">
+        <div class="inline-block relative mt-[5px]">
             <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario"
                  th:src="${userLogueado.urlFotoPerfil}">
             <div id="drop-items"
@@ -34,6 +32,13 @@
         </div>
     </nav>
 </header>
+<!--<header class="w-full h-[80px] bg-black">-->
+<!--    <nav class="flex justify-between max-w-[1200px] items-center p-3 mx-auto">-->
+<!--        &lt;!&ndash;Este div lo puse para probar, sacalo si queres para toquetear porque no-->
+<!--            estaba centrado el logo a la par que la foto de perfil&ndash;&gt;-->
+<!--        -->
+<!--    </nav>-->
+<!--</header>-->
 
 <main class="mx-auto max-w-[1200px]">
     <div class="flex flex-col justify-center mx-auto p-3 w-full">

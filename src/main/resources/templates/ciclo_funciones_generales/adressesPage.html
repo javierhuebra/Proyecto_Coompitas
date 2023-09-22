@@ -6,30 +6,31 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Perfil - Coompitas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex flex-col justify-between min-h-[100vh]" id="body-id">
-  <header class="w-full h-[80px] bg-black">
-    <nav class="flex justify-between max-w-[1200px] items-center p-3 mx-auto">
-      <!--Este div lo puse para probar, sacalo si queres para toquetear porque no
-          estaba centrado el logo a la par que la foto de perfil-->
-      <div class="flex justify-center items-center h-full">
-        <img class="w-[60px] h-[40px]" src="./logo_coompitas.png" alt="Logo Coompitas">
+<header class="w-full h-[80px] bg-black">
+  <nav class="flex justify-between items-center max-w-[1200px] mx-auto">
+    <div class="flex justify-center items-center">
+      <a href="/home">
+        <img class="w-[100px] h-[80px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg" alt="Logo Coompitas">
+      </a>
+    </div>
+    <div class="inline-block relative mt-[5px]">
+      <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario"
+           th:src="${userLogueado.urlFotoPerfil}">
+      <div id="drop-items"
+           class=" w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-md">
+        <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
+        <hr>
+        <a href="/perfil">Ir al perfil</a>
+        <a th:if="${userLogueado.rolUsuario == 1}" href="/camara/proveedores">Crear Cámara</a>
+        <a th:if="${userLogueado.rolUsuario == 1}" href="/catalogo/all/productos">Elegir por producto</a>
+        <a href="/logout" class="font-bold text-red-500">Cerrar Sesión</a>
       </div>
-      <div class="inline-block relative">
-        <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario"
-             th:src="${userLogueado.urlFotoPerfil}">
-        <div id="drop-items"
-             class=" w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-md">
-          <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
-          <hr>
-          <a href="/perfil">Ir al perfil</a>
-          <a th:if="${userLogueado.rolUsuario == 1}" href="/camara/proveedores">Crear Cámara</a>
-          <a th:if="${userLogueado.rolUsuario == 1}" href="/catalogo/all/productos">Elegir por producto</a>
-          <a href="/logout" class="font-bold text-red-500">Cerrar Sesión</a>
-        </div>
-      </div>
-    </nav>
-  </header>
+    </div>
+  </nav>
+</header>
 <p>Tus direcciones:</p>
 <div th:each="direccionesDeUsuario : ${direcciones}">
   <p>- <span  th:text="${direccionesDeUsuario.provincia}+' '+${direccionesDeUsuario.ciudad}+' '+${direccionesDeUsuario.codigoPostal}"></span></p>
@@ -77,4 +78,30 @@
   <input type="submit" value="Guardar Dirección">
 </form>
 </body>
+<script>
+  <!--Esta el dropdown-->
+  let bodyVariable = document.getElementById('body-id');
+  let dropdown = document.getElementById('dropdown');
+  let dropItems = document.getElementById('drop-items');
+  let isOpen = false;
+
+  dropdown.addEventListener('click', () => {
+      if (isOpen === false) {
+          dropItems.style.display = "flex";
+          isOpen = true;
+      } else {
+          dropItems.style.display = "none";
+          isOpen = false;
+      }
+  });
+
+  bodyVariable.addEventListener('click', (e) => {
+      const isClickInsideDropdown = dropdown.contains(e.target);
+
+      if (!isClickInsideDropdown && isOpen) {
+          dropItems.style.display = "none";
+          isOpen = false;
+      }
+  });
+</script>
 </html>

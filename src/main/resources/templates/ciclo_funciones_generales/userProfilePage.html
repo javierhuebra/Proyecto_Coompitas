@@ -201,6 +201,7 @@
                             <input type="submit" value="Guardar">
                         </form>
                     </div>
+                    <a th:href="@{camara/{idCamara}(idCamara=${camara.id})}">Ver Detalles</a>
                 </div>
                 <div th:if="${camarasProveidas.size() == 0}">
                     No te compro nadie pa

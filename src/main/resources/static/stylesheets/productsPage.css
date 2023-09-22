@@ -1,0 +1,11 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.main-container{
+    padding: 5px;
+    max-width: 1200px;
+    min-height: calc(100vh - 80px);
+    margin: auto;
+}

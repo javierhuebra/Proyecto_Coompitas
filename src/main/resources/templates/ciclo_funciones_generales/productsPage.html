@@ -9,21 +9,44 @@
     <link rel="stylesheet" href="/stylesheets/productsPage.css">
 </head>
 <body>
+<div class="header">
+    <div  class="cont-header">
+        <a href="/home">
+            <img class="logo-coompitas"
+                 src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg"
+                 alt="">
+        </a>
+
+        <img id="dropdown" src="" class="url-usuario" th:src="${userLogueado.urlFotoPerfil}" alt="">
+
+        <div id="drop-items" class="dropdown-c">
+            <div class="dropdown-interior">
+                <p class="saludin">Hola <span th:text="${userLogueado.nombreEmpresa}"></span></p>
+                <a href="/perfil">Perfil</a>
+                <a href="/camara/proveedores">Abrir cámara</a>
+                <a href="/catalogo/all/productos">Elegir por producto</a>
+                <a href="/logout">Cerrar Sesión</a>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="main-container">
-    <h1>Productos Proveeidos</h1>
-    <input type="text" id="search-input" placeholder="Buscar producto...">
-    <h2>Productos de esta cuenta:</h2>
+    <div class="search-container">
+        <h1 class="main-title">Productos Proveeidos</h1>
+        <input class="input" type="text" id="search-input" placeholder="Buscar producto...">
+    </div>
+    <h2 class="lista-productos-title">Productos de esta cuenta:</h2>
     <ul class="lista_productos" th:if="${userLogueado.productos.size()>0}">
         <li class="producto" th:each="producto : ${userLogueado.productos}">
             <img style="height: 50px" th:src="${producto.imagen}" alt="imagen producto" src="">
-            <span class="producto_nombre" th:text="${producto.nombre}"></span>
-            <span th:text="${producto.precio}"></span>
-            <span th:text="${producto.stock}"></span>
-            <span th:text="${producto.categoria}"></span>
-            <div>
-                <a th:href="@{/perfil/productos/editar/{idProducto}(idProducto = ${producto.id})}" >Editar</a>
+            <p><span class="producto_nombre producto-text" th:text="${producto.nombre}"></span></p>
+            <p><span class="producto-text" th:text="${producto.precio}"></span></p>
+            <p><span class="producto-text" th:text="${producto.stock}"></span></p>
+            <p><span class="producto-text" th:text="${producto.categoria}"></span></p>
+            <div class="acciones">
+                <a class="editar-link" th:href="@{/perfil/productos/editar/{idProducto}(idProducto = ${producto.id})}" >&#128393;</a>
                 <form th:action="@{/eliminar/{idProducto}(idProducto = ${producto.id})}" th:method="DELETE">
-                    <input type="submit" value="ELIMINAR">
+                    <input class="eleminar-btn" type="submit" value="&#128465;">
                 </form>
             </div>
 
@@ -33,7 +56,8 @@
     </ul>
     <p th:unless="${userLogueado.productos.size()>0}">Esta cuenta no tiene productos cargados</p>
     <br>
-    <form th:action="@{/perfil/productos/crear}" method="POST" th:object="${producto}">
+    <button id="agregar-btn">Agregar Producto</button>
+    <form id="agregar-form" th:action="@{/perfil/productos/crear}" method="POST" th:object="${producto}">
         <input type="hidden" name="id" th:value="${producto.id}">
 
         <label>
@@ -135,7 +159,7 @@
             <input type="submit" value="Editar Producto">
         </label>
         <label th:unless="${producto.id}">
-            <input type="submit" value="Crear Producto">
+            <input id="crear-btn" type="submit" value="Crear Producto">
         </label>
 
     </form>
@@ -145,6 +169,9 @@
     const search_input = document.getElementById('search-input');
     const lista_productos = document.querySelector('.lista_productos');
     const productos = document.querySelectorAll('.producto');
+    const agregar_form = document.getElementById('agregar-form');
+    const agregar_btn = document.getElementById('agregar-btn');
+    const crear_btn = document.getElementById('crear-btn');
 
     search_input.addEventListener('keyup', () => {
         const search_term = search_input.value.toLowerCase();
@@ -156,6 +183,29 @@
                 productos[i].style.display = 'none';
             }
         }
+    });
+    <!--Esta logica es para el dropdown-->
+    let dropdown = document.getElementById('dropdown');
+    let dropItems = document.getElementById('drop-items');
+    let isOpen = false;
+
+    dropdown.addEventListener('click', () => {
+        if (isOpen === false) {
+            dropItems.style.display = "flex";
+            isOpen = true;
+        } else {
+            dropItems.style.display = "none";
+            isOpen = false;
+        }
+    });
+
+    agregar_btn.addEventListener('click', () => {
+        agregar_form.style.display = "flex";
+        agregar_btn.style.display = "none";
+    });
+    crear_btn.addEventListener('click', () => {
+        agregar_form.style.display = "none";
+        agregar_btn.style.display = "inline-block";
     });
 </script>
 </html>

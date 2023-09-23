@@ -67,8 +67,9 @@ public class PagosController {
             Camara camara = camaraService.findCamara(idCamara);
             Pedido pedido = pedidoService.buscarPedidoPorId(idPedido);
             List<PedidoProducto> relacionesPedido = pedidoProductoService.buscarPorPedido(idPedido);
-            //User usuarioLogueado = userService.findUserById(idLogueado);
+            User usuarioLogueado = userService.findUserById(idLogueado);
 
+            viewModel.addAttribute("userLogueado", usuarioLogueado);
             viewModel.addAttribute("camara", camara);
             viewModel.addAttribute("pedido", pedido);
             viewModel.addAttribute("carrito", relacionesPedido);

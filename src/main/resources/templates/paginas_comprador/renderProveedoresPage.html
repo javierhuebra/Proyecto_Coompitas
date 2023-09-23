@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Proveedores</title>
+    <link rel="stylesheet" href="/stylesheets/renderProveedoresPage.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
@@ -28,12 +29,34 @@
         </div>
     </nav>
 </header>
-<h1>Crear Cámara</h1>
-<h3>Proveedores:</h3>
-<div style="background-color: rgba(0,0,139,0.45); display: flex" th:each="userProveedor : ${usersProveedor}">
-    <img style="width: 60px; border-radius: 50%;" th:src="${userProveedor.urlFotoPerfil}" alt="" src="">
-    <p th:text="${userProveedor.nombreEmpresa}"></p>
-    <a th:href="@{/camara/proveedores/catalogo/{idProveedor}(idProveedor=${userProveedor.id})}">Abrir una camara</a>
+
+<div class="main-container">
+    <div class="titulo-container">
+        <div>
+            <h1>¿Quienes proveerán tus cámaras? ⬇️</h1>
+        </div>
+        <div class="buscador">
+            <label>
+                Buscar Proveedor:
+                <input type="text" placeholder="Ingrese Proveedor...">
+            </label>
+        </div>
+
+    </div>
+
+    <div class="cont-proveedores">
+        <div class="proveedor" th:each="userProveedor : ${usersProveedor}">
+            <img class="img-proveedor" th:src="${userProveedor.urlFotoPerfil}" alt="" src="">
+            <p class="tit-proveedor" th:text="${userProveedor.nombreEmpresa}"></p>
+
+            <div class="cont-camara">
+                <a th:href="@{/camara/proveedores/catalogo/{idProveedor}(idProveedor=${userProveedor.id})}">Abrir cámara</a>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
 </body>
 </html>

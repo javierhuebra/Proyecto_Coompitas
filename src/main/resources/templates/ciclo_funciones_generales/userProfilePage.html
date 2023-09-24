@@ -261,7 +261,7 @@
                                          alt=""
                                          src="">
                                 </div>
-                                <div class="max-w-[200px]">
+                                <div class="flex flex-col items-center text-center max-w-[200px]">
                                     <p class="bg-red-500 text-white rounded-md p-1" th:if="${camara.estadoDeLaCamara == -1}">CÁMARA CANCELADA</p>
                                     <p class="bg-red-500 text-white rounded-md" th:if="${camara.estadoDeLaCamara == -2}">CÁMARA RECHAZADA POR PROVEEDOR</p>
                                     <p class="bg-green-500 text-white rounded-md" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
@@ -272,7 +272,7 @@
                                 </div>
                             </div>
                             <div>
-                                <p th:if="${camara.estadoDeLaCamara == 6}">Fecha aproximada de llegada:<span th:text="${camara.fechaDeLlegada}"></span></p>
+                                <p class="" th:if="${camara.estadoDeLaCamara == 6}">Fecha aproximada de llegada:<span th:text="${camara.fechaDeLlegada}"></span></p>
                                 <p>Estado: <span th:text="${camara.estadoDeLaCamara}"></span></p>
                                 <p>Proveedor: <span th:text="${camara.proveedor.nombreEmpresa}"></span></p>
                                 <p>Creador de la camara: <span th:text="${camara.creador.nombreEmpresa}"></span></p>

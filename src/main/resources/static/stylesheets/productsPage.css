@@ -81,7 +81,7 @@
 .producto{
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 0.5em;
     width: 200px;

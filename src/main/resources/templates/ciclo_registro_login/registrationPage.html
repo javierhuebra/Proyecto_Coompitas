@@ -8,15 +8,25 @@
     <title>Registration</title>
     <link rel="stylesheet" href="/stylesheets/register.css">
     <link rel="stylesheet" href="/stylesheets/hover.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="body">
-<header class="header">
-    <a href=""><img class="logo" src="/logo_coompitas.png" alt="logo-coompitas"></a>
-    <div class="efecto-top"></div>
+<header class="w-full h-[80px]">
+    <nav class="flex justify-between items-center max-w-[1200px] p-5 lg:p-3 mx-auto">
+        <a href="/">
+            <img
+                class="w-[200px] xl:w-[150px]"
+                src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg"
+                alt="coompitas_logo"
+        />
+        </a>
+
+        <a class="text-white text-4xl lg:text-2xl xl:text-xl transform transition duration-300 hover:scale-105 hover:font-semibold" href="/login">Iniciar sesion</a>
+    </nav>
 </header>
 <main class="main">
     <div id="form-comprador" class="register-container">
-        <button class="switch-btn" id="switch-vendedor">¿Quieres vender?</button>
+        <button class="switch-btn text-white font-semibold bg-[#03c2fc]" id="switch-vendedor">¿Quieres vender?</button>
         <h2 class="title">Comprador</h2>
         <form class="form" th:action="@{/user/register/1}" method="POST" th:object="${user}">
             <label class="label">
@@ -108,6 +118,7 @@
     </div>
     <div class="efecto-bottom"></div>
 </main>
+</body>
 <script>
     let comprador = document.getElementById("form-comprador");
     let proveedor = document.getElementById("form-proveedor");
@@ -124,5 +135,4 @@
         comprador.style.display = "flex";
     })
 </script>
-</body>
 </html>

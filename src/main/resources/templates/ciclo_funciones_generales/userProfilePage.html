@@ -77,48 +77,48 @@
             </div>
         </div>
     </section>
-
-    <div class="flex justify-center items-center max-w-[350px]" th:if="${userLogueado.direcciones.size() == 0}">
-        <h1 class="text-3xl">Para operar en la app debes registrar por lo menos una dirección! Adelante:</h1>
-        <form class="flex flex-col justify-center items-center" th:action="@{/direccion/create}" method="POST" th:object="${direccion}">
+    <hr class="my-3">
+    <div class="flex flex-col justify-center items-center mx-auto mt-5" th:if="${userLogueado.direcciones.size() == 0}">
+        <h1 class="text-xl font-semibold">Registra una dirección para tus envios</h1>
+        <form class="flex flex-col justify-center items-center shadow-xl gap-3 p-5 mt-5 rounded-xl" th:action="@{/direccion/create}" method="POST" th:object="${direccion}">
             <label class="flex flex-col">
                 Pais:
-                <input type="text" th:field="*{pais}">
+                <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{pais}" placeholder="País">
                 <label style="color: red" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></label>
             </label>
 
             <label class="flex flex-col">
                 Provincia:
-                <input type="text" th:field="*{provincia}">
+                <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{provincia}" placeholder="Provincia">
                 <label style="color: red" th:if="${#fields.hasErrors('provincia')}" th:errors="*{provincia}"></label>
             </label>
 
             <label class="flex flex-col">
                 Ciudad:
-                <input type="text" th:field="*{ciudad}">
+                <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{ciudad}" placeholder="Ciudad">
                 <span style="color: red" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}"></span>
             </label>
 
             <label class="flex flex-col">
                 Codigo Postal:
-                <input type="text" th:field="*{codigoPostal}">
+                <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{codigoPostal}" placeholder="Código postal">
                 <label style="color: red" th:if="${#fields.hasErrors('codigoPostal')}" th:errors="*{codigoPostal}"></label>
             </label>
 
             <label class="flex flex-col">
                 Calle:
-                <input type="text" th:field="*{calle}">
+                <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{calle}" placeholder="Calle">
                 <label style="color: red" th:if="${#fields.hasErrors('calle')}" th:errors="*{calle}"></label>
             </label>
 
-            <input type="submit" value="Guardar Dirección">
+            <input class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" value="Guardar">
         </form>
     </div>
 
     <!--CAMARAS DEL PROVEEDOR-->
     <section class="w-full flex flex-col justify-center items-center">
         <div class="p-2 flex flex-col w-full" th:unless="${userLogueado.direcciones.size() == 0}">
-            <div class="w-full bg-[#172b46] p-2 rounded-md my-5" th:if="${userLogueado.rolUsuario == 2}">
+            <div class="w-full bg-[#172b46] p-2 rounded-lg my-5" th:if="${userLogueado.rolUsuario == 2}">
                 <h2 class="text-3xl text-white text-center font-bold">Camaras Proveidas</h2>
             </div>
             <div class="flex flex-col gap-5 w-full" th:if="${camarasProveidas}">
@@ -204,14 +204,14 @@
                         <a class="text-center text-white py-2 px-3 bg-blue-500 rounded-md transform transition duration-300 hover:scale-105 hover:font-semibold" th:href="@{camara/{idCamara}(idCamara=${camara.id})}">Ver Detalles</a>
                     </div>
                 </div>
-                <div class="w-full bg-red-500 p-2" th:if="${camarasProveidas.size() == 0}">
-                    <p class="text-white text-center">Aún no te han solicitado cámaras</p>
+                <div class="w-full bg-red-500 p-2 rounded-lg" th:if="${camarasProveidas.size() == 0}">
+                    <p class="text-white text-center rounded-lg">Aún no te han solicitado cámaras</p>
                 </div>
             </div>
 
             <!--CAMARAS DE COMPRADOR-->
             <div class="p-2 flex flex-col w-full">
-                <div class="w-full bg-[#172b46] p-2 rounded-md my-5" th:if="${userLogueado.rolUsuario == 1}">
+                <div class="w-full bg-[#172b46] p-2 rounded-lg my-5" th:if="${userLogueado.rolUsuario == 1}">
                     <h3 class="text-3xl text-white text-center font-bold">Las cámaras que gestionas</h3>
                 </div>
                 <div class="flex flex-col gap-5 w-full" th:if="${camarasCreadas}">
@@ -249,7 +249,7 @@
                         </div>
                     </div>
 
-                    <div class="w-full bg-[#172b46] p-2 rounded-md my-5">
+                    <div class="w-full bg-[#172b46] p-2 rounded-lg my-5">
                         <h2 class="text-3xl text-white text-center font-bold">Cámaras en las que participas</h2>
                     </div>
                     <div class="flex flex-col md:flex-row justify-between items-center p-5 border-black border" th:each="camara : ${camarasParticipadas}">
@@ -282,7 +282,7 @@
                             </div>
                         <a class="text-center text-white py-2 px-3 bg-blue-500 rounded-md transform transition duration-300 hover:scale-105 hover:font-semibold" th:href="@{camara/{idCamara}(idCamara=${camara.id})}">Ver Detalles</a>
                     </div>
-                    <div class="w-full bg-red-500 p-2" th:if="${camarasParticipadas.size() == 0}">
+                    <div class="w-full bg-red-500 p-2 rounded-lg" th:if="${camarasParticipadas.size() == 0}">
                         <p class="text-white text-center">No tienes ninguna participación vigente</p>
                     </div>
                 </div>

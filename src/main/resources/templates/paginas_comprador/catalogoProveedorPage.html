@@ -12,7 +12,7 @@
 
 
 <body>
-<header class="w-full h-[80px] bg-black">
+<header class="w-full h-[80px] bg-[#0A192F]">
     <nav class="flex justify-between items-center max-w-[1200px] mx-auto">
         <div class="flex justify-center items-center">
             <a href="/home">
@@ -72,16 +72,16 @@
             <div class="adentro-secundario">
                 <div class="carrito">
                     <div th:each="registro : ${carrito}">
-                        <p><span th:text="${registro.cantidad}"></span> x <span
-                                th:text="${registro.producto.nombre}"></span> = $<span
-                                th:text="${registro.precioProductos}"></span> <span
+                        <p><span class="carrito_textos" th:text="${registro.cantidad}"></span> x <span class="carrito_textos"
+                                th:text="${registro.producto.nombre}"></span> = $<span class="carrito_textos"
+                                th:text="${registro.precioProductos}"></span> <span class="carrito_textos"
                                 th:if="${registro.descuentoVigente > 0}"
                                 style="color: red"
                                 th:text="'% ' + ${registro.descuentoVigente} + ' OFF'"></span>
 
                         </p>
                     </div>
-                    <p>Total: $<span th:text="${pedidoEnProceso.precioTotal}"></span></p>
+                    <p>Total: $<span class="carrito_textos" th:text="${pedidoEnProceso.precioTotal}"></span></p>
                 </div>
 
                 <div th:if="${anexandoComprador}">
@@ -131,6 +131,13 @@
         </div>
     </div>
 </div>
+<footer class="bg-[#0A192F] h-[80px] px-5 flex justify-center items-center">
+    <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Terminos y condiciones</a></li>
+    </ul>
+</footer>
 </body>
 <script>
     <!--Esta el dropdown-->

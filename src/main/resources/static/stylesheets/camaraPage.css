@@ -111,7 +111,7 @@
 
 }
 .btn-cancelar-camara{
-    background-color: #ff0000;
+    background-color: #ce4a4a;
     font-weight: bold;
     cursor: pointer;
     color: white;
@@ -121,7 +121,7 @@
     margin-bottom: 5px;
 }
 .btn-cancelar-camara:hover{
-    background-color: #ff4d4d;
+    background-color: #942a2a;
 }
 .cont-estados{
     background-color: #172B46;
@@ -256,7 +256,7 @@
     color: #CEDCF9;
 }
 .carrito-cont{
-    background-color: #58E3CD;
+    background-color: #526681;
     padding: 5px;
     border-radius: 8px;
     margin-bottom: 5px;
@@ -265,7 +265,7 @@
     color: #0A192F;
     font-weight: bold;
     margin-bottom: 5px;
-    border-bottom: 1px solid #0eadc0;
+    border-bottom: 1px solid #2e3a4d;
     padding-bottom: 3px;
 }
 .img-carrito{
@@ -287,7 +287,7 @@
     color: #CEDCF9;
 }
 .descuento-aplicado-cont{
-    background-color: #08ce00;
+    background-color: #78a873;
     height: 90%;
     display: flex;
     justify-content: center;
@@ -342,11 +342,11 @@
 .ahorro-msg{
     margin-left: 5px;
     position: relative;
-    background-color: #08ce00;
+    background-color: #78a873;
     font-weight: bold;
 }
 .ahorro-msg-false{
-    background-color: red;
+    background-color: #ce4a4a;
     color: white;
 }
 .img-ahorro{
@@ -373,13 +373,13 @@
     cursor: pointer;
 }
 .btn-nolisto{
-    background-color: #cc0000;
+    background-color: #ce4a4a;
     color: white;
 }
 .btn-comenzarpagos{
     margin-top: 0;
     margin-bottom: 5px;
-    background-color: #0eadc0;
+    background-color: #526681;
 }
 .ancor-unirse{
     color: white;
@@ -388,7 +388,7 @@
     text-decoration: none;
 }
 .btn-ancor-unirse{
-    background-color: green;
+    background-color: #78a873;
     width: 160px;
     text-align: center;
     padding: 5px 20px;
@@ -397,24 +397,24 @@
     cursor: pointer;
 }
 .btn-ancor-unirse:hover{
-    background-color: #08ce00;
+    background-color: #53a14d;
 }
 .msg-estados-pedido{
     margin-left: 5px;
     font-weight: bold;
 }
 .listo-msg{
-    color: greenyellow;
+    color: #78a873;
 }
 .nolisto-msg{
     color: red;
 }
 .ped-propietario{
-    border-color: yellowgreen;
-    box-shadow: 0px 0px 10px yellowgreen;
+    border-color: #53a14d;
+    box-shadow: 0px 0px 10px #3db235;
 }
 .pagar-div{
-    background-color: #0eadc0;
+    background-color: #526681;
     width: 160px;
     font-weight: bold;
     text-transform: uppercase;
@@ -424,7 +424,7 @@
     margin-top: 5px;
 }
 .pagar-div:hover{
-    background-color: #309fab;
+    background-color: #92add2;
     cursor: pointer;
 }
 .pagar-div a{

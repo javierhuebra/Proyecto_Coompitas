@@ -3,7 +3,7 @@
     margin: auto;
 }
 .cont-inicial{
-    background-color: #3b8796;
+    background-color: #172B46;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -21,8 +21,6 @@
     font-weight: bold;
 }
 .producto{
-    border: 2px solid black;
-    border-radius: 8px;
     margin: 10px;
     padding: 10px;
     width: 30%;
@@ -46,9 +44,10 @@
     width: 500px;
 }
 .adentro-secundario{
-    background-color: #f58888;
+    background-color: #172B46;
     padding: 5px;
     border-radius: 8px;
+    color: #fff;
 }
 .cont-horizontal{
     display: flex;
@@ -68,12 +67,15 @@
     align-items: center;
 
 }
+.carrito_textos{
+    color: #000;
+}
 #agregar-btn{
     width: 50px;
     height: 100%;
     margin-left: 5px;
     border-radius: 8px;
-    background-color: #0eadc0;
+    background-color: #0A192F;
     color: white;
     font-weight: bold;
     font-size: 25px;
@@ -98,7 +100,7 @@
     flex-direction: column;
 }
 .btn-crearcam{
-    background-color: #5e0ec0;
+    background-color: #526681;
     color: white;
     font-weight: bold;
     width: 150px;
@@ -111,15 +113,15 @@
     margin-top: 5px;
 }
 .btn-crearcam:hover{
-    background-color: #815cbd;
-
+    background-color: #7892b4;
+    color: #000;
 }
 .btn-crearcam input{
     text-transform: uppercase;
     cursor: pointer;
 }
 .btn-cancelar{
-    background-color: red;
+    background-color: #b74949;
     width: 130px;
     margin-top: 5px;
     border-radius: 5px;

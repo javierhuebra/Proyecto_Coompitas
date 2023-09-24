@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-<header class="w-full h-[80px] bg-black">
+<header class="w-full h-[80px] bg-[#0A192F]">
     <nav class="flex justify-between items-center max-w-[1200px] mx-auto">
         <div class="flex justify-center items-center">
             <a href="/home">
@@ -33,12 +33,12 @@
 <div class="main-container">
     <div class="titulo-container">
         <div>
-            <h1>¿Quienes proveerán tus cámaras? ⬇️</h1>
+            <h1>¿Quienes proveerán tus cámaras?</h1>
         </div>
         <div class="buscador">
-            <label>
+            <label class="px-2 text-white">
                 Buscar Proveedor:
-                <input type="text" placeholder="Ingrese Proveedor...">
+                <input class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" placeholder="Ingrese Proveedor...">
             </label>
         </div>
 
@@ -46,7 +46,7 @@
 
     <div class="cont-proveedores">
         <div class="proveedor" th:each="userProveedor : ${usersProveedor}">
-            <img class="img-proveedor" th:src="${userProveedor.urlFotoPerfil}" alt="" src="">
+            <img class="img-proveedor rounded-full" th:src="${userProveedor.urlFotoPerfil}" alt="" src="">
             <p class="tit-proveedor" th:text="${userProveedor.nombreEmpresa}"></p>
 
             <div class="cont-camara">
@@ -56,6 +56,13 @@
     </div>
 
 </div>
+<footer class="bg-[#0A192F] h-[80px] px-5 flex justify-center items-center">
+    <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Terminos y condiciones</a></li>
+    </ul>
+</footer>
 
 
 </body>

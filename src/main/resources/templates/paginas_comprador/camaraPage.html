@@ -11,7 +11,7 @@
 </head>
 
 <body id="body-id">
-<header class="w-full h-[80px] bg-black">
+<header class="w-full h-[80px] bg-[#0A192F]">
     <nav class="flex justify-between items-center max-w-[1200px] mx-auto">
         <div class="flex justify-center items-center">
             <a href="/home">
@@ -83,23 +83,23 @@
 
         <div class="cont-estados">
 
-            <p style="color: white; font-weight:bold; background-color: red;" th:if="${camara.estadoDeLaCamara == 1}">
+            <p style="color: white; font-weight:bold; background-color: #ce4a4a;" th:if="${camara.estadoDeLaCamara == 1}">
                 PENDIENTE DE
                 ACEPTACIÓN</p>
-            <p style="color: white; font-weight:bold; background-color: green;" th:if="${camara.estadoDeLaCamara == 2}">
+            <p style="color: white; font-weight:bold; background-color: #478d62;" th:if="${camara.estadoDeLaCamara == 2}">
                 RECIBIENDO
                 PARTICIPANTES</p>
             <p style="color: white; font-weight:bold; background-color: #0eadc0;"
                th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO
                 REFORMULACIÓN DE COSTO DE ENVÍO</p>
-            <p style="color: white;font-weight:bold; background-color: #5e0ec0" th:if="${camara.estadoDeLaCamara == 4}">
+            <p style="color: white;font-weight:bold; background-color: #8048d0" th:if="${camara.estadoDeLaCamara == 4}">
                 ESPERANDO QUE SE
                 EFECTÚEN TODOS LOS PAGOS</p>
 
-            <p style="color: white;font-weight:bold; background-color: #fd33a1" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL
+            <p style="color: white;font-weight:bold; background-color: #e372b1" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL
                 PROVEEDOR ENVÍE LA CÁMARA DE
                 PEDIDOS</p>
-            <p style="color: #ffffff;background-color: green" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS
+            <p style="color: #ffffff;background-color: #478d62" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS
                 EN
                 CAMINO!</p>
         </div>
@@ -241,6 +241,13 @@
     </div>
 
 </div>
+<footer class="bg-[#0A192F] h-[80px] px-5 flex justify-center items-center">
+    <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Terminos y condiciones</a></li>
+    </ul>
+</footer>
 </body>
 <script>
     <!--Esta el dropdown-->

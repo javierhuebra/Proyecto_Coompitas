@@ -9,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex flex-col justify-between w-full" id="body-id">
-<header class="w-full h-[80px] bg-black">
+<header class="w-full h-[80px] bg-[#0A192F]">
     <nav class="flex justify-between items-center max-w-[1200px] mx-auto">
         <div class="flex justify-center items-center">
             <a href="/home">
@@ -122,7 +122,7 @@
                 <h2 class="text-3xl text-white text-center font-bold">Camaras Proveidas</h2>
             </div>
             <div class="flex flex-col gap-5 w-full" th:if="${camarasProveidas}">
-                <div class="flex flex-col md:flex-row justify-between items-center p-5 border-black border" th:each="camara : ${camarasProveidas}">
+                <div class="flex flex-col md:flex-row justify-between items-center p-5 rounded-lg shadow-xl" th:each="camara : ${camarasProveidas}">
                     <div class="flex flex-col md:flex-row gap-3">
                         <div class="flex flex-col justify-center items-center">
                             <img class="w-[70px] h-[70px] rounded-full" th:src="${camara.creador.urlFotoPerfil}" alt="" src="">
@@ -215,7 +215,7 @@
                     <h3 class="text-3xl text-white text-center font-bold">Las cámaras que gestionas</h3>
                 </div>
                 <div class="flex flex-col gap-5 w-full" th:if="${camarasCreadas}">
-                    <div th:class="${camara.estadoDeLaCamara == 1} ? 'pendiente flex flex-col md:flex-row justify-between items-center p-5 border-black border' : ${camara.estadoDeLaCamara == -1 || camara.estadoDeLaCamara == -2 ? 'cancelada flex flex-col md:flex-row justify-between items-center p-5 border-black border' : 'aceptada flex flex-col md:flex-row justify-between items-center p-5 border-black border'}" th:each="camara : ${camarasCreadas}">
+                    <div th:class="${camara.estadoDeLaCamara == 1} ? 'pendiente flex flex-col md:flex-row justify-between items-center p-5 rounded-lg shadow-xl' : ${camara.estadoDeLaCamara == -1 || camara.estadoDeLaCamara == -2 ? 'cancelada flex flex-col md:flex-row justify-between items-center p-5 rounded-lg shadow-xl' : 'aceptada flex flex-col md:flex-row justify-between items-center p-5 rounded-lg shadow-xl'}" th:each="camara : ${camarasCreadas}">
                         <div class="flex flex-col md:flex-row items-center gap-3">
                             <div class="flex flex-col justify-center items-center">
                                 <img class="w-[70px] h-[70px] rounded-full" th:src="${camara.proveedor.urlFotoPerfil}" alt="" src="">
@@ -252,7 +252,7 @@
                     <div class="w-full bg-[#172b46] p-2 rounded-lg my-5">
                         <h2 class="text-3xl text-white text-center font-bold">Cámaras en las que participas</h2>
                     </div>
-                    <div class="flex flex-col md:flex-row justify-between items-center p-5 border-black border" th:each="camara : ${camarasParticipadas}">
+                    <div class="flex flex-col md:flex-row justify-between items-center p-5 rounded-lg shadow-xl" th:each="camara : ${camarasParticipadas}">
                             <div class="flex flex-col md:flex-row items-center gap-3">
                                 <div class="flex">
                                     <img class="w-[50px] h-[50px] rounded-full"
@@ -290,6 +290,13 @@
         </div>
     </section>
 </main>
+<footer class="bg-[#0A192F] h-[80px] px-5 flex justify-center items-center">
+    <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Terminos y condiciones</a></li>
+    </ul>
+</footer>
 </body>
 <script>
     <!--Esta el dropdown-->

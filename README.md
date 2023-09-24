@@ -54,7 +54,7 @@ El proyecto **Coompitas** es una plataforma de comercio electrónico única que 
 
 ## Contribución
 
-Si deseas contribuir a este proyecto, sigue las pautas de contribución [aquí](enlace-a-tu-guía-de-contribución.md).
+Si deseas contribuir a este proyecto, sigue las pautas de contribución [aquí](guia-contribucion.md).
 
 ## Licencia
 

@@ -59,4 +59,30 @@
 
 
 </body>
+<script>
+    <!--Esta el dropdown-->
+    let bodyVariable = document.getElementById('body-id');
+    let dropdown = document.getElementById('dropdown');
+    let dropItems = document.getElementById('drop-items');
+    let isOpen = false;
+
+    dropdown.addEventListener('click', () => {
+        if (isOpen === false) {
+            dropItems.style.display = "flex";
+            isOpen = true;
+        } else {
+            dropItems.style.display = "none";
+            isOpen = false;
+        }
+    });
+
+    bodyVariable.addEventListener('click', (e) => {
+        const isClickInsideDropdown = dropdown.contains(e.target);
+
+        if (!isClickInsideDropdown && isOpen) {
+            dropItems.style.display = "none";
+            isOpen = false;
+        }
+    });
+</script>
 </html>

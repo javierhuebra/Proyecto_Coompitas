@@ -6,8 +6,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Pagar Pedido</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="flex flex-col justify-between w-full min-h-screen" id="body-id">
 <header class="w-full h-[80px] bg-black">
     <nav class="flex justify-between items-center max-w-[1200px] mx-auto">
         <div class="flex justify-center items-center">
@@ -30,20 +31,74 @@
         </div>
     </nav>
 </header>
-  <h1>Pagar Pedido</h1>
-  <p>Usted pidió estos productos:</p>
-  <p th:each="relacion : ${carrito}">
-    <span th:text="${relacion.producto.nombre}"></span> x <span th:text="${relacion.cantidad}"></span> = $<span th:text="${relacion.precioProductos}"></span>
-    <span th:if="${relacion.descuentoVigente > 0}"
-      style="color: red"
-      th:text="'% ' + ${relacion.descuentoVigente} + ' OFF'"></span>
-  </p>
-  <p>El costo de sus productos es: $<span th:text="${pedido.precioTotal}"></span></p>
-  <p>Costo de envío: <span th:text="${camara.precioEnvio/camara.participantes.size()}"></span></p>
-  <h2>Usted Paga: <span th:text="${pedido.precioTotal+(camara.precioEnvio/camara.participantes.size())}"></span></h2>
-  <h2>Complete los datos de su tarjeta de credito o debito</h2>
-  <form th:action="@{/pagar/pedido/{idPedido}(idPedido = ${pedido.id})}" method="POST">
-      <input type="submit" value="PAGAR PEDIDO">
-  </form>
+<main class="max-w-[1200px] mx-auto">
+    <div class="flex flex-col justify-center items-center mt-[50px]">
+        <h1 class="text-3xl font-semibold mb-3">Pagar Pedido</h1>
+        <div class="flex flex-col items-center max-w-[450px] p-3 drop-shadow-2xl">
+            <p class="text-xl font-bold">Usted pidió estos productos:</p>
+            <ul class="my-3">
+                <li th:each="relacion : ${carrito}">
+                    <span th:text="${relacion.producto.nombre}"></span> x <span th:text="${relacion.cantidad}"></span> = $<span th:text="${relacion.precioProductos}"></span>
+                    <span th:if="${relacion.descuentoVigente > 0}"
+                          class="text-red-500 font-bold"
+                          th:text="'% ' + ${relacion.descuentoVigente} + ' OFF'"></span>
+                </li>
+            </ul>
+            <p>El costo de sus productos es: <span class="text-green-500">$</span><span class="text-green-500" th:text="${pedido.precioTotal}"></span></p>
+            <p>Costo de envío: <span th:text="${camara.precioEnvio/camara.participantes.size()}"></span></p>
+            <h2>Usted Paga: <span class="text-green-500">$</span><span class="text-green-500" th:text="${pedido.precioTotal+(camara.precioEnvio/camara.participantes.size())}"></span></h2>
+            <form class="mt-5 mb-3" th:action="@{/pagar/pedido/{idPedido}(idPedido = ${pedido.id})}" method="POST">
+                <input class="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" value="Pagar pedido">
+            </form>
+        </div>
+    </div>
+</main>
+<footer class="bg-black h-[80px] px-5 flex justify-center items-center">
+    <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Terminos y condiciones</a></li>
+    </ul>
+</footer>
 </body>
+<script>
+    <!--Esta el dropdown-->
+    let bodyVariable = document.getElementById('body-id');
+    let dropdown = document.getElementById('dropdown');
+    let dropItems = document.getElementById('drop-items');
+    let isOpen = false;
+
+    <!--Para editar la foto-->
+    let editBtn = document.getElementById('edit-btn');
+    let fotoInput = document.getElementById('foto-input');
+    let cancelBtn = document.getElementById('close-form');
+
+    dropdown.addEventListener('click', () => {
+        if (isOpen === false) {
+            dropItems.style.display = "flex";
+            isOpen = true;
+        } else {
+            dropItems.style.display = "none";
+            isOpen = false;
+        }
+    });
+
+    bodyVariable.addEventListener('click', (e) => {
+        const isClickInsideDropdown = dropdown.contains(e.target);
+
+        if (!isClickInsideDropdown && isOpen) {
+            dropItems.style.display = "none";
+            isOpen = false;
+        }
+    });
+
+    <!--Editar foto de perfil-->
+    editBtn.addEventListener('click', () => {
+        fotoInput.style.display = "flex";
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        fotoInput.style.display = "none";
+    });
+</script>
 </html>

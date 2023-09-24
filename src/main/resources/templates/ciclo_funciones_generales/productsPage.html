@@ -10,27 +10,28 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-<div class="header">
-    <div  class="cont-header">
-        <a href="/home">
-            <img class="logo-coompitas"
-                 src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg"
-                 alt="">
-        </a>
-
-        <img id="dropdown" src="" class="url-usuario" th:src="${userLogueado.urlFotoPerfil}" alt="">
-
-        <div id="drop-items" class="dropdown-c">
-            <div class="dropdown-interior">
-                <p class="saludin">Hola <span th:text="${userLogueado.nombreEmpresa}"></span></p>
-                <a href="/perfil">Perfil</a>
-                <a href="/camara/proveedores">Abrir cámara</a>
-                <a href="/catalogo/all/productos">Elegir por producto</a>
-                <a href="/logout">Cerrar Sesión</a>
+<header class="w-full h-[80px] bg-[#0A192F]">
+    <nav class="flex justify-between items-center max-w-[1200px] mx-auto">
+        <div class="flex justify-center items-center">
+            <a href="/home">
+                <img class="w-[100px] h-[80px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg" alt="Logo Coompitas">
+            </a>
+        </div>
+        <div class="inline-block relative mt-[5px]">
+            <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario"
+                 th:src="${userLogueado.urlFotoPerfil}">
+            <div id="drop-items"
+                 class="z-10 w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-md">
+                <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
+                <hr>
+                <a href="/perfil">Ir al perfil</a>
+                <a th:if="${userLogueado.rolUsuario == 1}" href="/camara/proveedores">Crear Cámara</a>
+                <a th:if="${userLogueado.rolUsuario == 1}" href="/catalogo/all/productos">Elegir por producto</a>
+                <a href="/logout" class="font-bold text-red-500">Cerrar Sesión</a>
             </div>
         </div>
-    </div>
-</div>
+    </nav>
+</header>
 
 <div class="main-container">
     <div class="search-container">
@@ -162,6 +163,36 @@
         </label>
 
     </form>
+    <h2 class="lista-productos-title">Productos de esta cuenta:</h2>
+    <ul class="lista_productos" th:if="${userLogueado.productos.size()>0}">
+        <li class="producto" th:each="producto : ${userLogueado.productos}">
+            <img style="height: 50px" th:src="${producto.imagen}" alt="imagen producto" src="">
+            <p><span class="producto_nombre producto-text" th:text="${producto.nombre}"></span></p>
+            <p><span class="producto-text" th:text="${producto.precio}"></span></p>
+            <p><span class="producto-text" th:text="${producto.stock}"></span></p>
+            <p><span class="producto-text" th:text="${producto.categoria}"></span></p>
+            <div class="acciones">
+                <a class="editar-link" th:href="@{/perfil/productos/editar/{idProducto}(idProducto = ${producto.id})}" >&#128393;</a>
+                <form th:action="@{/eliminar/{idProducto}(idProducto = ${producto.id})}" th:method="DELETE">
+                    <input class="eleminar-btn" type="submit" value="&#128465;">
+                </form>
+            </div>
+
+
+        </li>
+
+    </ul>
+    <p th:unless="${userLogueado.productos.size()>0}">Esta cuenta no tiene productos cargados</p>
+    <br>
+
+
+    <footer class="bg-[#0A192F] h-[80px] px-5 flex justify-center items-center">
+        <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
+            <li><a href="#">Contacto</a></li>
+            <li><a href="#">Preguntas frecuentes</a></li>
+            <li><a href="#">Terminos y condiciones</a></li>
+        </ul>
+    </footer>
 </div>
 </body>
 <script>

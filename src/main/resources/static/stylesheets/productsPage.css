@@ -74,17 +74,15 @@
 }
 .lista_productos{
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+    flex-wrap: wrap;
     height: 50%;
-    overflow: scroll;
 }
 .producto{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    margin: 0 10px;
+    margin: 10px;
     width: 200px;
     height: 250px;
     background: linear-gradient(154deg, #526681 0%, rgba(3.54, 13.34, 26.56, 0.2%) 100%);

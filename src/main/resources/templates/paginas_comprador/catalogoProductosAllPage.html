@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-<header class="w-full h-[80px] bg-black">
+<header class="w-full h-[80px] bg-[#0A192F]">
     <nav class="flex justify-between max-w-[1200px] items-center p-3 mx-auto">
         <!--Este div lo puse para probar, sacalo si queres para toquetear porque no
             estaba centrado el logo a la par que la foto de perfil-->
@@ -73,7 +73,7 @@
     </ul>
 
 </div>
-<footer class="bg-black h-[80px] px-5 flex justify-center items-center">
+<footer class="bg-[#0A192F] h-[80px] px-5 flex justify-center items-center">
     <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
         <li><a href="#">Contacto</a></li>
         <li><a href="#">Preguntas frecuentes</a></li>
@@ -133,7 +133,10 @@
         } else {
             categoriasVistas[categoriaValue] = true;
 
-            botonCategoria.addEventListener('click', () => {
+            botonCategoria.addEventListener('click', (event) => {
+                // Detiene la propagación del evento para que no llegue al body
+                event.stopPropagation();
+
                 const categoria = botonCategoria.textContent;
                 productos.forEach((producto) => {
                     const categoriaProducto = producto.querySelector('.producto_categoria').textContent;
@@ -152,6 +155,7 @@
             producto.style.display = 'block';
         });
     });
+
 </script>
 </body>
 </html>

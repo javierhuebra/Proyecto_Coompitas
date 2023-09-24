@@ -157,7 +157,7 @@
                                   th:if="${pedidoDelParticipante.camara == camara}">
                             <span class="text-green-500"
                                   th:if="${pedidoDelParticipante.estadoDelPedido == 2}">PAGADO</span>
-                            <span class="text-green-500"
+                            <span class="text-red-500"
                                   th:if="${pedidoDelParticipante.estadoDelPedido == 1}">ESPERANDO PAGO</span>
                             </span>
                         </p>
@@ -169,7 +169,7 @@
                         <form class="flex flex-col gap-2" th:if="${camara.estadoDeLaCamara == 5}" th:action="@{/camara/{idCamara}/enviar(idCamara = ${camara.id})}" method="POST">
                             <div class="flex flex-col">
                                 <label>Fecha de llegada estimada:</label>
-                                <input class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400" type="date" name="fechaDeLlegada">
+                                <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400" type="date" name="fechaDeLlegada">
                             </div>
 
                             <input class="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" value="CÁMARA EN CAMINO">
@@ -180,30 +180,30 @@
                             <form class="flex flex-col items-center gap-2" th:action="@{/perfil/camara/confirmacion/{idCamara}(idCamara =${camara.id})}" method="POST">
                                 <div class="flex flex-col">
                                     <label>Precio de envio inicial:</label>
-                                    <input class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="number" name="precioEnvio" placeholder="Precio de envio">
+                                    <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="number" name="precioEnvio" placeholder="Precio de envio">
                                 </div>
 
                                 <input class="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" value="Confirmar">
                             </form>
                             <form th:action="@{/camara/proveedor/anular/{idCamara}(idCamara = ${camara.id})}" method="POST">
-                                <input class="bg-red-500 text-white py-1 px-3 rounded-md transform transition duration-300 hover:scale-105 hover:font-semibold" type="submit" value="Cancelar cámara">
+                                <input class="cursor-pointer bg-red-500 text-white py-1 px-3 rounded-md transform transition duration-300 hover:scale-105 hover:font-semibold" type="submit" value="Cancelar cámara">
                             </form>
                         </div>
                         <div th:if="${camara.estadoDeLaCamara == 3 }">
                             <form class="flex flex-col items-center gap-2" th:action="@{/perfil/camara/confirmacion/{idCamara}(idCamara =${camara.id})}" method="POST">
                                 <div class="flex flex-col">
                                     <label>Reformular Precio de envio:</label>
-                                    <input class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="number" name="precioEnvio" placeholder="Reformular envio">
+                                    <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="number" name="precioEnvio" placeholder="Reformular envio">
                                 </div>
 
-                                <input class="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" value="Confirmar">
+                                <input class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" value="Confirmar">
                             </form>
                         </div>
                         <a class="text-center text-white py-2 px-3 bg-blue-500 rounded-md transform transition duration-300 hover:scale-105 hover:font-semibold" th:href="@{camara/{idCamara}(idCamara=${camara.id})}">Ver Detalles</a>
                     </div>
                 </div>
-                <div th:if="${camarasProveidas.size() == 0}">
-                    <p>No te compro nadie pa</p>
+                <div class="w-full bg-red-500 p-2" th:if="${camarasProveidas.size() == 0}">
+                    <p class="text-white text-center">Aún no te han solicitado cámaras</p>
                 </div>
             </div>
 
@@ -242,8 +242,8 @@
                             </div>
                         </div>
                         <a class="text-center text-white py-2 px-3 bg-blue-500 rounded-md transform transition duration-300 hover:scale-105 hover:font-semibold" th:href="@{camara/{idCamara}(idCamara=${camara.id})}">Ver Detalles</a>
-                        <div th:if="${camarasCreadas.size() == 0}">
-                            <p>No eres el propietario de ninguna cámara</p>
+                        <div class="w-full bg-red-500 p-2" th:if="${camarasCreadas.size() == 0}">
+                            <p class="text-white text-center">No eres el propietario de ninguna cámara</p>
                         </div>
                     </div>
 

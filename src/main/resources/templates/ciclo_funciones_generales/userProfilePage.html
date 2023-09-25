@@ -20,7 +20,7 @@
             <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3 transform transition duration-500 hover:scale-105" alt="Foto de perfil del usuario"
                  th:src="${userLogueado.urlFotoPerfil}">
             <div id="drop-items"
-                 class=" justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white shadow-lg rounded-md">
+                 class="w-[200px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white shadow-lg rounded-md">
                 <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
                 <hr>
                 <a href="/perfil">Ir al perfil</a>

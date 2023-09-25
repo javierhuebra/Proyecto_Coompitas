@@ -35,7 +35,7 @@
     </nav>
 </header>
 
-<div class="main-container">
+<main class="main-container">
     <div class="search-container">
         <h1 class="main-title">Productos Proveeidos</h1>
         <input class="input cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
@@ -165,24 +165,24 @@
         </label>
 
     </form>
-    <h2 class="lista-productos-title">Productos de esta cuenta:</h2>
-    <table class="tabla">
-        <thead class="fila">
+    <h2 class="text-2xl mt-5 mb-3">Productos de esta cuenta:</h2>
+    <table class="w-full text-sm text-left text-gray-500 shadow-md rounded-xl p-3 mt-3 overflow-y-scroll">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
         <tr>
-            <th>Imager</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Acciones</th>
+            <th class="px-6 py-3">Imagen</th>
+            <th class="px-6 py-3">Nombre</th>
+            <th class="px-6 py-3">Precio</th>
+            <th class="px-6 py-3">Stock</th>
+            <th class="px-6 py-3">Acciones</th>
         </tr>
         </thead>
         <tbody>
-        <tr class="fila" th:each="producto : ${userLogueado.productos}">
-            <td><img class="imgagen_producto" th:src="${producto.imagen}" alt="foto_producto"></td>
-            <td th:text="${producto.nombre}"></td>
-            <td th:text="${producto.precio}"></td>
-            <td th:text="${producto.stock}"></td>
-            <td>
+        <tr class="bg-white border-b" th:each="producto : ${userLogueado.productos}">
+            <td class="px-6 py-4"><img class="w-[50px] h-[50px] aspect-auto" th:src="${producto.imagen}" alt="foto_producto"></td>
+            <td class="px-6 py-4" th:text="${producto.nombre}"></td>
+            <td class="px-6 py-4" th:text="${producto.precio}"></td>
+            <td class="px-6 py-4" th:text="${producto.stock}"></td>
+            <td class="px-6 py-4">
                 <div class="acciones">
                     <a class="editar-link"
                        th:href="@{/perfil/productos/editar/{idProducto}(idProducto = ${producto.id})}">&#128393;</a>
@@ -196,8 +196,7 @@
     </table>
     <p th:unless="${userLogueado.productos.size()>0}">Esta cuenta no tiene productos cargados</p>
     <br>
-
-
+</main>
     <footer class="bg-[#0A192F] h-[80px] px-5 flex justify-center items-center">
         <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
             <li><a href="#">Contacto</a></li>
@@ -205,7 +204,6 @@
             <li><a href="#">Terminos y condiciones</a></li>
         </ul>
     </footer>
-</div>
 </body>
 <script>
     const search_input = document.getElementById('search-input');

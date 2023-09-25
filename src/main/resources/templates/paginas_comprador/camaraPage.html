@@ -114,7 +114,7 @@
         <div class="cont-info">
             <form th:if="${(camara.creador == userLogueado) && (camara.estadoDeLaCamara != -1 && camara.estadoDeLaCamara != -2) && (camara.estadoDeLaCamara<4)}"
                   th:action="@{/camara/creador/anular/{idCamara}(idCamara = ${camara.id})}" method="POST">
-                <input class="btn-cancelar-camara" type="submit" value="CANCELAR CÁMARA">
+                <input class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300" type="submit" value="CANCELAR CÁMARA">
             </form>
             <p>Fecha de Cierre: <span th:text="${camara.fechaDeExpiracion}"></span></p>
             <p>Dirección de envío: <span
@@ -152,7 +152,7 @@
               th:action="@{/camara/{idCamara}/estadoDePago(idCamara=${camara.id})}" method="POST">
             <input class="btn-pedido btn-comenzarpagos" th:if="${camara.estadoDeLaCamara == 2}" type="submit"
                    value="Comenzar Pagos">
-            <input class="btn-pedido btn-comenzarpagos" th:if="${camara.estadoDeLaCamara == 3}" type="submit"
+            <input class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-[#0A192F] rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300" th:if="${camara.estadoDeLaCamara == 3}" type="submit"
                    value="Volver a reclutar compradores">
         </form>
 
@@ -226,9 +226,9 @@
 
                 <form th:if="${(userLogueado.id == pedido.comprador.id) && camara.estadoDeLaCamara == 2}"
                       th:action="@{'/pedidos/' + ${pedido.id} + '/estado/' + ${camara.id}}" method="POST">
-                    <input class="btn-pedido btn-listo" th:if="${pedido.estadoDelPedido == 0}" type="submit"
+                    <input class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" th:if="${pedido.estadoDelPedido == 0}" type="submit"
                            value="Estoy Listo">
-                    <input class="btn-pedido btn-nolisto" th:if="${pedido.estadoDelPedido == 1}" type="submit"
+                    <input class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" th:if="${pedido.estadoDelPedido == 1}" type="submit"
                            value="No Estoy Listo">
                 </form>
                 <div class="pagar-div" th:if="${camara.estadoDeLaCamara == 4 && (pedido.comprador == userLogueado) && pedido.estadoDelPedido == 1}">

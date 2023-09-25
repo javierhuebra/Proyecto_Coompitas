@@ -91,7 +91,7 @@ html {
     padding: 0.2em 0.5em;
 }
 .input::placeholder {
-    color: #ccc;
+    color: #b1b1b1;
 }
 .login-link {
     color: #CEDCF9;

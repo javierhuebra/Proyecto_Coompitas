@@ -75,6 +75,7 @@ html {
 
 .input {
     background: white;
+    color: #b1b1b1;
     border-radius: 10px;
     border: none;
     padding: 0.3em 0.5em;
@@ -82,7 +83,7 @@ html {
 }
 
 .input::placeholder {
-    color: #ccc;
+    color: #b1b1b1;
 }
 
 .register-link {

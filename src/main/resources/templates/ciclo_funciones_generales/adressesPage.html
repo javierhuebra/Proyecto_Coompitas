@@ -9,74 +9,104 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex flex-col justify-between min-h-[100vh]" id="body-id">
-<header class="w-full h-[80px] bg-[#0A192F]">
-  <nav class="flex justify-between items-center max-w-[1200px] mx-auto">
-    <div class="flex justify-center items-center">
-      <a href="/home">
-        <img class="w-[100px] h-[80px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg" alt="Logo Coompitas">
-      </a>
-    </div>
-    <div class="inline-block relative mt-[5px]">
-      <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario"
-           th:src="${userLogueado.urlFotoPerfil}">
-      <div id="drop-items"
-           class=" w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-md">
-        <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
-        <hr>
-        <a href="/perfil">Ir al perfil</a>
-        <a th:if="${userLogueado.rolUsuario == 1}" href="/camara/proveedores">Crear Cámara</a>
-        <a th:if="${userLogueado.rolUsuario == 1}" href="/catalogo/all/productos">Elegir por producto</a>
-        <a href="/logout" class="font-bold text-red-500">Cerrar Sesión</a>
-      </div>
-    </div>
-  </nav>
-</header>
-<p>Tus direcciones:</p>
-<div th:each="direccionesDeUsuario : ${direcciones}">
-  <p>- <span  th:text="${direccionesDeUsuario.provincia}+' '+${direccionesDeUsuario.ciudad}+' '+${direccionesDeUsuario.codigoPostal}"></span></p>
-  <a th:if="${direcciones.size()>1}" th:href="@{/direccion/delete/{idDireccion}(idDireccion = ${direccionesDeUsuario.id})}">Eliminar</a>
-</div>
-<br>
-<p>Cargar una nueva dirección:</p>
-<form th:action="@{/direccion/create}" method="POST" th:object="${direccion}">
-  <label>
-    Pais:
-    <input type="text" th:field="*{pais}">
-    <br>
-    <label style="color: red" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></label>
-  </label>
-  <br>
-  <label>
-    Provincia:
-    <input type="text" th:field="*{provincia}">
-    <br>
-    <label style="color: red" th:if="${#fields.hasErrors('provincia')}" th:errors="*{provincia}"></label>
-  </label>
-  <br>
-  <label>
-    Ciudad:
-    <input type="text" th:field="*{ciudad}">
-    <br>
-    <span style="color: red" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}"></span>
-  </label>
-  <br>
-  <label>
-    Codigo Postal:
-    <input type="text" th:field="*{codigoPostal}">
-    <br>
-    <label style="color: red" th:if="${#fields.hasErrors('codigoPostal')}" th:errors="*{codigoPostal}"></label>
-  </label>
-  <br>
-  <label>
-    Calle:
-    <input type="text" th:field="*{calle}">
-    <br>
-    <label style="color: red" th:if="${#fields.hasErrors('calle')}" th:errors="*{calle}"></label>
-  </label>
-  <br>
+  <div class="w-full h-[80px] bg-[#0A192F]">
+    <header class="w-full h-[80px] bg-[#0A192F]">
+      <nav class="flex justify-between items-center max-w-[1200px] mx-auto">
+        <div class="flex justify-center items-center">
+          <a href="/home">
+            <img class="w-[100px] h-[80px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg" alt="Logo Coompitas">
+          </a>
+        </div>
+        <div class="inline-block relative mt-[5px]">
+          <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario"
+               th:src="${userLogueado.urlFotoPerfil}">
+          <div id="drop-items"
+               class=" w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-md">
+            <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
+            <hr>
+            <a href="/perfil">Ir al perfil</a>
+            <a th:if="${userLogueado.rolUsuario == 1}" href="/camara/proveedores">Crear Cámara</a>
+            <a th:if="${userLogueado.rolUsuario == 1}" href="/catalogo/all/productos">Elegir por producto</a>
+            <a href="/logout" class="font-bold text-red-500">Cerrar Sesión</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="mx-auto max-w-[1200px]">
+      <section class="flex flex-col justify-center items-center mt-10">
+        <strong class="text-3xl">Tus direcciones</strong>
+          <table class="w-full text-sm text-left text-gray-500 shadow-md rounded-xl p-3 my-3">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+              <th class="px-6 py-3">
+                País
+              </th>
+              <th class="px-6 py-3">
+                Provincia
+              </th>
+              <th class="px-6 py-3">
+                Ciudad
+              </th>
+              <th class="px-6 py-3">
+                Código Postal
+              </th>
+              <th class="px-6 py-3">
+                Calle
+              </th>
+              <th class="px-6 py-3">
+                Acción
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="bg-white border-b" th:each="direccionesDeUsuario : ${direcciones}">
+              <td class="px-6 py-4" th:text="${direccionesDeUsuario.pais}"></td>
+              <td class="px-6 py-4" th:text="${direccionesDeUsuario.provincia}"></td>
+              <td class="px-6 py-4" th:text="${direccionesDeUsuario.ciudad}"></td>
+              <td class="px-6 py-4" th:text="${direccionesDeUsuario.calle}"></td>
+              <td class="px-6 py-4" th:text="${direccionesDeUsuario.codigoPostal}"></td>
+              <td>
+                <a class="px-3 py-2 mt-3 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300" th:if="${direcciones.size() > 1}" th:href="@{/direccion/delete/{idDireccion}(idDireccion = ${direccionesDeUsuario.id})}">Eliminar</a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+      </section>
+      <hr class="my-5">
+      <section class="flex flex-col justify-center items-center max-w-[400px] mx-auto rounded-xl shadow-xl">
+        <strong>Cargar una nueva dirección:</strong>
+        <form class="flex flex-col justify-center items-center p-5" th:action="@{/direccion/create}" method="POST" th:object="${direccion}">
+          <label class="flex flex-col">
+            País:
+            <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{pais}" placeholder="País">
+            <label style="color: red" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></label>
+          </label>
+          <label class="flex flex-col">
+            Provincia:
+            <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{provincia}" placeholder="Provincia">
+            <label style="color: red" th:if="${#fields.hasErrors('provincia')}" th:errors="*{provincia}"></label>
+          </label>
+          <label class="flex flex-col">
+            Ciudad:
+            <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{ciudad}" placeholder="Ciudad">
+            <span style="color: red" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}"></span>
+          </label>
+          <label class="flex flex-col">
+            Código Postal:
+            <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{codigoPostal}" placeholder="Código Postal">
+            <label style="color: red" th:if="${#fields.hasErrors('codigoPostal')}" th:errors="*{codigoPostal}"></label>
+          </label>
+          <label class="flex flex-col">
+            Calle:
+            <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{calle}" placeholder="Calle">
+            <label style="color: red" th:if="${#fields.hasErrors('calle')}" th:errors="*{calle}"></label>
+          </label>
 
-  <input type="submit" value="Guardar Dirección">
-</form>
+          <input class="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" value="Guardar Dirección">
+        </form>
+      </section>
+    </main>
+  </div>
 <footer class="bg-[#0A192F] h-[80px] px-5 flex justify-center items-center">
   <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
     <li><a href="#">Contacto</a></li>

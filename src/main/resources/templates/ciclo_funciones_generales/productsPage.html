@@ -14,7 +14,9 @@
     <nav class="flex justify-between items-center max-w-[1200px] mx-auto">
         <div class="flex justify-center items-center">
             <a href="/home">
-                <img class="w-[100px] h-[80px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg" alt="Logo Coompitas">
+                <img class="w-[100px] h-[80px]"
+                     src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg"
+                     alt="Logo Coompitas">
             </a>
         </div>
         <div class="inline-block relative mt-[5px]">
@@ -36,31 +38,37 @@
 <div class="main-container">
     <div class="search-container">
         <h1 class="main-title">Productos Proveeidos</h1>
-        <input class="input cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" id="search-input" placeholder="Buscar producto...">
+        <input class="input cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+               type="text" id="search-input" placeholder="Buscar producto...">
     </div>
     <p th:unless="${userLogueado.productos.size()>0}">Esta cuenta no tiene productos cargados</p>
     <br>
-    <button class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-[#0A192F] rounded-lg transform transition duration-300 hover:bg-[#526681]  hover:color-white focus:ring-4 focus:outline-none focus:ring-blue-300" id="agregar-btn">Agregar Producto</button>
+    <button class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-[#0A192F] rounded-lg transform transition duration-300 hover:bg-[#526681]  hover:color-white focus:ring-4 focus:outline-none focus:ring-blue-300"
+            id="agregar-btn">Agregar Producto
+    </button>
     <form id="agregar-form" th:action="@{/perfil/productos/crear}" method="POST" th:object="${producto}">
         <input type="hidden" name="id" th:value="${producto.id}">
 
         <label>
             Nombre del producto:
-            <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{nombre}">
+            <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                   type="text" th:field="*{nombre}">
             <br>
             <label style="color: red" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></label>
         </label>
         <br>
         <label>
             Imagen del producto:
-            <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{imagen}">
+            <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                   type="text" th:field="*{imagen}">
             <br>
             <label style="color: red" th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"></label>
         </label>
         <br>
         <label>
             Precio base:
-            <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="number" th:field="*{precio}">
+            <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                   type="number" th:field="*{precio}">
             <br>
             <label style="color: red" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></label>
         </label>
@@ -71,31 +79,37 @@
             <br>
             <div>
                 Cantidad 1:
-                <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="number" th:field="*{cantidadesDescuentos[0].cantidad}">
+                <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                       type="number" th:field="*{cantidadesDescuentos[0].cantidad}">
                 <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[0].cantidad')}"
                        th:errors="*{cantidadesDescuentos[0].cantidad}"></label>
                 Descuento 1:
-                <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="number" th:field="*{cantidadesDescuentos[0].descuentoAplicado}">
+                <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                       type="number" th:field="*{cantidadesDescuentos[0].descuentoAplicado}">
                 <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[0].descuentoAplicado')}"
                        th:errors="*{cantidadesDescuentos[0].descuentoAplicado}"></label>
             </div>
             <div>
                 Cantidad 2:
-                <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="number" th:field="*{cantidadesDescuentos[1].cantidad}">
+                <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                       type="number" th:field="*{cantidadesDescuentos[1].cantidad}">
                 <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[1].cantidad')}"
                        th:errors="*{cantidadesDescuentos[1].cantidad}"></label>
                 Descuento 2:
-                <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="number" th:field="*{cantidadesDescuentos[1].descuentoAplicado}">
+                <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                       type="number" th:field="*{cantidadesDescuentos[1].descuentoAplicado}">
                 <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[1].descuentoAplicado')}"
                        th:errors="*{cantidadesDescuentos[1].descuentoAplicado}"></label>
             </div>
             <div>
                 Cantidad 3:
-                <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="number" th:field="*{cantidadesDescuentos[2].cantidad}">
+                <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                       type="number" th:field="*{cantidadesDescuentos[2].cantidad}">
                 <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[2].cantidad')}"
                        th:errors="*{cantidadesDescuentos[2].cantidad}"></label>
                 Descuento 3:
-                <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="number" th:field="*{cantidadesDescuentos[2].descuentoAplicado}">
+                <input class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                       type="number" th:field="*{cantidadesDescuentos[2].descuentoAplicado}">
                 <label style="color: red" th:if="${#fields.hasErrors('cantidadesDescuentos[2].descuentoAplicado')}"
                        th:errors="*{cantidadesDescuentos[2].descuentoAplicado}"></label>
             </div>
@@ -104,7 +118,8 @@
         <br>
         <label>
             Stock:
-            <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="number" th:field="*{stock}">
+            <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                   type="number" th:field="*{stock}">
             <br>
             <label style="color: red" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></label>
         </label>
@@ -123,7 +138,9 @@
         <br>
         <label>
             Descrición:
-            <textarea class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" cols="30" rows="10" th:field="*{descripcion}"></textarea>
+            <textarea
+                    class=" cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                    cols="30" rows="10" th:field="*{descripcion}"></textarea>
             <br>
             <label style="color: red" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></label>
         </label>
@@ -143,29 +160,40 @@
             <input type="submit" value="Editar Producto">
         </label>
         <label th:unless="${producto.id}">
-            <input class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-[#0A192F] rounded-lg transform transition duration-300 hover:bg-[#526681]  hover:color-white focus:ring-4 focus:outline-none focus:ring-blue-300" id="crear-btn" type="submit" value="Crear Producto">
+            <input class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-[#0A192F] rounded-lg transform transition duration-300 hover:bg-[#526681]  hover:color-white focus:ring-4 focus:outline-none focus:ring-blue-300"
+                   id="crear-btn" type="submit" value="Crear Producto">
         </label>
 
     </form>
     <h2 class="lista-productos-title">Productos de esta cuenta:</h2>
-    <ul class="lista_productos" th:if="${userLogueado.productos.size()>0}">
-        <li class="producto" th:each="producto : ${userLogueado.productos}">
-            <img class="rounded-full h-[50px] w-[50px]" th:src="${producto.imagen}" alt="imagen producto" src="">
-            <p><span class="producto_nombre producto-text" th:text="${producto.nombre}"></span></p>
-            <p><span class="producto-text" th:text="${producto.precio}"></span></p>
-            <p><span class="producto-text" th:text="${producto.stock}"></span></p>
-            <p><span class="producto-text" th:text="${producto.categoria}"></span></p>
-            <div class="acciones">
-                <a class="editar-link" th:href="@{/perfil/productos/editar/{idProducto}(idProducto = ${producto.id})}" >&#128393;</a>
-                <form th:action="@{/eliminar/{idProducto}(idProducto = ${producto.id})}" th:method="DELETE">
-                    <input class="eleminar-btn" type="submit" value="&#128465;">
-                </form>
-            </div>
-
-
-        </li>
-
-    </ul>
+    <table class="tabla">
+        <thead class="fila">
+        <tr>
+            <th>Imager</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="fila" th:each="producto : ${userLogueado.productos}">
+            <td><img class="imgagen_producto" th:src="${producto.imagen}" alt="foto_producto"></td>
+            <td th:text="${producto.nombre}"></td>
+            <td th:text="${producto.precio}"></td>
+            <td th:text="${producto.stock}"></td>
+            <td>
+                <div class="acciones">
+                    <a class="editar-link"
+                       th:href="@{/perfil/productos/editar/{idProducto}(idProducto = ${producto.id})}">&#128393;</a>
+                    <form th:action="@{/eliminar/{idProducto}(idProducto = ${producto.id})}" th:method="DELETE">
+                        <input class="eleminar-btn" type="submit" value="&#128465;">
+                    </form>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
     <p th:unless="${userLogueado.productos.size()>0}">Esta cuenta no tiene productos cargados</p>
     <br>
 

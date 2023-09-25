@@ -72,32 +72,41 @@
     font-size: 18px;
     color: #CEDCF9;
 }
-.lista_productos{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    height: 50%;
+.tabla td, .tabla th{
+    border: 1px solid #0A192F;
 }
-.producto{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5em;
-    width: 200px;
-    height: 250px;
-    background: linear-gradient(154deg, #526681 0%, rgba(3.54, 13.34, 26.56, 0.2%) 100%);
-    border-radius: 10px;
-    border: 1px white solid
+.tabla{
+    width: 100%;
+    border-collapse: collapse;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.tabla thead tr th{
+    background-color: #0A192F;
+    color: #CEDCF9;
+    padding: 10px;
+    text-align: center;
+}
+.tabla tbody tr td{
+    background-color: #CEDCF9;
+    color: #0A192F;
+    padding: 10px;
+    text-align: center;
+}
+.tabla tbody tr td img{
+    margin: auto;
+    width: 100px;
 }
 .acciones{
     display: flex;
     flex-direction: row;
-    width: 60%;
-    justify-content: space-between;
+    width: 100%;
+    justify-content: space-around;
 }
 .editar-link{
-    font-size: 18px;
+    font-size: 24px;
+    font-weight: 700;
     text-decoration: none;
     color: #0A192F;
     transition: all 0.3s;
@@ -105,9 +114,11 @@
 }
 .editar-link:hover{
     transform: scale(1.2);
+    color: #53a14d;
 }
 .eleminar-btn{
-    font-size: 18px;
+    font-size: 24px;
+    font-weight: 700;
     color: #0A192F;
     border: none;
     background: none;
@@ -116,6 +127,7 @@
 }
 .eleminar-btn:hover{
     transform: scale(1.2);
+    color: #942a2a;
 }
 #agregar-form{
     display: none;

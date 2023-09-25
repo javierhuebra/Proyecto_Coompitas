@@ -131,13 +131,13 @@
                             <div class="max-w-[200px] text-center">
                                 <p class="bg-red-500 text-white rounded-md p-1" th:if="${camara.estadoDeLaCamara == -1}">CÁMARA CANCELADA</p>
                                 <p class="bg-red-500 text-white rounded-md" th:if="${camara.estadoDeLaCamara == -2}">CÁMARA RECHAZADA</p>
-                                <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
-                                <p class="bg-green-500 text-white rounded-md" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
-                                <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO REFORMULACIÓN DE COSTO DE ENVÍO</p>
-                                <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 4}">ESPERANDO QUE SE EFECTÚEN TODOS LOS PAGOS</p>
-                                <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL PROVEEDOR ENVÍE LA CÁMARA DE PEDIDOS</p>
-                                <p class="bg-green-500 text-white rounded-md" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS EN CAMINO!</p>
-                                <p class="text-white bg-green-500" th:if="${camara.estadoDeLaCamara == 6}">
+                                <p class="bg-[#ce4a4a] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
+                                <p class="bg-[#478d62] text-white rounded-md" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
+                                <p class="bg-[#77d7e3] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO REFORMULACIÓN DE COSTO DE ENVÍO</p>
+                                <p class="bg-[#8048d0] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 4}">ESPERANDO QUE SE EFECTÚEN TODOS LOS PAGOS</p>
+                                <p class="bg-[#e372b1] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL PROVEEDOR ENVÍE LA CÁMARA DE PEDIDOS</p>
+                                <p class="bg-[#478d62] text-white rounded-md" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS EN CAMINO!</p>
+                                <p class="text-black" th:if="${camara.estadoDeLaCamara == 6}">
                                     Fecha aproximada de llegada:
                                     <span th:text="${camara.fechaDeLlegada}"></span>
                                 </p>
@@ -224,12 +224,12 @@
                                     <!--VALIDACIONES-->
                                     <p class="bg-red-500 text-white rounded-md p-1" th:if="${camara.estadoDeLaCamara == -1}">CÁMARA CANCELADA</p>
                                     <p class="bg-red-500 text-white rounded-md" th:if="${camara.estadoDeLaCamara == -2}">CÁMARA RECHAZADA POR PROVEEDOR</p>
-                                    <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
-                                    <p class="bg-green-500 text-white rounded-md" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
-                                    <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO COTIZACIÓN DE ENVÍO</p>
-                                    <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 4}">ESPERANDO EL PAGO DE LOS PARTICIPANTES</p>
-                                    <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL PROVEEDOR ENVÍE LA CÁMARA DE PEDIDOS</p>
-                                    <p class="bg-green-500 text-white rounded-md" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS EN CAMINO!</p>
+                                    <p class="bg-[#ce4a4a] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
+                                    <p class="bg-[#478d62] text-white rounded-md" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
+                                    <p class="bg-[#77d7e3] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO REFORMULACIÓN DE COSTO DE ENVÍO</p>
+                                    <p class="bg-[#8048d0] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 4}">ESPERANDO EL PAGO DE LOS PARTICIPANTES</p>
+                                    <p class="bg-[#e372b1] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL PROVEEDOR ENVÍE LA CÁMARA DE PEDIDOS</p>
+                                    <p class="bg-[#478d62] text-white rounded-md" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS EN CAMINO!</p>
                                     <img style="width: 100px" th:if="${camara.estadoDeLaCamara == 1 || camara.estadoDeLaCamara == 3 || camara.estadoDeLaCamara == 4 || camara.estadoDeLaCamara == 5}" src="https://i.gifer.com/origin/ea/ea3fa7a07d9cb563d67168a6e45ed4e1.gif" alt="">
 
                                     <p th:if="${camara.estadoDeLaCamara == 6}">
@@ -299,13 +299,13 @@
 </footer>
 </body>
 <script>
-    <!--Esta el dropdown-->
+    //Esta el dropdown
     let bodyVariable = document.getElementById('body-id');
     let dropdown = document.getElementById('dropdown');
     let dropItems = document.getElementById('drop-items');
     let isOpen = false;
 
-    <!--Para editar la foto-->
+    //Para editar la foto
     let editBtn = document.getElementById('edit-btn');
     let fotoInput = document.getElementById('foto-input');
     let cancelBtn = document.getElementById('close-form');
@@ -329,7 +329,7 @@
         }
     });
 
-    <!--Editar foto de perfil-->
+    //Editar foto de perfil
     editBtn.addEventListener('click', () => {
         fotoInput.style.display = "flex";
     });

@@ -11,27 +11,24 @@
 }
 .lista_categorias{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
+    width: 100%;
+    justify-content: space-between;
+    margin: 0 auto;
     list-style: none;
 }
 .lista_categorias li{
-    background-color: red;
+    background-color: #7892b4;
     margin-left: 5px;
     margin-bottom: 5px;
     border-radius: 5px;
-    padding: 0 5px;
+    padding: 5px 10px;
 }
 .buscar-div{
-    border: 1px solid black;
+    background-color: #172B46;
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 10px;
-}
-#search_input{
-    background-color: rgba(220, 220, 220, 0.6);
+    color: #fff;
 }
 .lista_productos{
     display: flex;
@@ -41,7 +38,6 @@
 .producto{
     width:23%;
     border-radius: 8px;
-    border: 2px solid black;
     margin-bottom: 10px;
 
     display: flex;

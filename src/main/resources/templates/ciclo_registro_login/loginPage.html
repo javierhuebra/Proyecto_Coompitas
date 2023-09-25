@@ -28,7 +28,6 @@
 <main class="main">
     <div class="login-container">
         <h1 class="title">Login</h1>
-        <p th:text="${error}" class="error"></p>
         <form class="form" th:action="@{/user/login}" method="POST" th:object="${userLogin}">
             <label class="label">
                 Email
@@ -40,6 +39,7 @@
                 <input class="input" type="password" th:field="*{password}" placeholder="Password">
                 <label class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
             </label>
+            <p th:text="${error}" class="text-red-500 font-bold"></p>
             <a href="/registration" class="register-link">¿No tienes cuenta? Regístrate</a>
             <input class="login-btn" type="submit" value="Login">
         </form>

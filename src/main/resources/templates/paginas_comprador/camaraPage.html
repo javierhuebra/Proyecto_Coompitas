@@ -18,11 +18,11 @@
                 <img class="w-[100px] h-[80px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg" alt="Logo Coompitas">
             </a>
         </div>
-        <div class="inline-block relative mt-[5px]">
-            <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario"
+        <div class="inline-block relative mt-[10px]">
+            <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3 transform transition duration-500 hover:scale-105" alt="Foto de perfil del usuario"
                  th:src="${userLogueado.urlFotoPerfil}">
             <div id="drop-items"
-                 class="z-10 w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-md">
+                 class="z-10 justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white shadow-lg rounded-md">
                 <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
                 <hr>
                 <a href="/perfil">Ir al perfil</a>

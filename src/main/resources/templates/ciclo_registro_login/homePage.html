@@ -17,11 +17,11 @@
                 <img class="w-[100px] h-[80px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg" alt="Logo Coompitas">
             </a>
         </div>
-        <div class="inline-block relative mt-[5px]">
-            <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario"
+        <div class="inline-block relative mt-[10px]">
+            <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3 transform transition duration-500 hover:scale-105" alt="Foto de perfil del usuario"
                  th:src="${userLogueado.urlFotoPerfil}">
             <div id="drop-items"
-                 class=" w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-md">
+                 class="w-[200px] hidden justify-center flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white shadow-lg rounded-md">
                 <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
                 <hr>
                 <a href="/perfil">Ir al perfil</a>
@@ -63,13 +63,13 @@
                 <p>Fecha de expiración: <span th:text="${camara.fechaDeExpiracion}"></span></p>
                 <div class="flex flex-col text-center">
                     <p>Dirección de entrega:</p>
-                    <span class="direccion" th:text="${camara.direccionEnvio.calle} + ', ' + ${camara.direccionEnvio.ciudad}+ ', ' + ${camara.direccionEnvio.provincia}+ ', ' + ${camara.direccionEnvio.pais}"></span>
+                    <span class="direccion" th:text="${camara.direccionEnvio.pais} + ', ' + ${camara.direccionEnvio.provincia}+ ', ' + ${camara.direccionEnvio.ciudad}+ ', ' + ${camara.direccionEnvio.calle}"></span>
                 </div>
                 <div class="flex items-center gap-2">
                     <p>Creada por </p>
                     <img class="h-[30px]" th:src="${camara.creador.urlFotoPerfil}" alt="imagen de proveedor" src="">
                 </div>
-                <a th:href="@{/camara/{idCamara}(idCamara=${camara.id})}">Ver</a>
+                <a class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300" th:href="@{/camara/{idCamara}(idCamara=${camara.id})}">Más Info</a>
             </div>
         </div>
 

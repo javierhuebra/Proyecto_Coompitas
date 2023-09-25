@@ -51,6 +51,9 @@ El proyecto **Coompitas** es una plataforma de comercio electrónico única que 
 - Crea una base de datos en MySQL con el nombre `coompitas_db` o deja que el pryecto la cree automaticamente ya que esta configurado de esa manera. Debes asegurarte de tener el servidor de MySQL corriendo en el puerto 3306.
 - Ejecuta el proyecto y navega a `http://localhost:8080/`.
 
+## Demo
+Podes ver una demo del proyecto en el siguiente link de deploy: <a href="http://52.14.36.90/">Coompitas en la web</a>
+
 
 ## Contribución
 

@@ -11,7 +11,7 @@
     <groupId>com.proyecto</groupId>
     <artifactId>coompitas</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>coompitas</name>
     <description>coompitas</description>
     <properties>

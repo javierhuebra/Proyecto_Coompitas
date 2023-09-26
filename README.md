@@ -24,9 +24,9 @@ El proyecto **Coompitas** es una plataforma de comercio electrónico única que 
 
 ## Cómo Funciona
 
-1. **Regístrate o Inicia Sesión:** Crea una cuenta o inicia sesión en la plataforma.
+1. **Regístrate o Inicia Sesión:** Crea una cuenta como proveedor o comprador o inicia sesión en la plataforma.
 
-2. **Explora Proveedores:** Navega a través de los diferentes proveedores y sus productos disponibles.
+2. **Explora Proveedores o carga los productos que desees vender:** Navega a través de los diferentes proveedores y sus productos disponibles.
 
 3. **Crea o Únete a una Cámara:** Inicia tu propia cámara de compra o únete a una existente para realizar pedidos conjuntos.
 
